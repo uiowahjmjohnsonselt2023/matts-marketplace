@@ -1,2 +1,2 @@
-# matts-marketplace
-Project repository for Team 6
+# Matt's Marketplace 
+Project for team 6
