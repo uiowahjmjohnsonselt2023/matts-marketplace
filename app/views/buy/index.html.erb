@@ -1,1 +1,9 @@
 <h1>Matt's Marketplace</h1>
+<ul>
+  <% @items.each do |item| %>
+    <li>
+      <%= item.name %>: <%= number_to_currency(item.price, precision: 2, unit: '$') %>
+    </li>
+  <% end %>
+</ul>
+

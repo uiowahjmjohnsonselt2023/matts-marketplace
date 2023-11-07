@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Cabinet
+  price: 25.00
+
+two:
+  name: Couch
+  price: 55.50
