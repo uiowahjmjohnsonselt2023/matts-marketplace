@@ -3,7 +3,8 @@
 <ul>
   <% @items.each do |item| %>
     <li>
-      <%= item.name %>: <%= number_to_currency(item.price, precision: 2, unit: '$') %>
+      <%= link_to item.name, buy_item_path(item.id) %>: 
+      <%= number_to_currency(item.price, precision: 2, unit: '$') %>
     </li>
   <% end %>
 </ul>

@@ -1,0 +1,9 @@
+<h1>Matt's Marketplace</h1>
+<%= button_to "Home", landing_path, method: :get %>
+<%= button_to "Buy", buy_path, method: :get %>
+<h2>
+  <%= @item.name %>
+</h2>
+<p>
+  <%= number_to_currency(@item.price, precision: 2, unit: '$') %>
+</p>
