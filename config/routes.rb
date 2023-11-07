@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
-  
+  get "", to: "landing#index", as: 'landing'
   # buy tab routes
   get "buy", to: "buy#index"
 end
