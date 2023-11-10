@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'buyers/index'
+  get 'buyers/show'
   resources :items
   resources :users
   resources :pages
