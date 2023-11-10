@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "users#index" # Added this because it is required by devise, we can update this once we have an actual home page
+  # root "home#index" # Added this because it is required by devise, we can update this once we have an actual home page
+
 
   # User auth routes
   get '\signup', to: 'users#new'
