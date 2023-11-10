@@ -6,3 +6,8 @@
 <% else %>
   <%= button_to "Sign in", new_user_session_path %>
 <% end %>
+
+<p>Use the buttons below to navigate to the items or users page.</p>
+
+<%= button_to 'View Items', items_path, method: :get, class: 'btn btn-primary' %>
+<%= button_to 'View Users', users_path, method: :get, class: 'btn btn-primary' %>
