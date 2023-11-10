@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_09_025235) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_09_153519) do
+  create_table "items", force: :cascade do |t|
+    t.float "price"
+    t.text "description"
+    t.string "image_url"
+    t.string "catagory"
+    t.boolean "for_sale"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
