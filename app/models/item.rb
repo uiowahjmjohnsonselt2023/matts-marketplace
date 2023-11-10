@@ -1,8 +1,8 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one :purchase
-  def self.search (terms, categories, price_range)
-    #byebug
+
+  def self.search(terms, categories, price_range)
     price_low = 0
     price_high = 1000000
     if !price_range.nil? && !price_range.empty?
