@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :items
+  resources :buyers, only: [:index, :show]
   resources :users
   resources :pages
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

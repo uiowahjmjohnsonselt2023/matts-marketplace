@@ -1,0 +1,30 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Items</h1>
+<%= button_to 'Home', root_path, method: :get, class: 'btn btn-primary' %>
+
+<h2>Here is a list of all items for sale:</h2>
+<table class="table">
+  <thead>
+  <tr class="table-header">
+    <th>Description</th>
+    <th>Price</th>
+    <th>Category</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @items.each do |item| %>
+    <tr class="table-row">
+      <td><%= item.description %></td>
+      <td><%= number_to_currency(item.price) %></td>
+      <td><%= item.category %></td>
+      <td>
+        <%= link_to "Show this item", buyer_path(item) %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
