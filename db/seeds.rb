@@ -7,3 +7,28 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+10.times do |i|
+  User.create!(
+    first_name: "First#{i}",
+    last_name: "Last#{i}",
+    city: "City#{i}",
+    country: "Country#{i}",
+    username: "user#{i + 1}", # Start at user1 to avoid user0
+    email: "user#{i + 1}@example.com",
+    password_digest: "somepassworddigest#{i + 1}"
+  )
+end
+users = User.all
+
+20.times do |i|
+  Item.create!(
+    price: (rand * 100).round(2),
+    description: "Item description #{i}",
+    image_url: "http://example.com/image#{i}.png",
+    category: ["Clothing", "Electronics", "Toys", "Books", "Home"].sample,
+    for_sale: [true, false].sample,
+    user: users.sample # This will randomly assign a user to each item
+  )
+end
+

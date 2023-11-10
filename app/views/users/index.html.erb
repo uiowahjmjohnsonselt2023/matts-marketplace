@@ -1,14 +1,38 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Users</h1>
+<%= button_to 'Home', root_path, method: :get, class: 'btn btn-primary' %>
 
-<div id="users">
+
+<%= button_to "New user", new_user_path, method: :get, class: 'btn btn-primary' %>
+
+<h2>Here is a list of all users:</h2>
+<table class="table">
+  <thead>
+  <tr class="table-header">
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>City</th>
+    <th>Country</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
   <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
+    <tr class="table-row">
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.city %></td>
+      <td><%= user.country %></td>
+      <td><%= user.username %></td>
+      <td><%= user.email %></td>
+      <td>
+        <%= link_to "Show this user", user %>
+      </td>
+    </tr>
   <% end %>
-</div>
+  </tbody>
+</table>
 
-<%= link_to "New user", new_user_path %>

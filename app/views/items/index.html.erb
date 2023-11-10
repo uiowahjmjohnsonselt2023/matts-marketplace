@@ -1,14 +1,32 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Items</h1>
+<%= button_to 'Home', root_path, method: :get, class: 'btn btn-primary' %>
+<%= button_to 'New item', new_item_path, method: :get, class: 'btn btn-primary' %>
 
-<div id="items">
+<h2>Here is a list of all items:</h2>
+<table class="table">
+  <thead>
+  <tr class="table-header">
+    <th>Description</th>
+    <th>Price</th>
+    <th>Category</th>
+    <th>For Sale</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
   <% @items.each do |item| %>
-    <%= render item %>
-    <p>
-      <%= link_to "Show this item", item %>
-    </p>
+    <tr class="table-row">
+      <td><%= item.description %></td>
+      <td><%= number_to_currency(item.price) %></td>
+      <td><%= item.category %></td>
+      <td><%= item.for_sale ? 'Yes' : 'No' %></td>
+      <td>
+        <%= link_to "Show this item", item_path(item) %>
+      </td>
+    </tr>
   <% end %>
-</div>
+  </tbody>
+</table>
 
-<%= link_to "New item", new_item_path %>
