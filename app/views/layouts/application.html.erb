@@ -11,6 +11,20 @@
   </head>
 
   <body>
+    <!--This will add the notice and alert flash messages to any view that derives from this view-->
+    <!--Required by devise gem-->
+    <% if flash[:notice].present? %>
+      <div class="flash notice">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <% if flash[:alert].present? %>
+      <div class="flash alert">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+    <!-- Rest of page content -->
     <%= yield %>
   </body>
 </html>

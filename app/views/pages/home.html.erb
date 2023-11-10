@@ -1,6 +1,14 @@
 <!-- app/views/pages/home.html.erb -->
 
 <h1>Welcome to My App</h1>
+
+<% if user_signed_in? %>
+  <div> Welcome <%= current_user.email %> </div>
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %>
+<% end %>
+
 <p>Use the buttons below to navigate to the items or users page.</p>
 
 <%= button_to 'View Items', items_path, method: :get, class: 'btn btn-primary' %>
