@@ -16,7 +16,7 @@
     country: "Country#{i}",
     username: "user#{i + 1}", # Start at user1 to avoid user0
     email: "user#{i + 1}@example.com",
-    password_digest: "somepassworddigest#{i + 1}"
+    password: "somepassword#{i + 1}"
   )
 end
 users = User.all
