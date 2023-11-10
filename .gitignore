@@ -66,4 +66,4 @@ build-iPhoneSimulator/
 
 # Individual environment logs
 /log/*
-/storage/*
+/storage/*coverage
