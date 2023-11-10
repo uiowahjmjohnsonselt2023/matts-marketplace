@@ -76,7 +76,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
-    base64 (0.1.1)
+    base64 (0.2.0)
     bcrypt (3.1.19)
     bigdecimal (3.1.4)
     bindex (0.8.1)
@@ -129,13 +129,16 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
-    diff-lcs (1.5.0)
     devise (4.9.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
       responders
+      ruby2_keywords
       warden (~> 1.2.3)
+    diff-lcs (1.5.0)
+    docile (1.4.0)
+    drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
     ffi (1.16.3)
@@ -188,7 +191,7 @@ GEM
     minitest (5.20.0)
     msgpack (1.7.2)
     multi_test (1.1.0)
-    mutex_m (0.1.2)
+    mutex_m (0.2.0)
     nenv (0.3.0)
     net-imap (0.4.4)
       date
@@ -200,19 +203,15 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.15.4-arm64-darwin)
-      racc (~> 1.4)
     nokogiri (1.15.4-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    orm_adapter (0.5.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    orm_adapter (0.5.0)
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.3)
@@ -297,6 +296,12 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     shellany (0.0.1)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     spring (4.1.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -305,9 +310,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.6.8-arm64-darwin)
     sqlite3 (1.6.8-x86_64-darwin)
-    sqlite3 (1.6.8-x86_64-linux)
     stimulus-rails (1.3.0)
       railties (>= 6.0.0)
     stringio (3.0.8)
@@ -338,9 +341,7 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
-  arm64-darwin-22
   x86_64-darwin-22
-  x86_64-linux
 
 DEPENDENCIES
   bootsnap
@@ -348,8 +349,8 @@ DEPENDENCIES
   capybara
   cucumber-rails
   debug
-  guard-rspec
   devise (~> 4.9)
+  guard-rspec
   importmap-rails
   jbuilder
   puma (>= 5.0)
@@ -357,6 +358,7 @@ DEPENDENCIES
   rspec
   rspec-rails
   selenium-webdriver
+  simplecov
   spring
   sprockets-rails
   sqlite3 (~> 1.4)

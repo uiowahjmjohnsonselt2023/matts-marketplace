@@ -52,6 +52,7 @@ group :development, :test do
   gem "rspec-rails"
   gem 'guard-rspec'
   gem 'byebug'
+  gem 'simplecov', require: false
 end
 
 group :development do
