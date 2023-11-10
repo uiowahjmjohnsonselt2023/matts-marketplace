@@ -209,6 +209,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
+    pg (1.5.4)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -352,6 +353,7 @@ DEPENDENCIES
   guard-rspec
   importmap-rails
   jbuilder
+  pg
   puma (>= 5.0)
   rails (~> 7.1.1)
   rspec
