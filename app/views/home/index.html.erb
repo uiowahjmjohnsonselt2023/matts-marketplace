@@ -1,2 +1,8 @@
 <h1>Hello world!</h1>
 <p> Placeholder for eventual home page </p>
+<% if user_signed_in? %>
+  <div> Welcome <%= current_user.email %> </div>
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %>
+<% end %>
