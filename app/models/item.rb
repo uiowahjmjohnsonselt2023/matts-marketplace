@@ -18,13 +18,15 @@ class Item < ApplicationRecord
     items = Item.where("price >= ? AND price <= ?", price_low, price_high)
     if !categories.nil? && !categories.empty?
       categories.each do |category|
-        items = items.and(Item.where("category == (?)", category)) unless category.empty?
+        # Not sure how important the sanitize_sql_like is here, but it's probably a good idea
+        items = items.and(Item.where("category == (?)", Item.sanitize_sql_like(category))) unless category.empty?
       end
     end
     if !terms.nil? && !terms.empty?
       terms = terms.split(" ")
       terms.each do |term|
-        items = items.and(Item.where("description LIKE (?)", "%#{term}%"))
+        # Very important to sanitize the search term to prevent SQL injection attacks!
+        items = items.and(Item.where("description LIKE (?)", "%#{Item.sanitize_sql_like(term)}%"))
       end
     end
     items
