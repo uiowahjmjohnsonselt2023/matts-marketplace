@@ -5,7 +5,7 @@ Feature: Sign up
   so I can buy and sell things
 
   Background:
-    Given I am a non existing user
+    Given I do not exist as a user
 
   Scenario: User signs up with valid email and password
     When I sign up with valid email and password

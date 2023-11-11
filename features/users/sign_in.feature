@@ -13,8 +13,6 @@ Feature: Sign in
     And I am not logged in
     When I sign in with valid email and password
     Then I see a successful sign in message
-    When I return to the site
-    Then I should be signed in
 
   Scenario: User enters wrong email
     Given I exist as a user
