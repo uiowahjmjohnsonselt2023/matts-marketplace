@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :items
+  resources :items do
+    collection do
+      get 'search'
+    end
+  end
   resources :buyers, only: [:index, :show]
   resources :users
   resources :pages
