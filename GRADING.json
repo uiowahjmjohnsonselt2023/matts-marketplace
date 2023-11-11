@@ -1,0 +1,9 @@
+{
+    “GROUP“ : “G006“,
+    “ALL_SPRINTS“ : {
+        “SPRINT1_URL“ : https://matts-marketplace-sprint1-b1b217c5f325.herokuapp.com,
+        “SPRINT2_URL“ : http://blah.blee.boo/myapp,
+        “SPRINT3_URL“ : http://blah.blee.boo/myapp,
+        “FINAL_URL“ : http://blah.blee.boo/myapp
+    }
+}
