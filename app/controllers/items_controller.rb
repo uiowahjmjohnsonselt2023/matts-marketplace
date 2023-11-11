@@ -59,14 +59,37 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search
+    # Read in the search term, category, and price_range from the params
+    params = search_params
+    if params[:search].empty? && params[:category].empty? && params[:price_range].empty?
+      flash[:alert] = "Search terms included all items!"
+      redirect_to items_path
+    else
+      # Categories into array so that we can switch to select multiple in future
+      @items =  Item.search params[:search], [params[:category]], params[:price_range]
+      if @items.empty?
+        flash[:alert] = "No items found!"
+        redirect_to items_path
+      else
+        flash[:notice] = "Found " + @items.length.to_s + " items!"
+        render search_items_path
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
+  def set_item
+    @item = Item.find(params[:id])
+  end
 
     # Only allow a list of trusted parameters through.
-    def item_params
-      params.require(:item).permit(:price, :description, :image_url, :category, :for_sale)
-    end
+  def item_params
+    params.require(:item).permit(:price, :description, :image_url, :category, :for_sale)
+  end
+
+  def search_params
+    params.permit(:search, :category, :price_range)
+  end
 end

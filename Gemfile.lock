@@ -339,8 +339,6 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.12)
-
-PLATFORMS
   x86_64-darwin-22
   x86_64-darwin-23
 

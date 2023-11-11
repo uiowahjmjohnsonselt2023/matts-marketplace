@@ -44,5 +44,22 @@ thead th {
     top: 0;
     z-index: 10;
 }
+     /* Styles for notice flash messages */
+ .flash {
+     padding: 10px;
+     margin-bottom: 20px;
+     border-radius: 5px;
+     font-weight: bold;
+ }
+
+.flash.notice {
+    background-color: rgba(0, 128, 0, 0.6); /* Lighter green with transparency */
+    color: white;
+}
+
+.flash.alert {
+    background-color: rgba(255, 0, 0, 0.6); /* Lighter red with transparency */
+    color: white;
+}
 
 

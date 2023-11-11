@@ -1,6 +1,5 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>All Products</h1>
 <%= button_to 'Home', root_path, method: :get, class: 'btn btn-primary' %>
 <%= button_to 'Add New item', new_item_path, method: :get, class: 'btn btn-primary' %>
 
@@ -24,8 +23,7 @@
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
 
-
-<h2>Here is a list of all items:</h2>
+<h2>Search Results:</h2>
 <table class="table">
   <thead>
   <tr class="table-header">
@@ -37,15 +35,21 @@
   </tr>
   </thead>
   <tbody>
-  <% @items.each do |item| %>
-    <tr class="table-row">
-      <td><%= item.description %></td>
-      <td><%= number_to_currency(item.price) %></td>
-      <td><%= item.category %></td>
-      <td><%= item.for_sale ? 'Yes' : 'No' %></td>
-      <td>
-        <%= link_to "Show this item", item_path(item) %>
-      </td>
+  <% if @items.any? %>
+    <% @items.each do |item| %>
+      <tr class="table-row">
+        <td><%= item.description %></td>
+        <td><%= number_to_currency(item.price) %></td>
+        <td><%= item.category %></td>
+        <td><%= item.for_sale ? 'Yes' : 'No' %></td>
+        <td>
+          <%= link_to "Show this item", item_path(item) %>
+        </td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="5">No items found.</td>
     </tr>
   <% end %>
   </tbody>
