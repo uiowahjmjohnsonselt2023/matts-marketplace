@@ -1,6 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
-
+  has_one :purchase
   def self.search (terms, categories, price_range)
     #byebug
     price_low = 0
