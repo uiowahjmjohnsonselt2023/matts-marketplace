@@ -68,7 +68,13 @@ class ItemsController < ApplicationController
     else
       # Categories into array so that we can switch to select multiple in future
       @items =  Item.search params[:search], [params[:category]], params[:price_range]
-      render search_items_path
+      if @items.empty?
+        flash[:alert] = "No items found!"
+        redirect_to items_path
+      else
+        flash[:notice] = "Found " + @items.length.to_s + " items!"
+        render search_items_path
+      end
     end
   end
 
