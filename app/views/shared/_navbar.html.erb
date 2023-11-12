@@ -1,0 +1,47 @@
+
+<header class="header sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-02">
+    <!-- logo -->
+    <!-- navigation -->
+  <nav class="w-9/12 flex nav text-lg">
+    <h1 class="text-4xl pr-4 py-4 self-center font-bold whitespace-nowrap align-baseline">
+      <a href="/">
+        Matt's
+      </a>
+    </h1>
+    <ul class="flex items-left align-baseline">
+      <li class="px-2 pb-1 pt-7 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+          <%= link_to 'Buy', buyers_path, method: :get %>
+      </li>
+      <li class="px-2 pb-1 pt-7 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+          <%= link_to 'Sell', items_path, method: :get %>
+      </li>
+    </ul>
+  </nav>
+
+    <!-- buttons --->
+    <div class="w-3/12 flex justify-end">
+      <ul class="flex items-right right-2">
+        <% if user_signed_in? %>
+          <li class="px-3  pb-2 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+            <a href="/">
+              <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li class="px-3 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+            <a href="/">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li class="px-2 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+            <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+          </li>
+        <% else %>
+          <li class="px-3 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+            <button type="button">
+              <%= link_to "Log in", new_user_session_path, :method => :get %>
+            </button>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+</header>
