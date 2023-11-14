@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MattsMarketplace</title>
+    <title>Matt's Marketplace</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <!-- Link to icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Link to tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
   <body>
+    <!-- Navbar -->
+    <%= render "/shared/navbar" %>
+
     <!--This will add the notice and alert flash messages to any view that derives from this view-->
     <!--Required by devise gem-->
     <% if flash[:notice].present? %>
@@ -25,6 +33,8 @@
     <% end %>
 
     <!-- Rest of page content -->
-    <%= yield %>
+    <div class="p-4">
+      <%= yield %>
+    </div>
   </body>
 </html>
