@@ -1,4 +1,24 @@
 <div class=" text-center text-sm w-full justify-center">
+
+
+  <%- if devise_mapping.omniauthable? %>
+    <div class="relative flex py-4 items-center">
+      <div class="flex-grow border-t border-gray-400"></div>
+      <span class="flex-shrink mx-4 text-gray-400">Or</span>
+      <div class="flex-grow border-t border-gray-400"></div>
+    </div>
+
+    <%= button_to "Log in with Google", omniauth_authorize_path(resource_name, :google_oauth2), data: { turbo: false }, class: "flex w-full justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-indigo-600 shadow-sm hover:bg-indigo-100 outline outline-1  outline-grey-600" %>
+  <% end %>
+
+<!--  I think we are good with only one third-party auth, but I'm leaving the code to handle multiple here just in case-->
+  <%#- if devise_mapping.omniauthable? %>
+    <%#- resource_class.omniauth_providers.each do |provider| %>
+<!--      <p class="text-indigo-600 hover:text-indigo-500">-->
+        <%#= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "flex w-full justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-indigo-600 shadow-sm hover:bg-indigo-100 outline outline-1  outline-grey-600" %>
+<!--      </p>-->
+    <%# end %>
+  <%# end %>
   <br>
   <%- if controller_name != 'sessions' %>
     <p class="text-indigo-600 hover:text-indigo-500">
@@ -22,14 +42,6 @@
     <p class="text-indigo-600 hover:text-indigo-500" >
       <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
     </p>
-  <% end %>
-
-  <%- if devise_mapping.omniauthable? %>
-    <%- resource_class.omniauth_providers.each do |provider| %>
-      <p class="text-indigo-600 hover:text-indigo-500">
-        <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
-      </p>
-    <% end %>
   <% end %>
 
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
