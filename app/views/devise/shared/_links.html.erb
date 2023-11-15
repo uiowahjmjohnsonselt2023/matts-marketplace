@@ -2,8 +2,11 @@
 
 
   <%- if devise_mapping.omniauthable? %>
-
-    <p class="flex w-full justify-center font-bold mt-1 mb-1"> or </p>
+    <div class="relative flex py-4 items-center">
+      <div class="flex-grow border-t border-gray-400"></div>
+      <span class="flex-shrink mx-4 text-gray-400">Or</span>
+      <div class="flex-grow border-t border-gray-400"></div>
+    </div>
 
     <%= button_to "Log in with Google", omniauth_authorize_path(resource_name, :google_oauth2), data: { turbo: false }, class: "flex w-full justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-indigo-600 shadow-sm hover:bg-indigo-100 outline outline-1  outline-grey-600" %>
   <% end %>
