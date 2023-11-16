@@ -8,6 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+
+["Clothing", "Electronics", "Toys", "Books", "Home"].each do |category_name|
+  Category.create(name: category_name)
+end
+
 10.times do |i|
   User.create!(
     first_name: "First#{i}",
@@ -20,14 +25,16 @@
     rating: 5 * rand(),
   )
 end
+
 users = User.all
+categories = Category.all
 
 20.times do |i|
   Item.create!(
     price: (rand * 100).round(2),
     description: "Item description #{i}",
     image_url: "http://example.com/image#{i}.png",
-    category: ["Clothing", "Electronics", "Toys", "Books", "Home"].sample,
+    category: categories.sample,
     for_sale: [true, false].sample,
     user: users.sample # This will randomly assign a user to each item
   )

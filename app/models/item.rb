@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
+  belongs_to :category
   has_one :purchase
 
   def self.search(terms, categories, price_range)
