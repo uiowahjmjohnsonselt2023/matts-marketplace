@@ -15,8 +15,8 @@ end
 
 10.times do |i|
   User.create!(
-    first_name: "First#{i}",
-    last_name: "Last#{i}",
+    first_name: %w[Sergio Dylan Haruko Mingi Matthew].sample,
+    last_name: %w[Martelo Laurianti Okada Lee Speranza].sample,
     city: "City#{i}",
     country: "Country#{i}",
     username: "user#{i + 1}", # Start at user1 to avoid user0
@@ -29,7 +29,7 @@ end
 users = User.all
 categories = Category.all
 
-20.times do |i|
+50.times do |i|
   Item.create!(
     price: (rand * 100).round(2),
     description: "Item description #{i}",
