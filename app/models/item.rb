@@ -19,8 +19,9 @@ class Item < ApplicationRecord
     items = Item.where("price >= ? AND price <= ?", price_low, price_high)
     if !categories.nil? && !categories.empty?
       categories.each do |category|
+        category_object = Category.where("name == (?)", Item.sanitize_sql_like(category)).first
         # Not sure how important the sanitize_sql_like is here, but it's probably a good idea
-        items = items.and(Item.where("category == (?)", Item.sanitize_sql_like(category))) unless category.empty?
+        items = items.and(category_object.items) unless category.empty?
       end
     end
     if !terms.nil? && !terms.empty?
