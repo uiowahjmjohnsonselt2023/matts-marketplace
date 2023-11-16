@@ -40,7 +40,7 @@
             <a href="#">
               <h5 class="text-xl font-semibold tracking-tight text-gray-900 "><%= item.description %></h5>
             </a>
-            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"><%= item.category %></span>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"><%= item.category.name %></span>
 
             <!-- User name, avatar, and rating-->
             <div class="flex items-center mt-2.5 mb-5">
@@ -75,12 +75,12 @@
   <!-- Category list -->
   <h3 class="text-2xl font-semibold text-start m-4"> Shop by Category </h3>
   <div class="grid grid-cols-2 lg:grid-cols-3 gap-2">
-    <% @featured_items.each do |item|%>
+    <% @all_categories.each do |category|%>
       <div class="h-auto max-w-full rounded-sm">
-        <%= link_to(items_path) do %>
-          <div class="flex max-w-sm h-40 bg-white hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 border border-gray-200 rounded-sm shadow text-center items-center justify-center">
+        <%= link_to(category_search_items_path(category: [category.name])) do %>
+          <div class="flex max-w-sm h-40 bg-blue-200 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 border border-gray-200 rounded-sm shadow text-center items-center justify-center">
             <div class="p-5">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">  CATEGORY </h5>
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 "> <%= category.name %> </h5>
             </div>
           </div>
         <% end %>

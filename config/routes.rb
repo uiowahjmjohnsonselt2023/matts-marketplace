@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       get 'search'
       get 'simple_search'
+      get 'category_search'
     end
   end
   resources :buyers, only: [:index, :show]
