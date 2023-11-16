@@ -1,57 +1,90 @@
-
-<!-- Featured items -->
-<h3 class="text-2xl font-semibold text-start m-4"> Featured Items</h3>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-  <% @featured_items.each do |item|%>
-    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-      <!-- Item picture -->
-      <a href="#">
-        <img class="p-8 rounded-t-lg" src="/docs/images/products/apple-watch.png" alt="product image" />
-      </a>
-
-      <!--Item Card body -->
-      <div class="px-5 pb-5">
-        <a href="#">
-          <h5 class="text-xl font-semibold tracking-tight text-gray-900 "><%= item.description %></h5>
-        </a>
-        <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"><%= item.category %></span>
-
-        <!-- User name, avatar, and rating-->
-        <div class="flex items-center mt-2.5 mb-5">
-          <div class="flex items-center space-x-1 rtl:space-x-reverse text-sm">
-            <div class="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full ">
-              <svg class="absolute w-8 h-8 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-            </div>
-            <p class="px-2">
-              <%= item.user.first_name %> <%= item.user.last_name %>
-            </p>
+<!-- Hero banner -->
+<section class="relative bg-blue-800 z-0">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
+    <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl text-white">Matt's Marketplace</h1>
+    <p class="mb-8 text-lg font-normal  lg:text-xl sm:px-16 lg:px-48 text-gray-200">Your mom's best friend's uncle's sister's favorite place to buy and sell anything and everything, always and forever!</p>
+    <%= form_tag(simple_search_items_path, method: "get") do %>
+      <div class="w-full max-w-md mx-auto">
+        <%= label_tag "search", "Search:", class: "mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"%>
+        <div class="relative">
+          <div class="absolute inset-y-0 rtl:inset-x-0 start-0 flex items-center ps-3.5 pointer-events-none">
+            <i class="fa fa-search white text-gray-400" aria-hidden="true"></i>
           </div>
 
-          <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded "><%= item.user.rating.round(2) %></span>
-        </div>
-
-        <!-- Price and details button -->
-        <div class="flex items-center justify-between">
-          <span class="text-3xl font-bold text-gray-900 ">$<%= item.price %></span>
-          <%= link_to "Details", item_path(item), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+          <%= text_field_tag "search", params[:search], class: "block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Search for item...",
+                             size: 50 %>
+          <%= submit_tag "Search", class: "text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
         </div>
       </div>
-    </div>
-<% end %>
-</div>
+    <% end %>
+  </div>
+  <div class="bg-gradient-to-b from-blue-50 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
+</section>
 
-<!-- Category list -->
-<h3 class="text-2xl font-semibold text-start m-4"> Shop by Category </h3>
-<div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-  <% @featured_items.each do |item|%>
-    <div class="h-auto max-w-full rounded-lg">
-      <%= link_to(items_path) do %>
-        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-          <div class="p-5">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 "> <%= item.description  %></h5>
+<!-- Main content -->
+<div class="z-10 py-5 px-36">
+
+  <!-- Featured items -->
+  <div class="mb-10">
+    <h3 class="text-2xl font-semibold text-start m-4"> Featured Items</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <% @featured_items.each do |item|%>
+        <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
+          <!-- Item picture -->
+          <a href="#">
+            <img class="p-8 rounded-t-lg" src="#" alt="product image" />
+          </a>
+
+          <!--Item Card body -->
+          <div class="px-5 pb-5">
+            <a href="#">
+              <h5 class="text-xl font-semibold tracking-tight text-gray-900 "><%= item.description %></h5>
+            </a>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"><%= item.category %></span>
+
+            <!-- User name, avatar, and rating-->
+            <div class="flex items-center mt-2.5 mb-5">
+              <div class="flex items-center space-x-1 rtl:space-x-reverse text-sm">
+                <div class="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full ">
+                  <svg class="absolute w-8 h-8 text-gray-400 -left-1 z-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                </div>
+                <p class="pl-1 pr-2">
+                  <%= item.user.first_name %> <%= item.user.last_name %>
+                </p>
+              </div>
+
+              <!-- Rating -->
+              <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+              <span class=" text-xs text-gray-500 font-normal py-0.5"><%= item.user.rating.round(1) %></span>
+
+            </div>
+
+            <!-- Price and details button -->
+            <div class="flex items-center justify-between">
+              <span class="text-3xl font-bold text-gray-900 ">$<%= item.price %></span>
+              <%= link_to "Details", item_path(item), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+            </div>
           </div>
         </div>
       <% end %>
     </div>
-  <% end %>
+  </div>
+
+  <!-- Category list -->
+  <h3 class="text-2xl font-semibold text-start m-4"> Shop by Category </h3>
+  <div class="grid grid-cols-2 lg:grid-cols-3 gap-2">
+    <% @featured_items.each do |item|%>
+      <div class="h-auto max-w-full rounded-sm">
+        <%= link_to(items_path) do %>
+          <div class="flex max-w-sm h-40 bg-white hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 border border-gray-200 rounded-sm shadow text-center items-center justify-center">
+            <div class="p-5">
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">  CATEGORY </h5>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
