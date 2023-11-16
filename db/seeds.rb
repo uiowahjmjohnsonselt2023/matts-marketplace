@@ -34,8 +34,10 @@ categories = Category.all
     price: (rand * 100).round(2),
     description: "Item description #{i}",
     image_url: "http://example.com/image#{i}.png",
-    category: categories.sample,
     for_sale: [true, false].sample,
+    featured: [true, false].sample,
+    featured_amount_paid: rand(1000),
+    category: categories.sample,
     user: users.sample # This will randomly assign a user to each item
   )
 end
