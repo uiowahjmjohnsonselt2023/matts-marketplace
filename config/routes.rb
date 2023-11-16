@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'home/index'
   resources :purchases
   devise_for :users
   resources :items do
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
 
   # Defines the root path route ("/")
-  root to: 'pages#home'
+  root to: 'home#index'
 
   # User auth routes
   get '\signup', to: 'users#new'
