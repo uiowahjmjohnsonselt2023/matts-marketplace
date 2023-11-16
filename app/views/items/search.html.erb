@@ -40,7 +40,7 @@
       <tr class="table-row">
         <td><%= item.description %></td>
         <td><%= number_to_currency(item.price) %></td>
-        <td><%= item.category %></td>
+        <td><%= item.category.name %></td>
         <td><%= item.for_sale ? 'Yes' : 'No' %></td>
         <td>
           <%= link_to "Show this item", item_path(item) %>
