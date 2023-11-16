@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'home/index'
   resources :purchases
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :items do
     collection do
       get 'search'

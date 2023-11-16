@@ -17,7 +17,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_16_061601) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
   end
-
   create_table "items", force: :cascade do |t|
     t.float "price"
     t.string "description"
@@ -56,6 +55,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_16_061601) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.decimal "rating"
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

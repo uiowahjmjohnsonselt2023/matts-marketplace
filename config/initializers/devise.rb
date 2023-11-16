@@ -314,4 +314,7 @@ Devise.setup do |config|
   # Adding necessary configuration for rails 7+
   config.navigational_formats = ['*/*', :html, :turbo_stream]
 
+  # Omniauth configuration
+  require "omniauth-google-oauth2"
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"]
 end
