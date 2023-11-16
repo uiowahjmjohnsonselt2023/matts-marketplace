@@ -78,6 +78,23 @@ class ItemsController < ApplicationController
     end
   end
 
+  def simple_search
+    # Read in the search term, category, and price_range from the params
+    params = search_params
+    if params[:search].empty?
+      redirect_to items_path
+    else
+      # Categories into array so that we can switch to select multiple in future
+      @items =  Item.search params[:search], nil, nil
+      if @items.empty?
+        flash[:alert] = "No items found!"
+        redirect_to items_path
+      else
+        render search_items_path
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_item
