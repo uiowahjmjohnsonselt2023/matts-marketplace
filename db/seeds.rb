@@ -42,3 +42,10 @@ categories = Category.all
   )
 end
 
+5.times do ||
+  Chat.create(
+    buyer: users.sample,
+    seller: users.sample
+  )
+end
+
