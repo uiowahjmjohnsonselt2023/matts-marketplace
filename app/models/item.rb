@@ -11,7 +11,7 @@ class Item < ApplicationRecord
         price_range = price_range.split("$")
         price_low = price_range[1].to_i
       else
-        price_range = price_range.split("-")
+        price_range = price_range.sub("$", "").split("-")
         price_low = price_range[0].to_i
         price_high = price_range[1].to_i
       end
