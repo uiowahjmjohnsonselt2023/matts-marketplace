@@ -1,30 +1,82 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Items</h1>
-<%= button_to 'Home', root_path, method: :get, class: 'btn btn-primary' %>
+<!-- Search button -->
+<section class="relative bg-blue-800 z-0">
+  <div class="py-4 px-4 mx-auto max-w-screen-xl text-left lg:py-8 z-10 relative">
+    <h1 class="flex-shrink-0 mr-8 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl text-white">Items</h1>
+    <%= form_tag(search_items_path, method: "get", class: "flex items-center") do %>
+      <%= label_tag "search", "Search for items:", class: "sr-only text-white"%>
+      <div class="relative flex items-center">
+        <div class="absolute inset-y-0 rtl:inset-x-0 start-0 flex items-center pl-2 pointer-events-none">
+          <i class="fa fa-search white text-gray-400" aria-hidden="true"></i>
+        </div>
 
-<h2>Here is a list of all items for sale:</h2>
-<table class="table">
-  <thead>
-  <tr class="table-header">
-    <th>Description</th>
-    <th>Price</th>
-    <th>Category</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @items.each do |item| %>
-    <tr class="table-row">
-      <td><%= item.description %></td>
-      <td><%= number_to_currency(item.price) %></td>
-      <td><%= item.category.name %></td>
-      <td>
-        <%= link_to "Show this item", buyer_path(item) %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+        <%= text_field_tag "search", params[:search], class: "block w-full p-2 pl-8 text-sm border rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-800 border-gray-700 placeholder-gray-400 text-white", placeholder: "Enter your search terms", size: 50 %>
+
+        <div class="form-group ml-4">
+          <%= label_tag "category", "Category:" %>
+          <%= select_tag "category", options_for_select(["Electronics", "Books", "Home", "Toys"], params[:category]), include_blank: "All Categories", class: "form-control" %>
+        </div>
+
+        <div class="form-group ml-4">
+          <%= label_tag "price_range", "Price Range:" %>
+          <%= select_tag "price_range", options_for_select(["$0-25", "$25-50", "$50-100", "$100-500", "> $500"], params[:price_range]), include_blank: "Any", class: "form-control" %>
+        </div>
+
+        <%= submit_tag "Search", class: "text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" %>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+
+
+
+<!-- Items -->
+<div class="mb-10">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 px-4">
+    <% @items.each do |item|%>
+      <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
+        <!-- Item picture -->
+        <a href="#">
+          <img class="p-8 rounded-t-lg" src="#" alt="product image" />
+        </a>
+
+        <!--Item Card body -->
+        <div class="px-5 pb-5">
+          <a href="#">
+            <h5 class="text-xl font-semibold tracking-tight text-gray-900 "><%= item.description %></h5>
+          </a>
+          <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"><%= item.category.name %></span>
+
+          <!-- User name, avatar, and rating-->
+          <div class="flex items-center mt-2.5 mb-5">
+            <div class="flex items-center space-x-1 rtl:space-x-reverse text-sm">
+              <div class="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full ">
+                <svg class="absolute w-8 h-8 text-gray-400 -left-1 z-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+              </div>
+              <p class="pl-1 pr-2">
+                <%= item.user.first_name %> <%= item.user.last_name %>
+              </p>
+            </div>
+
+            <!-- Rating -->
+            <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+            </svg>
+            <span class=" text-xs text-gray-500 font-normal py-0.5"><%= item.user.rating.round(1) %></span>
+
+          </div>
+
+          <!-- Price and details button -->
+          <div class="flex items-center justify-between">
+            <span class="text-3xl font-bold text-gray-900 ">$<%= item.price %></span>
+            <%= link_to "Details", item_path(item), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 
