@@ -31,5 +31,4 @@ class ProfileController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :country, :city)
   end
-
 end
