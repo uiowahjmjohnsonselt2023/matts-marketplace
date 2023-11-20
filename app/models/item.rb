@@ -4,6 +4,10 @@ class Item < ApplicationRecord
   has_one :purchase
 
   def self.search(terms, categories, price_range)
+    self.search_explicit(terms, categories, price_range, true)
+  end
+
+  def self.search_explicit(terms, categories, price_range, for_sale)
     price_low = 0
     price_high = 1000000
     if !price_range.nil? && !price_range.empty?
@@ -16,7 +20,7 @@ class Item < ApplicationRecord
         price_high = price_range[1].to_i
       end
     end
-    items = Item.where("price >= ? AND price <= ?", price_low, price_high)
+    items = Item.where("price >= ? AND price <= ? AND for_sale == ?", price_low, price_high, for_sale)
     if !categories.nil? && !categories.empty?
       categories.each do |category|
         category_object = Category.where("name == (?)", Item.sanitize_sql_like(category)).first
