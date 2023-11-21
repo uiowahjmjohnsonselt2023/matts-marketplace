@@ -1,40 +1,42 @@
-<div id="<%= dom_id chat %>">
-  <p>
-    <strong>Buyer:</strong>
-    <%= chat.buyer.first_name %>
-  </p>
-
-  <p>
-    <strong>Seller:</strong>
-    <%= chat.seller.first_name %>
-  </p>
-
-
-
-  <strong> Messages </strong>
-  <%= turbo_stream_from chat %>
-  <div id="messages">
-    <%= render @messages %>
+<div class="grid grid-cols-6 md:grid-cols-6 max-w-screen h-screen mx-auto">
+  <div class="col-span-1 flex flex-col">
+    <%= render 'sidebar' %>
   </div>
 
+  <div id="<%= dom_id chat %>" class="col-span-5 z-0 flex flex-row">
+    <div class="flex-grow w-full">
+      <div class="p-4 w-full">
+        <p>
+          <strong>Buyer:</strong>
+          <%= chat.buyer.first_name %>
+        </p>
 
+        <p>
+          <strong>Seller:</strong>
+          <%= chat.seller.first_name %>
+        </p>
 
-  <%= form_tag(send_message_chat_path(chat), method: "post") do %>
-    <div class="w-full max-w-md mx-auto">
-      <%= label_tag "search", "Message:", class: "mb-2 text-sm font-medium sr-only text-white"%>
-      <div class="relative">
-        <div class="absolute inset-y-0 rtl:inset-x-0 start-0 flex items-center ps-3.5 pointer-events-none">
-          <i class="fa fa-search white text-gray-400" aria-hidden="true"></i>
+        <strong> Messages </strong>
+        <%= turbo_stream_from chat %>
+        <div id="messages" class="w-full">
+          <% if @messages %>
+            <%= render @messages %>
+          <% end %>
         </div>
-
-
-        <%= text_field_tag "content", params[:content], class: "block w-full p-4 ps-10 text-sm  border  rounded-lg  focus:ring-blue-500 focus:border-blue-500 bg-gray-800 border-gray-700 placeholder-gray-400 text-white", placeholder: "type your message...",
-                           size: 50 %>
-        <%= submit_tag "Send", class: "text-white absolute end-2.5 bottom-2.5   focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" %>
       </div>
     </div>
-  <% end %>
+  </div>
 
-
-
+  <!-- Form aligns to the right of the screen, spanning 5 columns -->
+  <div class="col-span-5 col-start-2 justify-self-end fixed bottom-0 block w-10/12 bg-white">
+    <%= form_tag(send_message_chat_path(chat), method: "post") do %>
+      <div class="py-4 px-6">
+        <%= label_tag "search", "Message:", class: "mb-2 text-sm font-medium sr-only text-white"%>
+        <div class="relative">
+          <%= text_field_tag "content", params[:content], required: true, class: "block w-full p-4 shadow-md text-sm border rounded-3xl focus:ring-blue-200 focus:border-blue-200 bg-white border-gray-200 placeholder-gray-400", placeholder: "Message", size: 50 %>
+          <%= submit_tag "Send", class: "text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-3xl text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
