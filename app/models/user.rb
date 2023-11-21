@@ -10,6 +10,7 @@ class User < ApplicationRecord
   # Chat function references
   has_many :buyer_chats, class_name: 'Chat', foreign_key: 'buyer_id'
   has_many :seller_chats, class_name: 'Chat', foreign_key: 'seller_id'
+  has_many :messages
 
   def self.from_omniauth(auth)
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
