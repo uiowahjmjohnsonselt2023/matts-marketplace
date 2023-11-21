@@ -9,6 +9,7 @@ class ChatsController < ApplicationController
 
   # GET /chats/1 or /chats/1.json
   def show
+    @messages = @chat.messages
   end
 
   # GET /chats/new
@@ -51,11 +52,16 @@ class ChatsController < ApplicationController
   # DELETE /chats/1 or /chats/1.json
   def destroy
     @chat.destroy!
-
     respond_to do |format|
       format.html { redirect_to chats_url, notice: "Chat was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def send_message
+    @chat = Chat.find(params[:id])
+    @current_user = current_user
+    @current_user.messages.create(content: params[:content], chat_id: params[:id])
   end
 
   private
