@@ -9,6 +9,9 @@ class ChatsController < ApplicationController
 
   # GET /chats/1 or /chats/1.json
   def show
+    if current_user != @chat.buyer and current_user != @chat.seller
+      redirect_to chats_path, notice: "Not authorized!" and return
+    end
     @messages = @chat.messages
   end
 
