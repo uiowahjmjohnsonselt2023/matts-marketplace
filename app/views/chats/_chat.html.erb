@@ -1,12 +1,40 @@
 <div id="<%= dom_id chat %>">
   <p>
     <strong>Buyer:</strong>
-    <%= chat.buyer_id %>
+    <%= chat.buyer.first_name %>
   </p>
 
   <p>
     <strong>Seller:</strong>
-    <%= chat.seller_id %>
+    <%= chat.seller.first_name %>
   </p>
+
+
+
+  <strong> Messages </strong>
+  <%= turbo_stream_from chat %>
+  <div id="messages">
+    <%= render @messages %>
+  </div>
+
+
+
+  <%= form_tag(send_message_chat_path(chat), method: "post") do %>
+    <div class="w-full max-w-md mx-auto">
+      <%= label_tag "search", "Message:", class: "mb-2 text-sm font-medium sr-only text-white"%>
+      <div class="relative">
+        <div class="absolute inset-y-0 rtl:inset-x-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <i class="fa fa-search white text-gray-400" aria-hidden="true"></i>
+        </div>
+
+
+        <%= text_field_tag "content", params[:content], class: "block w-full p-4 ps-10 text-sm  border  rounded-lg  focus:ring-blue-500 focus:border-blue-500 bg-gray-800 border-gray-700 placeholder-gray-400 text-white", placeholder: "type your message...",
+                           size: 50 %>
+        <%= submit_tag "Send", class: "text-white absolute end-2.5 bottom-2.5   focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" %>
+      </div>
+    </div>
+  <% end %>
+
+
 
 </div>
