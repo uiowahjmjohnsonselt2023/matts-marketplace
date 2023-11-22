@@ -1,15 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
-<%= current_user.id %>
+<div class="grid grid-cols-6 md:grid-cols-6 max-w-screen h-screen mx-auto">
+  <!-- Sidebar -->
+  <div class="col-span-1 flex flex-col">
+    <%= render partial: 'chats/sidebar', :locals => {:user => @user, :chat => nil} %>
+  </div>
 
-<h1>Chats</h1>
+  <!-- Logo for when there is not chat -->
+  <div class="fixed transform right-1/4 translate-y-1/2 col-span-5 z-0 flex flex-col items-center text-center justify-center">
+    <h1 class="mb-4 text-4xl font-extrabold w-max tracking-tight leading-none md:text-5xl lg:text-6xl text-gray-400">Matt's Marketplace</h1>
+    <p class="mb-8 text-lg font-normal lg:text-xl sm:px-16 lg:px-48 text-gray-400">Anytime, anywhere!</p>
+  </div>
 
-<div id="chats">
-  <% @chats.each do |chat| %>
-    <p>
-      <%= link_to "Show this chat", chat %>
-    </p>
-  <% end %>
 </div>
-
-<%= link_to "New chat", new_chat_path %>
