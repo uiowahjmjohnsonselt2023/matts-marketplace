@@ -5,5 +5,6 @@ class BuyersController < ApplicationController
 
   def show
     @item = Item.where(for_sale: true).find(params[:id])
+    render layout: 'application'
   end
 end
