@@ -1,0 +1,48 @@
+<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-2/12 h-screen pt-16 transition-transform -translate-x-full bg-white border-r bg-gray-500 border-gray-200 sm:translate-x-0" aria-label="Sidebar">
+  <div class="h-full px-0 pt-3 pb-4 overflow-y-auto bg-gray-100">
+    <h2 class="px-4 py-2 text-2xl font-bold"> Chats </h2>
+    <ul class="space-y-0 font-medium">
+      <% if user %>
+        <% all_chats = user.buyer_chats.or(user.seller_chats) %>
+
+        <% all_chats.each do |user_chat|%>
+          <% other_user = user_chat.buyer != user ? user_chat.buyer : user_chat.seller%>
+            <li class="border:none">
+              <%= link_to user_chat do %>
+                <div class="flex items-center w-full h-16 <%= (user_chat == chat) ? "bg-white" : "bg-gray-100" %> hover:bg-gray-200">
+                  <i class="fa fa-comments px-4" aria-hidden="true"></i>
+                  <div class="flex flex-col justify-start pr-4 mt-1">
+                    <div class="flex items-center mb-0 justify-between">
+                      <span class="<%= (user.buyer_chats.include? user_chat) ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800" %> mr-1.5 px-1.5 py-0.5  rounded w-max" style="font-size:8px;">
+                        <%= (user.buyer_chats.include? user_chat) ? "Buying" : "Selling" %>
+                      </span>
+                      <h5 class="mb-0 mr-1 text-sm tracking-tight truncate whitespace-nowrap text-gray-900">
+                        <%= "#{other_user.first_name} #{other_user.last_name}"[0..20]%>
+                      </h5>
+
+                    </div>
+
+
+                    <div class="flex items-center mb-0 justify-between">
+                      <span class="text-xs font-normal text-gray-900 truncate w-full">
+                        <%= user_chat.item.description %>
+                      </span>
+                    </div>
+
+                  </div>
+                </div>
+            </li>
+          <% end %>
+              <div class="flex-grow border-t border-gray-200"></div>
+        <% end %>
+      <% end %>
+
+      <li class="px-10 m-4 py-6">
+        <%= link_to 'new chat', '/chats/new', class: "block border text-center rounded-lg bg-blue-600 text-white hover:bg-blue-400" %>
+        <p> Your user ID is: <%= user.id %></p>
+
+        <p class="text-xs text-gray-500">Temporary button while we figure out when to create chats. It would most likely be when the user chooses to buy </p>
+      </li>
+    </ul>
+  </div>
+</aside>

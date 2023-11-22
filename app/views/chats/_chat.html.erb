@@ -1,34 +1,29 @@
 <div class="grid grid-cols-6 md:grid-cols-6 max-w-screen h-screen mx-auto">
+  <!-- Partial for sidebar-->
   <div class="col-span-1 flex flex-col">
-    <%= render 'sidebar' %>
+    <%= render partial: 'chats/sidebar', :locals => {:user => @user, :chat => chat} %>
   </div>
 
+  <!-- message pane -->
   <div id="<%= dom_id chat %>" class="col-span-5 z-0 flex flex-row">
     <div class="flex-grow w-full">
+      <%= render partial: 'chats/item_card', :locals => {:chat => chat} %>
       <div class="p-4 w-full">
-        <p>
-          <strong>Buyer:</strong>
-          <%= chat.buyer.first_name %>
-        </p>
-
-        <p>
-          <strong>Seller:</strong>
-          <%= chat.seller.first_name %>
-        </p>
-
-        <strong> Messages </strong>
         <%= turbo_stream_from chat %>
         <div id="messages" class="w-full">
           <% if @messages %>
-            <%= render @messages %>
+            <%= render partial: @messages, :locals => {:user => @user}  %>
           <% end %>
         </div>
+        <br>
+        <br>
+        <br>
       </div>
     </div>
   </div>
 
-  <!-- Form aligns to the right of the screen, spanning 5 columns -->
-  <div class="col-span-5 col-start-2 justify-self-end fixed bottom-0 block w-10/12 bg-white">
+  <!-- Send message field at the bottom of the screen. There are some bugs with different screen sizes making it look weird.-->
+  <div class="col-span-5 col-start-2 justify-self-end fixed bottom-0 block w-10/12  bg-opacity-0 z-50">
     <%= form_tag(send_message_chat_path(chat), method: "post") do %>
       <div class="py-4 px-6">
         <%= label_tag "search", "Message:", class: "mb-2 text-sm font-medium sr-only text-white"%>

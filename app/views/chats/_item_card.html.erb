@@ -1,0 +1,11 @@
+<%= link_to chat.item do %>
+  <div class="flex sticky top-16 z-50 items-left h-16 border border-gray-200 shadow bg-opacity-95 bg-gray-100">
+    <img class="object-cover w-auto rounded-t-lg h-full max-w-xs max-h-10 p-2 " src="<%= chat.item.image_url %>" alt="">
+    <div class="flex flex-col justify-start px-4 mt-1 leading-normal">
+      <h5 class="mb-0 text-xl font-bold tracking-tight text-gray-900 dark:text-white"><%= chat.item.description %></h5>
+      <div class="flex items-center mb-2 justify-between">
+        <span class="text-sm font-bold text-gray-900 ">$<%= chat.item.price %></span>
+      </div>
+    </div>
+  </div>
+<% end %>
