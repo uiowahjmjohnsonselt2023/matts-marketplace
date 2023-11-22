@@ -13,14 +13,21 @@
   <!-- Item Details Column -->
   <div class="w-1/4 p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg text-2xl font-bold text-black">
     <% if @item.featured %>
-      <h1 class="p-4 text-blue-800">Featured Item!</h1>
+      <h1 class="p-4 flex text-gray-600 bg-yellow-100 rounded">
+        <svg class="w-8 h-8 inline-block align-middle text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+          <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+        </svg>
+        Featured Item!
+      </h1>
     <% end %>
     <h1 class="p-4">
       $<%= number_with_precision(@item.price, precision: 2) %>
   </h1>
-    <h1 class="p-4">
-    <%= @item.category.name %>
-  </h1>
+  <% if @item.for_sale %>
+    <h3 class="bg-green-100 text-green-800 font-medium me-2 p-4 rounded">For Sale</span>
+  <% else %>
+    <h3 class="bg-red-100 text-red-800 font-medium me-2 p-4 rounded">Not For Sale</span>
+  <% end %>
   </div>
   <!-- Seller Details Column -->
   <div class="w-1/4 p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg text-2xl font-bold text-black">
