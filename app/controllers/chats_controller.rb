@@ -1,10 +1,10 @@
 class ChatsController < ApplicationController
+  before_action :set_user
   before_action :set_chat, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[ show index new ]
 
   # GET /chats or /chats.json
   def index
-    @chats = Chat.all
   end
 
   # GET /chats/1 or /chats/1.json
@@ -63,8 +63,7 @@ class ChatsController < ApplicationController
 
   def send_message
     @chat = Chat.find(params[:id])
-    @current_user = current_user
-    @current_user.messages.create(content: params[:content], chat_id: params[:id])
+    @user.messages.create(content: params[:content], chat_id: params[:id])
   end
 
   private
@@ -75,6 +74,10 @@ class ChatsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def chat_params
-      params.require(:chat).permit(:buyer_id, :seller_id)
+      params.require(:chat).permit(:buyer_id, :seller_id, :item_id)
+    end
+
+    def set_user
+      @user = current_user
     end
 end
