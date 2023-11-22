@@ -24,7 +24,7 @@
 
   <!-- Send message field at the bottom of the screen. There are some bugs with different screen sizes making it look weird.-->
   <div class="col-span-5 col-start-2 justify-self-end fixed bottom-0 block w-10/12  bg-opacity-0 z-50">
-    <%= form_tag(send_message_chat_path(chat), method: "post") do %>
+    <%= form_tag(send_message_chat_path(chat), id: "send-message-form", method: "post", onsubmit: "resetForm()") do %>
       <div class="py-4 px-6">
         <%= label_tag "search", "Message:", class: "mb-2 text-sm font-medium sr-only text-white"%>
         <div class="relative">
@@ -34,4 +34,15 @@
       </div>
     <% end %>
   </div>
+
+  <!-- Script to clear form after submission -->
+  <script>
+      function resetForm() {
+          setTimeout(function() {
+              document.getElementById("send-message-form").reset();
+          }, 500)
+
+      }
+  </script>
+
 </div>
