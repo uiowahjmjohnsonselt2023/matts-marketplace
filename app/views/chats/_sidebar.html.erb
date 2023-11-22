@@ -5,6 +5,11 @@
       <% if user %>
         <% all_chats = user.buyer_chats.or(user.seller_chats) %>
 
+        <% unless all_chats.length > 0 %>
+          <p class="text-xs py-2 text-center text-gray-400"> Start a chat by choosing an item </p>
+        <% end %>
+
+
         <% all_chats.each do |user_chat|%>
           <% other_user = user_chat.buyer != user ? user_chat.buyer : user_chat.seller%>
             <li class="border:none">
