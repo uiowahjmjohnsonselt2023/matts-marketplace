@@ -1,4 +1,4 @@
-<div class="m-4 p-8 mx-auto max-w-screen-xl text-center relative 
+<div class="m-4 mt-8 p-8 mx-auto max-w-screen-xl text-center relative 
   bg-blue-800 border border-4 border-gray-200 rounded-md shadow-lg">
   <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl text-white">
     <%= @item.description %>
@@ -24,9 +24,9 @@
       $<%= number_with_precision(@item.price, precision: 2) %>
   </h1>
   <% if @item.for_sale %>
-    <h3 class="bg-green-100 text-green-800 font-medium me-2 p-4 rounded">For Sale</span>
+    <h3 class="bg-green-100 text-green-800 me-2 p-4 rounded">For Sale</span>
   <% else %>
-    <h3 class="bg-red-100 text-red-800 font-medium me-2 p-4 rounded">Not For Sale</span>
+    <h3 class="bg-red-100 text-red-800 me-2 p-4 rounded">Not For Sale</span>
   <% end %>
   </div>
   <!-- Seller Details Column -->
@@ -38,12 +38,21 @@
     <h2 class="p-4 text-blue-700">
       <%= @item.user.username %>
     </h2>
-    <h1 class="p-4">
+    <% if @item.user.rating > 3.5 %>
+    <h1 class="p-4 bg-green-100 text-gray-600">
       Feedback Rating: 
-      <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-      </svg>
       <%= number_with_precision(@item.user.rating, precision:2) %>/5
     </h1>
+    <% elsif @item.user.rating > 2 %>
+    <h1 class="p-4 bg-yellow-100 text-gray-600">
+      Feedback Rating: 
+      <%= number_with_precision(@item.user.rating, precision:2) %>/5
+    </h1>
+    <% else %>
+    <h1 class="p-4 bg-red-100 text-gray-600">
+      Feedback Rating: 
+      <%= number_with_precision(@item.user.rating, precision:2) %>/5
+    </h1>
+  <% end %>
   </div>
 </div>
