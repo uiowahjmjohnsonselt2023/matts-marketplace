@@ -30,7 +30,9 @@
   <% end %>
   </div>
   <!-- Seller Details Column -->
-  <div class="w-1/4 p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg text-2xl font-bold text-black">
+  <div class="w-1/4 p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg 
+    text-2xl font-bold text-black hover:bg-gray-100">
+    <%= link_to user_path(@item.user) do %> 
     <h1 class="p-4">
       <%= @item.user.first_name %>
       <%= @item.user.last_name %>
@@ -39,20 +41,21 @@
       <%= @item.user.username %>
     </h2>
     <% if @item.user.rating > 3.5 %>
-    <h1 class="p-4 bg-green-100 text-gray-600">
-      Feedback Rating: 
-      <%= number_with_precision(@item.user.rating, precision:2) %>/5
-    </h1>
+      <h1 class="p-4 bg-green-100 text-gray-600">
+        Feedback Rating: 
+        <%= number_with_precision(@item.user.rating, precision:2) %>/5
+      </h1>
     <% elsif @item.user.rating > 2 %>
-    <h1 class="p-4 bg-yellow-100 text-gray-600">
-      Feedback Rating: 
-      <%= number_with_precision(@item.user.rating, precision:2) %>/5
-    </h1>
+      <h1 class="p-4 bg-yellow-100 text-gray-600">
+        Feedback Rating: 
+        <%= number_with_precision(@item.user.rating, precision:2) %>/5
+      </h1>
     <% else %>
-    <h1 class="p-4 bg-red-100 text-gray-600">
-      Feedback Rating: 
-      <%= number_with_precision(@item.user.rating, precision:2) %>/5
-    </h1>
+      <h1 class="p-4 bg-red-100 text-gray-600">
+        Feedback Rating: 
+        <%= number_with_precision(@item.user.rating, precision:2) %>/5
+      </h1>
+    <% end %>
   <% end %>
   </div>
 </div>
