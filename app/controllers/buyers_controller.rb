@@ -10,6 +10,7 @@ class BuyersController < ApplicationController
 
   def checkout
     @item = Item.where(for_sale: true).find(params[:id])
+    @purchase = Purchase.new()
     render layout: 'application'
   end
 end
