@@ -16,7 +16,8 @@
           rounded-lg shadow-lg"> 
           Buy for: $<%= @item.price %>
         <%= form.hidden_field :item_id, value: @item.id %>
-        <%= form.hidden_field :user_id, value: @item.user.id %>
+        <%= form.hidden_field :seller_id, value: @item.user.id %>
+        <%= form.hidden_field :buyer_id, value: @user.id %>
         <%= form.submit "Confirm Purchase", class: "p-4 m-4 text-white font-bold 
         rounded-lg bg-blue-600 hover:bg-blue-700" %>
       </h1>

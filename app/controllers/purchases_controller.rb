@@ -67,6 +67,6 @@ class PurchasesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def purchase_params
-      params.require(:purchase).permit(:user_id, :item_id)
+      params.require(:purchase).permit(:seller_id, :buyer_id, :item_id)
     end
 end

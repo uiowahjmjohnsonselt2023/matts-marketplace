@@ -1,4 +1,5 @@
 class BuyersController < ApplicationController
+  before_action :authenticate_user!, only: [:checkout]
   def index
     @items = Item.where(for_sale: true)
   end
@@ -10,6 +11,7 @@ class BuyersController < ApplicationController
 
   def checkout
     @item = Item.where(for_sale: true).find(params[:id])
+    @user = current_user
     @purchase = Purchase.new()
     render layout: 'application'
   end
