@@ -55,12 +55,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_205901) do
   end
 
   create_table "purchases", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "seller_id", null: false
     t.integer "item_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "buyer_id", null: false
+    t.index ["buyer_id"], name: "index_purchases_on_buyer_id"
     t.index ["item_id"], name: "index_purchases_on_item_id"
-    t.index ["user_id"], name: "index_purchases_on_user_id"
+    t.index ["seller_id"], name: "index_purchases_on_seller_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -92,5 +94,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_205901) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "users"
   add_foreign_key "purchases", "items"
-  add_foreign_key "purchases", "users"
+  add_foreign_key "purchases", "users", column: "buyer_id"
+  add_foreign_key "purchases", "users", column: "seller_id"
 end
