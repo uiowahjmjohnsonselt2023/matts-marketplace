@@ -1,0 +1,107 @@
+<div class="m-4 mt-8 p-8 mx-auto max-w-screen-xl text-center relative 
+  bg-blue-800 border border-4 border-gray-400 rounded-md shadow-lg">
+  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl text-white">
+    Checkout
+  </h1>
+</div>
+<div class="flex flex-row items-center justify-center">
+  <div class="w-1/2 self-start flex-col">
+    <div class="p-4 m-4 border border-4
+      border-gray-200 rounded-lg shadow-lg">
+      <h1 class="text-center text-black text-4xl font-extrabold">
+        <%= @item.description %>
+      </h1>
+      <h1 class="p-4 m-4 text-2xl text-blue-800 font-extrabold border border-4 border-gray-200
+        rounded-lg shadow-lg hover:bg-gray-100">
+        Buy for: $<%= @item.price %>
+      </h1>
+      <h1 class="text-center text-gray-400 text-3xl font-extrabold">
+        Or
+      </h1>
+      <div class="m-4 border border-4 border-gray-200 
+      rounded-lg shadow-lg">
+        <h1 class="p-4 text-2xl text-blue-800 font-extrabold">
+          Make Offer 
+        </h1>
+        <%= form_tag(confirm_buyer_path, method: "get", class: "text-2xl") do %>
+          <div class="flex p-4">
+            <%= label_tag "price", "Offer Price: $" %>
+            <%= text_field_tag "price", nil, class: "hover:bg-gray-200 border rounded" %>
+          </div>
+          <div class="flex p-4">
+            <%= label_tag "message", "Message To Seller:", class: "me-2" %>
+            <%= text_field_tag "price", nil, class: "hover:bg-gray-200 border rounded" %>
+          </div>
+          <%= submit_tag "Offer", class: "p-4 m-4 text-white font-bold rounded-lg bg-blue-600 
+          hover:bg-blue-700" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="w-1/4">
+    <!-- Image -->
+    <div class="m-4 border border-4 border-gray-200 rounded-lg shadow-lg">
+      <img src="<%= @item.image_url %>" alt="Item Image" 
+      class="w-full object-cover">
+    </div>
+    <!-- Item Details -->
+    <div class="p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg 
+      text-2xl font-bold text-black">
+      <% if @item.featured %>
+        <h1 class="p-4 flex text-gray-600 bg-yellow-100 rounded">
+          <svg class="w-8 h-8 inline-block align-middle text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+          </svg>
+          Featured Item!
+        </h1>
+      <% end %>
+      <h1 class="p-4">
+        $<%= number_with_precision(@item.price, precision: 2) %>
+    </h1>
+    <% if @item.for_sale %>
+      <h3 class="bg-green-100 text-green-800 p-4 rounded">For Sale</span>
+    <% else %>
+      <h3 class="bg-red-100 text-red-800  p-4 rounded">Not For Sale</span>
+    <% end %>
+    <h1 class="p-4 text-blue-800 font-extrabold rounded
+      border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-gray-100">
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+      Add to Cart
+    </h1>
+    <h1 class="p-4 text-blue-800 font-extrabold rounded
+      border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-gray-100">
+      <i class="fa fa-eye aria-hidden="true"></i>
+      Add to Watchlist
+    </h1>
+    </div>
+    <!-- Seller Details -->
+    <div class="p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg 
+      text-2xl font-bold text-black hover:bg-gray-100">
+      <%= link_to @item.user do %> 
+        <h1 class="p-4">
+          <%= @item.user.first_name %>
+          <%= @item.user.last_name %>
+        </h1>
+        <h2 class="p-4 text-blue-700">
+          <%= @item.user.username %>
+        </h2>
+        <% if @item.user.rating > 3.5 %>
+          <h1 class="p-4 bg-green-100 text-gray-600">
+            Feedback Rating: 
+            <%= number_with_precision(@item.user.rating, precision:2) %>/5
+          </h1>
+        <% elsif @item.user.rating > 2 %>
+          <h1 class="p-4 bg-yellow-100 text-gray-600">
+            Feedback Rating: 
+            <%= number_with_precision(@item.user.rating, precision:2) %>/5
+          </h1>
+        <% else %>
+          <h1 class="p-4 bg-red-100 text-gray-600">
+            Feedback Rating: 
+            <%= number_with_precision(@item.user.rating, precision:2) %>/5
+          </h1>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
