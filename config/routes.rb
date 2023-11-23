@@ -13,7 +13,12 @@ Rails.application.routes.draw do
       get 'category_search'
     end
   end
-  resources :buyers, only: [:index, :show]
+  resources :buyers, only: [:index, :show] do
+    member do
+      get 'checkout'
+      get 'confirm'
+    end
+  end
   resources :users
   resources :pages
   resources :chats do
