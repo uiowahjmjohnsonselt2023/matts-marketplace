@@ -24,14 +24,16 @@
       $<%= number_with_precision(@item.price, precision: 2) %>
   </h1>
   <% if @item.for_sale %>
-    <h3 class="bg-green-100 text-green-800 p-4 rounded">For Sale</span>
+    <h1 class="bg-green-100 text-green-800 p-4 rounded">For Sale</h1>
   <% else %>
-    <h3 class="bg-red-100 text-red-800  p-4 rounded">Not For Sale</span>
+    <h1 class="bg-red-100 text-red-800  p-4 rounded">Not For Sale</h1>
   <% end %>
-  <h1 class="p-4 bg-blue-800 text-white font-extrabold rounded
-    border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-blue-600">
-    Purchase Now
-  </h1>
+  <%= link_to checkout_buyer_path(@item) do %>
+    <h1 class="p-4 bg-blue-800 text-white font-extrabold rounded
+      border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-blue-600">
+      Purchase Now
+    </h1>
+  <% end %>
   <h1 class="p-4 text-blue-800 font-extrabold rounded
     border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-gray-100">
     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -47,29 +49,29 @@
   <div class="w-1/4 p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg 
     text-2xl font-bold text-black hover:bg-gray-100">
     <%= link_to @item.user do %> 
-    <h1 class="p-4">
-      <%= @item.user.first_name %>
-      <%= @item.user.last_name %>
-    </h1>
-    <h2 class="p-4 text-blue-700">
-      <%= @item.user.username %>
-    </h2>
-    <% if @item.user.rating > 3.5 %>
-      <h1 class="p-4 bg-green-100 text-gray-600">
-        Feedback Rating: 
-        <%= number_with_precision(@item.user.rating, precision:2) %>/5
+      <h1 class="p-4">
+        <%= @item.user.first_name %>
+        <%= @item.user.last_name %>
       </h1>
-    <% elsif @item.user.rating > 2 %>
-      <h1 class="p-4 bg-yellow-100 text-gray-600">
-        Feedback Rating: 
-        <%= number_with_precision(@item.user.rating, precision:2) %>/5
-      </h1>
-    <% else %>
-      <h1 class="p-4 bg-red-100 text-gray-600">
-        Feedback Rating: 
-        <%= number_with_precision(@item.user.rating, precision:2) %>/5
-      </h1>
+      <h2 class="p-4 text-blue-700">
+        <%= @item.user.username %>
+      </h2>
+      <% if @item.user.rating > 3.5 %>
+        <h1 class="p-4 bg-green-100 text-gray-600">
+          Feedback Rating: 
+          <%= number_with_precision(@item.user.rating, precision:2) %>/5
+        </h1>
+      <% elsif @item.user.rating > 2 %>
+        <h1 class="p-4 bg-yellow-100 text-gray-600">
+          Feedback Rating: 
+          <%= number_with_precision(@item.user.rating, precision:2) %>/5
+        </h1>
+      <% else %>
+        <h1 class="p-4 bg-red-100 text-gray-600">
+          Feedback Rating: 
+          <%= number_with_precision(@item.user.rating, precision:2) %>/5
+        </h1>
+      <% end %>
     <% end %>
-  <% end %>
   </div>
 </div>
