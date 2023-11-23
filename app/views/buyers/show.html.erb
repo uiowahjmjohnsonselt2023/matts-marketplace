@@ -1,5 +1,5 @@
 <div class="m-4 mt-8 p-8 mx-auto max-w-screen-xl text-center relative 
-  bg-blue-800 border border-4 border-gray-200 rounded-md shadow-lg">
+  bg-blue-800 border border-4 border-gray-400 rounded-md shadow-lg">
   <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl text-white">
     <%= @item.description %>
   </h1>
@@ -24,10 +24,24 @@
       $<%= number_with_precision(@item.price, precision: 2) %>
   </h1>
   <% if @item.for_sale %>
-    <h3 class="bg-green-100 text-green-800 me-2 p-4 rounded">For Sale</span>
+    <h3 class="bg-green-100 text-green-800 p-4 rounded">For Sale</span>
   <% else %>
-    <h3 class="bg-red-100 text-red-800 me-2 p-4 rounded">Not For Sale</span>
+    <h3 class="bg-red-100 text-red-800  p-4 rounded">Not For Sale</span>
   <% end %>
+  <h1 class="p-4 bg-blue-800 text-white font-extrabold rounded
+    border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-blue-600">
+    Purchase Now
+  </h1>
+  <h1 class="p-4 text-blue-800 font-extrabold rounded
+    border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-gray-100">
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    Add to Cart
+  </h1>
+  <h1 class="p-4 text-blue-800 font-extrabold rounded
+    border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-gray-100">
+    <i class="fa fa-eye aria-hidden="true"></i>
+    Add to Watchlist
+  </h1>
   </div>
   <!-- Seller Details Column -->
   <div class="w-1/4 p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg 
