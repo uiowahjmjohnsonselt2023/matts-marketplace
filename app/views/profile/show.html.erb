@@ -1,30 +1,9 @@
 <div class="flex">
-  <aside id="my-profile-sidebar" class="flex-shrink-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-      <ul class="space-y-2 font-medium">
-        <li>
-          <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <span class="flex-1 ms-3 whitespace-nowrap">My Profile</span>
-          </a>
-        </li>
-        <li>
-          <a href="/purchases" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <span class="flex-1 ms-3 whitespace-nowrap">Purchase History</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <span class="flex-1 ms-3 whitespace-nowrap">Settings</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </aside>
+  <%= render partial: 'shared/sidebar' %>
   <div class="flex-grow p-10">
     <div class="flex items-center justify-center">
       <!-- Should  be replaced with an image -->
-      <!--       <img class="rounded-full border border-gray-100 shadow-sm" src=Replace alt="user image" /> -->
-<!--      <p class="rounded-full border border-gray-100 shadow-sm">No image available</p>-->
+      <img class="rounded-full border border-gray-100 shadow-sm" src="#" alt="user image" />
     </div>
     <div class="mt-6 border-t border-gray-100">
       <dl class="divide-y divide-gray-100">
@@ -34,11 +13,11 @@
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
           <dt class="text-sm font-medium leading-6 text-gray-900">Location</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @user.username %></dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @user.city + ", "+ @user.country unless @user.city.nil? and @user.country.nil? %></dd>
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
           <dt class="text-sm font-medium leading-6 text-gray-900">Rating</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @user.rating %></dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @user.rating.nil? ? "user rating is not available" : @user.rating %></dd>
         </div>
       </dl>
     </div>
