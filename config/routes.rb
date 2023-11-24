@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :chats
   get 'profile/show'
   get 'profile/edit'
-  get 'profile/update'
+  post 'profile/update'
   get 'home/index'
   resources :purchases
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
