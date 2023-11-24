@@ -5,7 +5,7 @@ class PurchasesController < ApplicationController
 
   # GET /purchases or /purchases.json
   def index
-    @purchases = current_user.purchases
+    @purchases = current_user.buyer_purchases
   end
 
   # GET /purchases/1 or /purchases/1.json
