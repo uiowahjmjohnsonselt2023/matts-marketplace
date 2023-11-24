@@ -20,11 +20,6 @@
   </p>
 
   <p>
-    <strong>Password digest:</strong>
-    <%= user.password_digest %>
-  </p>
-
-  <p>
     <strong>Username:</strong>
     <%= user.username %>
   </p>
@@ -32,6 +27,11 @@
   <p>
     <strong>Email:</strong>
     <%= user.email %>
+  </p>
+
+  <p>
+    <strong>Rating:</strong>
+    <%= number_with_precision(user.rating, precision: 2) %>
   </p>
 
 </div>
