@@ -2,7 +2,7 @@
   <div class="w-1/2 relative">
     <%= image_tag item.image_url, class: "h-full w-full rounded-full" %>
     <div class="absolute bottom-0 w-full text-center">
-      <div class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600">
+      <div class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white <%= item.for_sale ? 'bg-green-600' : 'bg-red-600' %>">
         <%= item.for_sale ? 'For Sale' : 'Not For Sale' %>
       </div>
     </div>
