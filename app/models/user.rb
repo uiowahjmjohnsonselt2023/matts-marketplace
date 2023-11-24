@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[google_oauth2]
 
   has_many :items
-  has_many :purchases, class_name: 'Purchase', foreign_key: 'purchase_id'
-  has_many :sales, class_name: 'Purchase', foreign_key: 'sale_id'
+  has_many :buyer_purchases, class_name: 'Purchase', foreign_key: 'buyer_id'
+  has_many :seller_purchases, class_name: 'Purchase', foreign_key: 'seller_id'
 
   # Chat function references
   has_many :buyer_chats, class_name: 'Chat', foreign_key: 'buyer_id'
