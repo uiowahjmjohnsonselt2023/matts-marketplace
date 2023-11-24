@@ -1,14 +1,24 @@
-<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-  <!-- Item picture -->
-  <a href="#">
-    <img class="p-8 rounded-t-lg" src="#" alt="product image" />
-  </a>
+<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow flex flex-col">
+  <div class="flex-grow-3 flex">
+    <a href="#" class="flex-grow">
+      <img class="p-8 rounded-t-lg" src="#" alt="product image" />
+    </a>
+
+    <!-- Star button -->
+    <div class="flex-none">
+      <%= button_to '#', class: 'group self-start m-2 focus:outline-none z-10', id: 'star-button', remote: true do %>
+        <svg id="star-icon" class="w-6 h-6 text-gray-400 fill-current group-hover:text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/>
+        </svg>
+      <% end %>
+    </div>
+  </div>
 
   <!--Item Card body -->
-  <div class="px-5 pb-5">
-    <a href="#">
+  <div class="px-5 pb-5 flex-grow-3">
+    <%= link_to item_path(item) do %>
       <h5 class="text-xl font-semibold tracking-tight text-gray-900 "><%= item.description %></h5>
-    </a>
+    <% end %>
     <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded"><%= item.category.name %></span>
     <% if item.for_sale %>
       <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">For Sale</span>

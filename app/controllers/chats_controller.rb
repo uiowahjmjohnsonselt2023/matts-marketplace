@@ -26,15 +26,24 @@ class ChatsController < ApplicationController
 
   # POST /chats or /chats.json
   def create
-    @chat = Chat.new(chat_params)
+    # Try to find an existing chat with the same buyer, seller, and item
+    @chat = Chat.find_by(buyer_id: current_user.id, seller_id: chat_params[:seller_id], item_id: chat_params[:item_id])
 
-    respond_to do |format|
+    if @chat
+      # If a chat is found, redirect to the chat and display a warning message
+      redirect_to @chat, alert: 'Chat already exists.'
+    else
+      # If no chat is found, create a new chat
+      @chat = Chat.new(chat_params)
+      @chat.buyer_id = current_user.id
+      @chat.seller_id = chat_params[:seller_id]
+      @chat.item_id = chat_params[:item_id]
+
       if @chat.save
-        format.html { redirect_to chat_url(@chat), notice: "Chat was successfully created." }
-        format.json { render :show, status: :created, location: @chat }
+        redirect_to @chat, notice: 'Chat was successfully created.'
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @chat.errors, status: :unprocessable_entity }
+        flash[:alert] = 'There was an error creating the chat.'
+        render :new
       end
     end
   end
