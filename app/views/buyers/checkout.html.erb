@@ -6,45 +6,25 @@
 </div>
 <div class="flex flex-row items-center justify-center">
   <div class="w-1/2 self-start flex-col">
-    <div class="p-4 m-4 border border-4
-      border-gray-200 rounded-lg shadow-lg">
-      <h1 class="text-center text-black text-4xl font-extrabold">
-        <%= @item.description %>
-      </h1>
-      <%= form_with url: purchases_path, method: "post", model: @purchase do |form| %>
-        <h1 class="p-4 m-4 text-2xl text-blue-800 font-extrabold border border-4 border-gray-200
-          rounded-lg shadow-lg"> 
-          Buy for: $<%= @item.price %>
-        <%= form.hidden_field :item_id, value: @item.id %>
-        <%= form.hidden_field :seller_id, value: @item.user.id %>
-        <%= form.hidden_field :buyer_id, value: @user.id %>
-        <%= form.submit "Confirm Purchase", class: "p-4 m-4 text-white font-bold 
-        rounded-lg bg-blue-600 hover:bg-blue-700" %>
-      </h1>
+  <div class="p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg flex flex-col items-center">
+    <h1 class="text-center text-black text-4xl font-extrabold">
+      <%= @item.description %>
+    </h1>
+    <%= form_with url: purchases_path, method: "post", model: @purchase do |form| %>
+      <h1 class="p-4 m-4 text-2xl text-blue-800 font-extrabold border border-4 border-gray-200 rounded-lg shadow-lg">
+        Buy for: $<%= @item.price %>
+      <%= form.hidden_field :item_id, value: @item.id %>
+      <%= form.hidden_field :seller_id, value: @item.user.id %>
+      <%= form.hidden_field :buyer_id, value: @user.id %>
+      <%= form.submit "Confirm Purchase", class: "p-4 m-4 text-white font-bold rounded-lg bg-blue-600 hover:bg-blue-700" %>
+    </h1>
     <% end %>
     <h1 class="text-center text-gray-400 text-3xl font-extrabold">
       Or
     </h1>
-    <div class="m-4 border border-4 border-gray-200 
-      rounded-lg shadow-lg">
-      <h1 class="p-4 text-2xl text-blue-800 font-extrabold">
-        Make Offer 
-      </h1>
-      <%= form_tag(confirm_buyer_path, method: "get", class: "text-2xl") do %>
-        <div class="flex p-4">
-          <%= label_tag "price", "Offer Price: $" %>
-          <%= text_field_tag "price", nil, class: "hover:bg-gray-200 border rounded" %>
-        </div>
-        <div class="flex p-4">
-          <%= label_tag "message", "Message To Seller:", class: "me-2" %>
-          <%= text_field_tag "price", nil, class: "hover:bg-gray-200 border rounded" %>
-        </div>
-        <%= submit_tag "Offer", class: "p-4 m-4 text-white font-bold rounded-lg bg-blue-600 
-        hover:bg-blue-700" %>
-    <% end %>
-    </div>
-    </div>
+    <%= button_to "Chat to make an offer to owner", chats_path, method: :post, params: { chat: { seller_id: @item.user_id, item_id: @item.id } }, class: "m-4 p-4 text-2xl font-extrabold border border-4 border-gray-200 rounded-lg shadow-lg text-white bg-blue-600 hover:bg-blue-700 w-full text-center" %>
   </div>
+</div>
   <div class="w-1/4">
     <!-- Image -->
     <div class="m-4 border border-4 border-gray-200 rounded-lg shadow-lg">
@@ -66,9 +46,9 @@
         $<%= number_with_precision(@item.price, precision: 2) %>
     </h1>
     <% if @item.for_sale %>
-      <h3 class="bg-green-100 text-green-800 p-4 rounded">For Sale</span>
+      <h3 class="bg-green-100 text-green-800 p-4 rounded">For Sale</h3>
     <% else %>
-      <h3 class="bg-red-100 text-red-800  p-4 rounded">Not For Sale</span>
+      <h3 class="bg-red-100 text-red-800  p-4 rounded">Not For Sale</h3>
     <% end %>
     <h1 class="p-4 text-blue-800 font-extrabold rounded
       border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-gray-100">
@@ -77,7 +57,7 @@
     </h1>
     <h1 class="p-4 text-blue-800 font-extrabold rounded
       border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-gray-100">
-      <i class="fa fa-eye aria-hidden="true"></i>
+      <i class="fa fa-eye aria-hidden=true"></i>
       Add to Watchlist
     </h1>
     </div>
