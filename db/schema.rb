@@ -45,19 +45,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_23_193833) do
   end
 
   create_table "messages", force: :cascade do |t|
-<<<<<<< HEAD
-=======
-    t.integer "user_id", null: false
-    t.string "content"
-    t.integer "chat_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chat_id"], name: "index_messages_on_chat_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
-  end
-
-  create_table "purchases", force: :cascade do |t|
->>>>>>> 0a5c466 (chore: updates schema)
     t.integer "user_id", null: false
     t.string "content"
     t.integer "chat_id", null: false
@@ -99,14 +86,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_23_193833) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-<<<<<<< HEAD
   add_foreign_key "chats", "items"
   add_foreign_key "chats", "users", column: "buyer_id"
   add_foreign_key "chats", "users", column: "seller_id"
-=======
-  add_foreign_key "chats", "buyers"
-  add_foreign_key "chats", "sellers"
->>>>>>> 0a5c466 (chore: updates schema)
   add_foreign_key "items", "categories"
   add_foreign_key "items", "users"
   add_foreign_key "messages", "chats"
