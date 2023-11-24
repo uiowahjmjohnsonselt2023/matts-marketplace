@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :chats
   get 'home/index'
   resources :purchases
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: 'u'
   resources :items do
     collection do
       get 'search'
