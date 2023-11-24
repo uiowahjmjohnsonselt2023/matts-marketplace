@@ -1,0 +1,32 @@
+<div class="flex">
+  <%= render partial: 'shared/sidebar' %>
+  <div class="flex-grow p-10">
+    <div class="flex items-center justify-center">
+      <!-- Should  be replaced with an image -->
+      <img class="rounded-full border border-gray-100 shadow-sm" src="#" alt="user image" />
+    </div>
+    <div class="mt-6 border-t border-gray-100">
+      <dl class="divide-y divide-gray-100">
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Username</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @user.username %></dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Location</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @user.city + ", "+ @user.country unless @user.city.nil? and @user.country.nil? %></dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Rating</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @user.rating.nil? ? "user rating is not available yet" : @user.rating %></dd>
+        </div>
+      </dl>
+    </div>
+    <div class="container py-10 px-10 mx-0 min-w-full flex flex-col items-center">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+        <a href="/profile/edit">
+          Edit Profile
+        </a>
+      </button>
+    </div>
+  </div>
+</div>

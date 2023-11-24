@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'profile/show'
+  get 'profile/edit'
+  post 'profile/update'
   resources :chats
   get 'home/index'
   resources :purchases
