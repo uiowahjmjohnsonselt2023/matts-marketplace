@@ -13,6 +13,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Link to tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Styles for messages (I tried so many other ways to do this, but this is the only one that worked) -->
+    <style>
+      .msg-general {
+          word-wrap: break-word;
+      }
+      <%= ".msg-#{current_user&.id}" %> {
+          background-color: #007bff !important;
+          color: white;
+          word-wrap: break-word;
+      }
+      <%= ".cont-#{current_user&.id}" %> {
+          display: flex;
+          justify-content: flex-end
+      }
+      <%= ".msg-time-#{current_user&.id}" %> {
+          color: #d4d4d8 !important;
+      }
+      <%= ".msg-author-#{current_user&.id}" %> {
+          opacity: 0;
+      }
+    </style>
   </head>
 
   <body>

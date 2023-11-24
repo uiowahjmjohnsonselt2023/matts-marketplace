@@ -28,9 +28,9 @@
             </a>
           </li>
           <li class="px-3 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-            <a href="/">
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            </a>
+            <%= link_to chats_path do %>
+              <i class="fa fa-comment" aria-hidden="true"></i>
+            <% end %>
           </li>
           <li class="px-2 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
             <%= button_to "Sign out", destroy_user_session_path, method: :delete %>

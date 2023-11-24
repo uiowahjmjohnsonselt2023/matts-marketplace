@@ -21,7 +21,7 @@ end
     country: "Country#{i}",
     username: "user#{i + 1}", # Start at user1 to avoid user0
     email: "user#{i + 1}@example.com",
-    password: "somepassword#{i + 1}",
+    password: "testtest",
     rating: 5 * rand(),
   )
 end
@@ -39,6 +39,15 @@ categories = Category.all
     featured_amount_paid: rand(1000),
     category: categories.sample,
     user: users.sample # This will randomly assign a user to each item
+  )
+end
+
+items = Item.all
+5.times do ||
+  Chat.create(
+    buyer: users.sample,
+    seller: users.sample,
+    item: items.sample,
   )
 end
 

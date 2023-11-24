@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_16_061601) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_21_205901) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.integer "buyer_id", null: false
+    t.integer "seller_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "item_id", null: false
+    t.index ["buyer_id"], name: "index_chats_on_buyer_id"
+    t.index ["item_id"], name: "index_chats_on_item_id"
+    t.index ["seller_id"], name: "index_chats_on_seller_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -31,6 +42,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_16_061601) do
     t.decimal "featured_amount_paid"
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "content"
+    t.integer "chat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "purchases", force: :cascade do |t|
@@ -55,7 +76,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_16_061601) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.decimal "rating"
     t.string "provider"
     t.string "uid"
     t.decimal "rating"
@@ -64,8 +84,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_16_061601) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "chats", "items"
+  add_foreign_key "chats", "users", column: "buyer_id"
+  add_foreign_key "chats", "users", column: "seller_id"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "users"
+  add_foreign_key "messages", "chats"
+  add_foreign_key "messages", "users"
   add_foreign_key "purchases", "items"
   add_foreign_key "purchases", "users"
 end

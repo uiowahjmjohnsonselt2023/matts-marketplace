@@ -1,0 +1,22 @@
+<div class="message">
+  <div class="cont-<%= message.user.id %>">
+    <div class="msg-author-<%= message.user.id %>  pl-4 text-left  text-gray-300" style="font-size: 10px">
+      <%= "#{message.user.first_name ? message.user.first_name : " "} #{(message.user.last_name) ? message.user.last_name[0] : " "}." %>
+    </div>
+    <div class="msg-general msg-<%= message.user.id %> block  mx-1 mb-1 w-max min-w-2/12 max-w-2xl rounded-2xl bg-gray-200 ">
+      <div class="grid-cols-1">
+        <!-- Message content-->
+        <div class="pt-2 px-3">
+          <div class="text-md">
+            <%= message.content %>
+          </div>
+        </div>
+
+        <!-- Message time-->
+        <div class="msg-time-<%= message.user.id %> pl-6 pr-2 pb-2 text-right  text-gray-400 text-opacity-80" style="font-size: 10px">
+          <%= message.created_at.strftime("%H:%M %Z") %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

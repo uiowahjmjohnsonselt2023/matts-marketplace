@@ -1,0 +1,48 @@
+<div class="grid grid-cols-6 md:grid-cols-6 max-w-screen h-screen mx-auto">
+  <!-- Partial for sidebar-->
+  <div class="col-span-1 flex flex-col">
+    <%= render partial: 'chats/sidebar', :locals => {:user => @user, :chat => chat} %>
+  </div>
+
+  <!-- message pane -->
+  <div id="<%= dom_id chat %>" class="col-span-5 z-0 flex flex-row">
+    <div class="flex-grow w-full">
+      <%= render partial: 'chats/item_card', :locals => {:chat => chat} %>
+      <div class="p-4 w-full">
+        <%= turbo_stream_from chat %>
+        <div id="messages" class="w-full">
+          <% if @messages %>
+            <%= render partial: @messages, :locals => {:user => @user}  %>
+          <% end %>
+        </div>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+
+  <!-- Send message field at the bottom of the screen. There are some bugs with different screen sizes making it look weird.-->
+  <div class="col-span-5 col-start-2 justify-self-end fixed bottom-0 block w-10/12  bg-opacity-0 z-50">
+    <%= form_tag(send_message_chat_path(chat), id: "send-message-form", method: "post", onsubmit: "resetForm()") do %>
+      <div class="py-4 px-6">
+        <%= label_tag "search", "Message:", class: "mb-2 text-sm font-medium sr-only text-white"%>
+        <div class="relative">
+          <%= text_field_tag "content", params[:content], required: true, class: "block w-full p-4 shadow-md text-sm border rounded-3xl focus:ring-blue-200 focus:border-blue-200 bg-white border-gray-200 placeholder-gray-400", placeholder: "Message", size: 50 %>
+          <%= submit_tag "Send", class: "text-white absolute end-2.5 bottom-2.5 focus:ring-4 focus:outline-none font-medium rounded-3xl text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Script to clear form after submission -->
+  <script>
+      function resetForm() {
+          setTimeout(function() {
+              document.getElementById("send-message-form").reset();
+          }, 500)
+
+      }
+  </script>
+
+</div>
