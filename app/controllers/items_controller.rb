@@ -115,9 +115,13 @@ class ItemsController < ApplicationController
   # app/controllers/items_controller.rb
   def toggle_wishlist
     item = Item.find(params[:item_id])
-    if current_user.wishlist_items.include?(item)
+    if current_user.nil?
+      flash[:alert] = "You must be logged in to add items to your wishlist!"
+    elsif current_user.wishlist_items.include?(item)
+      flash[:notice] = "Item removed from wishlist!"
       current_user.wishlist_items.delete(item)
     else
+      flash[:notice] = "Item added to wishlist!"
       current_user.wishlist_items << item
     end
     redirect_back(fallback_location: root_path)
