@@ -20,6 +20,10 @@ class ProfileController < ApplicationController
     end
   end
 
+  def wishlist
+    @items = current_user.wishlist_items
+  end
+
 
   private
   # Use callbacks to share common setup or constraints between actions.

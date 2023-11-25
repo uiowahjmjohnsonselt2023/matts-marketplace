@@ -39,11 +39,15 @@
     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
     Add to Cart
   </h1>
-  <h1 class="p-4 text-blue-800 font-extrabold rounded
-    border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-gray-100">
-    <i class="fa fa-eye aria-hidden="true"></i>
-    Add to Watchlist
-  </h1>
+    <% star_color = user_signed_in? && current_user.wishlist_items.include?(@item) ? 'text-yellow-500' : 'text-gray-400' %>
+    <%= button_to toggle_wishlist_path, method: :post, remote: true, class: 'group self-start m-2 focus:outline-none z-10', id: 'star-button', params: { item_id: @item.id } do %>
+  <div class="flex items-center">
+    <svg id="star-icon" class="w-6 h-6 fill-current <%= star_color %>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/>
+    </svg>
+    <span class="align-middle">Add to wishlist</span>
+  </div>
+<% end %>
   </div>
   <!-- Seller Details Column -->
   <div class="w-1/4 p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg 

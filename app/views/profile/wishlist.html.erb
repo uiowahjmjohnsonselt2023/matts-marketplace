@@ -1,0 +1,11 @@
+<div class="flex">
+  <%= render partial: 'shared/sidebar' %>
+  <div class="flex-grow p-10">
+    <h1 class="text-2xl font-bold mb-4">My Wishlist</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <% @items.each do |item| %>
+        <%= render partial: 'shared/itemcard', locals: { item: item } %>
+      <% end %>
+    </div>
+  </div>
+</div>
