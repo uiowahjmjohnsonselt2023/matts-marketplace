@@ -7,6 +7,7 @@ class AuthenticationController < ActionController::Base
 
   def authenticate_user!
     unless user_signed_in?
+      flash[:alert] = "You must be logged in to use this feature"
       redirect_to new_user_session_path
     end
   end
