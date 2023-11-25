@@ -1,0 +1,26 @@
+<h1>Items Sold by <%= current_user.username %></h1>
+
+<% if @seller_sold_items.any? %>
+  <table>
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Price</th>
+      <!-- Add more columns if needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <% @seller_sold_items.each do |item| %>
+      <tr>
+        <td><%= item.title %></td>
+        <td><%= item.description %></td>
+        <td><%= number_to_currency(item.price) %></td>
+        <!-- Add more columns if needed -->
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No items sold yet.</p>
+<% end %>
