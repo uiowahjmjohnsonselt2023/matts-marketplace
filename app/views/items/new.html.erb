@@ -1,9 +1,34 @@
 <h1>Sell New item</h1>
 
-<%= render "form", item: @item %>
+<%#= render "form", item: @item %>
 
-<br>
+<%= form_for @item do |f| %>
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.text_field :price, class: 'form-control', placeholder: 'Enter price' %>
+  </div>
 
-<div>
-  <%= link_to "Back to your items", sellers_path %>
-</div>
+  <div class="field">
+    <%= f.label :image_url %>
+    <%= f.text_field :price, class: 'form-control', placeholder: 'Enter image URL' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :price, class: 'form-control', placeholder: 'Enter description' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :for_sale do %>
+      <%= f.check_box :for_sale %>
+      For Sale
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :category_id %>
+    <%= f.collection_select(:category_id, Category.all, :id, :name, prompt: true) %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
