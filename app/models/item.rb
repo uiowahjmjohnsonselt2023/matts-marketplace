@@ -39,4 +39,6 @@ class Item < ApplicationRecord
     end
     items
   end
+
+
 end
