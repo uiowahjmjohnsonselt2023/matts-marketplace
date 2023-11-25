@@ -1,6 +1,6 @@
-<h1>Items Sold by <%= current_user.username %></h1>
+<h1>Items Sold by <%= current_user.email %></h1>
 
-<% if @seller_sold_items.any? %>
+<% if @seller_items.any? %>
   <table>
     <thead>
     <tr>
@@ -11,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    <% @seller_sold_items.each do |item| %>
+    <% @seller_items.each do |item| %>
       <tr>
         <td><%= item.title %></td>
         <td><%= item.description %></td>
@@ -24,3 +24,5 @@
 <% else %>
   <p>No items sold yet.</p>
 <% end %>
+
+<%= link_to 'Add New Item', new_item_path, class: 'btn btn-primary' %>
