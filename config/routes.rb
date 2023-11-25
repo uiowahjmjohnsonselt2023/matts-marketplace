@@ -43,4 +43,7 @@ Rails.application.routes.draw do
   # User auth routes
   get '\signup', to: 'users#new'
 
+  # Seller routes
+  get 'sellers', to: 'sellers#index', as: 'sellers'
+
 end
