@@ -2,7 +2,7 @@
     “GROUP“ : “G006“,
     “ALL_SPRINTS“ : {
         “SPRINT1_URL“ : https://matts-marketplace-sprint1-b1b217c5f325.herokuapp.com,
-        “SPRINT2_URL“ : http://blah.blee.boo/myapp,
+        “SPRINT2_URL“ : https://matts-marketplace-sprint2-eda0c86b9056.herokuapp.com,
         “SPRINT3_URL“ : http://blah.blee.boo/myapp,
         “FINAL_URL“ : http://blah.blee.boo/myapp
     }
