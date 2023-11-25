@@ -112,6 +112,17 @@ class ItemsController < ApplicationController
     end
   end
 
+  # app/controllers/items_controller.rb
+  def toggle_wishlist
+    item = Item.find(params[:item_id])
+    if current_user.wishlist_items.include?(item)
+      current_user.wishlist_items.delete(item)
+    else
+      current_user.wishlist_items << item
+    end
+    redirect_back(fallback_location: root_path)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_item

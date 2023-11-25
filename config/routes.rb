@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'profile/show'
   get 'profile/edit'
   post 'profile/update'
+  get 'profile/wishlist'
+  resources :chats
   get 'home/index'
   resources :purchases
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
@@ -29,6 +31,7 @@ Rails.application.routes.draw do
       post 'send_message', to: "chats#send_message"
     end
   end
+  post 'toggle_wishlist', to: 'items#toggle_wishlist'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

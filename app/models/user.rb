@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[google_oauth2]
 
   has_many :items
+  has_and_belongs_to_many :wishlist_items, class_name: "Item"
   has_many :buyer_purchases, class_name: 'Purchase', foreign_key: 'buyer_id'
   has_many :seller_purchases, class_name: 'Purchase', foreign_key: 'seller_id'
 
