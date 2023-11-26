@@ -26,14 +26,10 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     @item.user_id = current_user.id
 
-    respond_to do |format|
-      if @item.save
-        format.html { redirect_to item_url(@item), notice: "Item was successfully created." }
-        format.json { render :show, status: :created, location: @item }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
+    if @item.save
+      render sellers_path, notice: 'Item is on the market.'
+    else
+      render :new, notice: 'unsuccessful'
     end
   end
 
@@ -135,10 +131,10 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:price, :description, :image_url, :category, :for_sale)
+    params.require(:item).permit(:price, :description, :image_url, :category_id, :for_sale)
   end
 
   def search_params
-    params.permit(:search, :category, :price_range)
+    params.permit(:search, :category_id, :price_range)
   end
 end
