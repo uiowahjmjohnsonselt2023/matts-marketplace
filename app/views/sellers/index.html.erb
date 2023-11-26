@@ -1,28 +1,18 @@
-<h1>Items Sold by <%= current_user.email %></h1>
+<div class="z-10 py-5 px-36">
 
-<% if @seller_items.any? %>
-  <table>
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Price</th>
-      <!-- Add more columns if needed -->
-    </tr>
-    </thead>
-    <tbody>
-    <% @seller_items.each do |item| %>
-      <tr>
-        <td><%= item.title %></td>
-        <td><%= item.description %></td>
-        <td><%= number_to_currency(item.price) %></td>
-        <!-- Add more columns if needed -->
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>No items sold yet.</p>
-<% end %>
+  <% if @seller_items.any? %>
+    <div class="mb-10">
+      <h3 class="text-2xl font-semibold text-start m-4"> Your items </h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <% @seller_items.each do |item|%>
+          <%= render "/shared/itemcard", item: item, path_keyword: "buyer" %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <p>No items sold yet.</p>
+  <% end %>
 
-<%= link_to 'Add New Item', new_item_path, class: 'btn btn-primary' %>
+  <%= link_to 'Add New Item', new_item_path, class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
+
+</div>
