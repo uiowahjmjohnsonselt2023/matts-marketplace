@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
     @item.user_id = current_user.id
 
     if @item.save
-      render sellers_path, notice: 'Item is on the market.'
+      redirect_to sellers_path, notice: 'Item is on the market.'
     else
       render :new, notice: 'unsuccessful'
     end
