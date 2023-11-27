@@ -1,34 +1,48 @@
-<h1>Sell New item</h1>
 
-<%#= render "form", item: @item %>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2 class="my-5 text-2xl font-bold leading-9 tracking-tight text-gray-900">Sell new item</h2>
+    <!--(:price, :description, :image_url, :category, :for_sale)-->
+    <%= form_for @item do |f| %>
+      <div class="mb-2">
+        <%= f.label :price, class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <div class="mt-1">
+          <%= f.text_field :price, autofocus: true, class: "block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", placeholder: 'Enter price' %>
+        </div>
+      </div>
 
-<%= form_for @item do |f| %>
-  <div class="field">
-    <%= f.label :price %>
-    <%= f.text_field :price, class: 'form-control', placeholder: 'Enter price' %>
+      <div class="mb-2">
+        <%= f.label :description, class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <div class="mt-1">
+          <%= f.text_field :description, autofocus: true, class: "block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", placeholder: 'Enter description' %>
+        </div>
+      </div>
+
+      <div class="mb-2">
+        <%= f.label :image_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <div class="mt-1">
+          <%= f.text_field :image_url, autofocus: true, class: "block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", placeholder: 'Enter image URL' %>
+        </div>
+      </div>
+
+
+      <div class="mb-2">
+        <%= f.label :category, class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <div class="mt-1">
+          <%= f.collection_select(:category_id, Category.all, :id, :name, prompt: true) %>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <%= f.label :for_sale do %>
+          <%= f.check_box :for_sale %>
+          For Sale
+        <% end %>
+      </div>
   </div>
-
-  <div class="field">
-    <%= f.label :image_url %>
-    <%= f.text_field :price, class: 'form-control', placeholder: 'Enter image URL' %>
-  </div>
-
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_field :price, class: 'form-control', placeholder: 'Enter description' %>
-  </div>
-
-  <div class="field">
-    <%= f.label :for_sale do %>
-      <%= f.check_box :for_sale %>
-      For Sale
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :category_id %>
-    <%= f.collection_select(:category_id, Category.all, :id, :name, prompt: true) %>
-  </div>
-
-  <%= f.submit %>
+      <div class = 'flex flex-col items-center mt-3'>
+        <%= f.submit class: 'w-56 text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
+      </div>
+<!-- class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>-->
 <% end %>
+</div>
