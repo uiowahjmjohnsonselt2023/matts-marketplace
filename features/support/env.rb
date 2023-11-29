@@ -1,5 +1,6 @@
 require 'cucumber/rails'
 require 'rspec/expectations'
+require 'factory_bot/step_definitions'
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how

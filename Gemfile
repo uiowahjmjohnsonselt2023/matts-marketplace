@@ -77,6 +77,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem 'cucumber-rails', :require=>false
+  gem "factory_bot", "~> 6.4"
 end
 
 group :production do
