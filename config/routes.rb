@@ -17,6 +17,9 @@ Rails.application.routes.draw do
       get 'simple_search'
       get 'category_search'
     end
+    member do
+      get 'edit'
+    end
   end
   resources :buyers, only: [:index, :show] do
     member do
