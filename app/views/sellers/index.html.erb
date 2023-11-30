@@ -3,6 +3,9 @@
   <% if @seller_items.any? %>
     <div class="mb-10">
       <h3 class="text-2xl font-semibold text-start m-4"> Your items </h3>
+      <div class="mb-8">
+      <%= link_to 'Add New Item', new_item_path, class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
+      </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <% @seller_items.each do |item|%>
           <%= render "/shared/itemcard", item: item, path_keyword: "buyer" %>
@@ -10,9 +13,7 @@
       </div>
     </div>
   <% else %>
-    <p>No items sold yet.</p>
+    <h3 class="text-2xl font-semibold text-start m-4"> No items sold yet.</h3>
   <% end %>
-
-  <%= link_to 'Add New Item', new_item_path, class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
 
 </div>
