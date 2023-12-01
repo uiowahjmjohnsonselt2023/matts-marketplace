@@ -111,7 +111,7 @@ end
 
 ## Then ##
 Then /I should see a successful sign up message/ do
-  page.should have_content "Welcome! You have signed up successfully."
+  page.should have_content "Welcome! You have signed up successfully. Please create your profile first."
 end
 
 Then /I should see a user exists message/ do
