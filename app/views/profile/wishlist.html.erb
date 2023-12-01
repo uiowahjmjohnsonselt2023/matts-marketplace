@@ -1,11 +1,26 @@
 <div class="flex">
-  <%= render partial: 'shared/sidebar' %>
+  <div class="w-64"></div>
   <div class="flex-grow p-10">
-    <h1 class="text-2xl font-bold mb-4">My Wishlist</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <% @items.each do |item| %>
-        <%= render partial: 'shared/itemcard', locals: { item: item } %>
+    <h1 class="text-4xl font-bold mb-4">My Wishlist</h1>
+    <% if @wishlist_items == {} %>
+      <p class="text-xl">You have no items in your wishlist.</p>
+    <% else %>
+      <div class="mb-4">
+        <% @wishlist_items.keys.each do |category| %>
+          <%= link_to category.name, "##{category.name.parameterize}", class: 'mr-2 bg-gray-200 hover:bg-gray-300 p-1 rounded' %>
+        <% end %>
+      </div>
+      <% @wishlist_items.each do |category, items| %>
+        <div class="mb-8">
+          <h2 id="<%= category.name.parameterize %>" class="pt-16 -mt-16"></h2>
+          <h2 class="bg-gray-100 font-bold p-4 rounded-t-md text-2xl"><%= category.name %></h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 bg-gray-300 p-4 rounded-b-md">
+            <% items.each do |item| %>
+              <%= render partial: 'shared/itemcard', locals: { item: item } %>
+            <% end %>
+          </div>
+        </div>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>

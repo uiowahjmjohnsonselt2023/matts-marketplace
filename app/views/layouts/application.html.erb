@@ -42,15 +42,19 @@
     <!-- Navbar -->
     <%= render "/shared/navbar" %>
 
+    <% if @sidebar_present %>
+      <%= render "/shared/sidebar" %>
+    <% end %>
+
     <!--This will add the notice and alert flash messages to any view that derives from this view-->
     <!--Required by devise gem-->
     <% if flash[:notice].present? %>
-      <div class="flash notice">
+      <div class="flash notice <%= 'ml-64' if @sidebar_present %>">
         <%= flash[:notice] %>
       </div>
     <% end %>
     <% if flash[:alert].present? %>
-      <div class="flash alert">
+      <div class="flash alert <%= 'ml-64' if @sidebar_present %>">
         <%= flash[:alert] %>
       </div>
     <% end %>

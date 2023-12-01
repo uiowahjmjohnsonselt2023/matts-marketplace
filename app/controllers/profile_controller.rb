@@ -21,7 +21,11 @@ class ProfileController < ApplicationController
   end
 
   def wishlist
-    @items = current_user.wishlist_items
+    items = current_user.wishlist_items
+    # Make 2d array of items separated by category
+    @wishlist_items = items.group_by(&:category)
+    # Sort by number of items in each category while keeping the hash structure
+    @wishlist_items = @wishlist_items.sort_by { |category, items| items.length }.reverse.to_h
   end
 
 
