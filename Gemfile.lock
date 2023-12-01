@@ -126,6 +126,11 @@ GEM
       cucumber (>= 5, < 10)
       railties (>= 5.2, < 8)
     cucumber-tag-expressions (5.0.6)
+<<<<<<< HEAD
+=======
+    database_cleaner (2.0.2)
+      database_cleaner-active_record (>= 2, < 3)
+>>>>>>> 30290aa (fix: change view for the purchase history page)
     database_cleaner-active_record (2.1.0)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
@@ -149,10 +154,13 @@ GEM
       http_parser.rb (~> 0)
     erubi (1.12.0)
     eventmachine (1.2.7)
+<<<<<<< HEAD
     factory_bot (6.4.2)
       activesupport (>= 5.0.0)
     faker (3.2.2)
       i18n (>= 1.8.11, < 2)
+=======
+>>>>>>> 30290aa (fix: change view for the purchase history page)
     faraday (2.7.12)
       base64
       faraday-net_http (>= 2.0, < 3.1)
@@ -292,10 +300,13 @@ GEM
       activesupport (= 7.1.2)
       bundler (>= 1.15.0)
       railties (= 7.1.2)
+<<<<<<< HEAD
     rails-controller-testing (1.0.5)
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
+=======
+>>>>>>> 30290aa (fix: change view for the purchase history page)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -412,11 +423,17 @@ DEPENDENCIES
   byebug
   capybara
   cucumber-rails
+<<<<<<< HEAD
   database_cleaner-active_record
   debug
   devise (~> 4.9)
   factory_bot (~> 6.4)
   faker
+=======
+  database_cleaner
+  debug
+  devise (~> 4.9)
+>>>>>>> 30290aa (fix: change view for the purchase history page)
   guard-livereload
   guard-rspec
   importmap-rails
@@ -426,7 +443,10 @@ DEPENDENCIES
   pg
   puma (>= 5.0)
   rails (~> 7.1.1)
+<<<<<<< HEAD
   rails-controller-testing
+=======
+>>>>>>> 30290aa (fix: change view for the purchase history page)
   redis (>= 4.0.1)
   rspec
   rspec-rails
