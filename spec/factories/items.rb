@@ -4,6 +4,7 @@ FactoryBot.define do
     description { 'Example Item' }
     image_url { 'www' }
     for_sale { false }
+    user_id { 123 }
 
     transient do
       sequence(:category_name) { |n| "Category #{n}" }
@@ -20,6 +21,7 @@ FactoryBot.define do
       featured { false }
     end
     association :user, factory: :user
+    ##association :user, factory: :user, username: 'superuser' (might use this later)
   end
 end
 
