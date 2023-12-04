@@ -14,6 +14,10 @@ class User < ApplicationRecord
   has_many :seller_chats, class_name: 'Chat', foreign_key: 'seller_id'
   has_many :messages
 
+  # Review references
+  has_many :reviewer_reviews, class_name: 'Review', foreign_key: 'reviewer_id'
+  has_many :reviewee_reviews, class_name: 'Review', foreign_key: 'reviewee_id'
+
   def self.from_omniauth(auth)
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
       user.email = auth.info.email
