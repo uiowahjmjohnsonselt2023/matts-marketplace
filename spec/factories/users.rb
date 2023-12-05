@@ -1,12 +1,18 @@
 FactoryBot.define do
   factory :user do
-    email { 'user@example.com' }
+    email { Faker::Internet.unique.email }
     password { 'password' }
-    first_name { 'John' }
-    last_name { 'Doe' }
-    username { 'superuser' }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    username { |user| 'super' +  user.first_name }
 
     factory :user_with_items do
+      email { Faker::Internet.unique.email }
+      password { 'password' }
+      first_name { Faker::Name.first_name }
+      last_name { Faker::Name.last_name }
+      username { |user| 'super' +  user.first_name }
+
       transient do
         items_count { 5 }
       end

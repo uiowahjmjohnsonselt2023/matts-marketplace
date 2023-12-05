@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :item do
     price { 100 }
-    description { 'Example Item' }
+    description { Faker::Cannabis.strain }
     image_url { 'www' }
     for_sale { false }
-    user_id { 123 }
+    user_id { Faker::Number.unique.number(digits: 3) }
 
     transient do
       sequence(:category_name) { |n| "Category #{n}" }
