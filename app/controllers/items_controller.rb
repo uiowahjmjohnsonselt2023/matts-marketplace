@@ -15,7 +15,6 @@ class ItemsController < ApplicationController
   # GET /items/new
   def new
     @item = Item.new
-    @item.attributes = session.delete(:item_params) if session[:item_params].present?
   end
 
   # GET /items/1/edit
@@ -31,13 +30,7 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to sellers_path, notice: 'Item is on the market.'
     else
-      session[:item_params] = item_params.to_h
-      if @item.errors[:price].any?
-        flash[:alert] = 'Price must be a number greater than 0.'
-      else
-        flash[:alert] = 'Description or Category field is required'
-      end
-      redirect_to new_item_path
+      render :new, notice: 'unsuccessful'
     end
   end
 
@@ -47,12 +40,8 @@ class ItemsController < ApplicationController
     if @item.update(item_params)
       redirect_to sellers_path, notice: 'Item was successfully updated.'
     else
-      if @item.errors[:price].any?
-        flash[:alert] = 'Price must be a number greater than 0.'
-      else
-        flash[:alert] = 'Description or Category field is required'
-      end
-      redirect_to edit_item_path
+      flash[:alert] = "Field missing"
+      render :edit
     end
   end
 

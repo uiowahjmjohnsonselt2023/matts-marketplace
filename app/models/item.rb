@@ -5,7 +5,6 @@ class Item < ApplicationRecord
   has_many :chat # I am not sure if we want a has_many or has_one relationship here
   has_and_belongs_to_many :wishlist_users, class_name: "User"
   validates :price, :description, presence: true
-  validates :price, numericality: { greater_than: 0 }
 
   def self.search(terms, categories, price_range)
     self.search_explicit(terms, categories, price_range, true)
