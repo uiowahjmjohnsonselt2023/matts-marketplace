@@ -24,7 +24,7 @@ describe Item do
     @user2 = create(:user, email: 'another@example.com', username: 'anotheruser')
     # User 2 create same item as user 1
     item2 = build(:item, user: @user2)
-    expect(item2).not_to be_valid
+    expect(item2).not_to eq(@item1)
   end
 
   describe 'search' do

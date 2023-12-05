@@ -10,12 +10,12 @@ describe User do
   end
 
   it "has a unique email address" do
-    user2 = build(:user, email: "user@example.com")
+    user2 = build(:user, email: @user1.email)
     expect(user2).to_not be_valid
   end
 
   it "has a unique username" do
-    user2 = build(:user, username: "superuser")
+    user2 = build(:user, username: @user1.username)
     expect(user2).to_not be_valid
   end
 
