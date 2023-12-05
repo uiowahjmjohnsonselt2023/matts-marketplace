@@ -121,4 +121,66 @@ describe ItemsController, type: :controller do
       end
     end
   end
+
+  describe '#search' do
+    it 'redirects to items_path if search parameters are empty' do
+      post :search, params: { search: '', category: '', price_range: '' }
+      expect(flash[:alert]).to eq("Search terms included all items!")
+      expect(response).to redirect_to(items_path)
+    end
+    it 'redirects to items_path if no items are found' do
+      allow(Item).to receive(:search).and_return([])
+      post :search, params: { search: '@$%&', category: 'Cars', price_range: '>500' }
+      expect(flash[:alert]).to eq("No items found!")
+      expect(response).to redirect_to(items_path)
+    end
+    it 'renders search_items_path if items are found' do
+      items = [double('Item')]
+      allow(Item).to receive(:search).and_return(items)
+      post :search, params: { search: 'term', category: 'category', price_range: 'range' }
+      expect(flash[:notice]).to eq("Found 1 items!")
+      expect(response).to render_template(:search)
+    end
+  end
+
+  describe '#simple_search' do
+    it 'redirects to items_path if search parameter is empty' do
+      post :simple_search, params: { search: '' }
+      expect(response).to redirect_to(items_path)
+    end
+    it 'redirects to items_path if no items are found' do
+      allow(Item).to receive(:search).and_return([])
+      post :simple_search, params: { search: 'term' }
+      expect(flash[:alert]).to eq("No items found!")
+      expect(response).to redirect_to(items_path)
+    end
+    it 'renders search_items_path if items are found' do
+      items = [double('Item')]
+      allow(Item).to receive(:search).and_return(items)
+      post :simple_search, params: { search: 'term' }
+      expect(response).to render_template(:search)
+    end
+  end
+
+  describe '#category_search' do
+    before(:all) do
+      @category = create(:category)
+    end
+    it 'redirects to items_path if category parameter is empty' do
+      post :category_search, params: { category: '' }
+      expect(response).to redirect_to(items_path)
+    end
+    it 'redirects to items_path if no items are found' do
+      allow(Item).to receive(:search).and_return([])
+      post :category_search, params: { category: @category.name }
+      expect(flash[:alert]).to eq("No items found!")
+      expect(response).to redirect_to(items_path)
+    end
+    it 'renders search_items_path if items are found' do
+      items = [create(:item, category_id: @category.id)]
+      allow(Item).to receive(:search).and_return(items)
+      post :category_search, params: { category: @category.name }
+      expect(response).to render_template(:search)
+    end
+  end
 end
