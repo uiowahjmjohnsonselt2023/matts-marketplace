@@ -85,12 +85,23 @@ describe ChatsController, type: :controller do
 
   describe '#destroy' do
     it 'deletes the chat and redirects to chats_url' do
+      sign_in @buyer
       @chat = create(:chat, buyer: @buyer, seller: @seller, item: @item)
       expect {
         delete :destroy, params: { id: @chat.id }
       }.to change(Chat, :count).by(-1)
       expect(response).to redirect_to(chats_url)
       expect(flash[:notice]).to eq("Chat was successfully destroyed.")
+    end
+  end
+
+  describe '#send_message' do
+    it 'creates a message and assigns it to user' do
+      sign_in @buyer
+      @chat = create(:chat, buyer: @buyer, seller: @seller, item: @item)
+      fake_chat = double('chat')
+      allow(Chat).to receive(:find).with(@chat.id.to_s).and_return(fake_chat)
+      post :send_message, params: { id: @chat.id }
     end
   end
 end
