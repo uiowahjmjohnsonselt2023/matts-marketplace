@@ -57,7 +57,9 @@ group :development, :test do
   gem 'guard-livereload'
   gem 'byebug'
   gem 'simplecov', require: false
-  gem 'database_cleaner'
+  gem 'database_cleaner-active_record'
+  gem 'rails-controller-testing'
+  gem 'faker'
 end
 
 group :development do
