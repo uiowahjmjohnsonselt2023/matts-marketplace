@@ -2,6 +2,9 @@
 *.rbc
 /.config
 /coverage/
+coverage/.last_run.json
+coverage/.resultset.json
+coverage/*.html
 /InstalledFiles
 /pkg/
 /spec/reports/

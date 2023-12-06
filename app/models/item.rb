@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   has_many :chat # I am not sure if we want a has_many or has_one relationship here
   has_and_belongs_to_many :wishlist_users, class_name: "User"
   validates :price, :description, presence: true
+  validates :price, numericality: { greater_than: 0 }
 
   def self.search(terms, categories, price_range)
     self.search_explicit(terms, categories, price_range, true)
@@ -23,12 +24,18 @@ class Item < ApplicationRecord
         price_high = price_range[1].to_i
       end
     end
-    items = Item.where("price >= ? AND price <= ? AND for_sale == ?", price_low, price_high, for_sale)
+    items = 0
+    if for_sale
+      items = Item.where("price >= ? AND price <= ? AND for_sale", price_low, price_high)
+    else
+      items = Item.where("price >= ? AND price <= ? AND NOT for_sale", price_low, price_high)
+    end
     if !categories.nil? && !categories.empty?
       categories.each do |category|
-        category_object = Category.where("name == (?)", Item.sanitize_sql_like(category)).first
-        # Not sure how important the sanitize_sql_like is here, but it's probably a good idea
-        items = items.and(category_object.items) unless category.empty?
+        if !category.nil?
+          category_object = Category.where("name == (?)", category).first
+          items = items.and(category_object.items) unless category.empty?
+        end
       end
     end
     if !terms.nil? && !terms.empty?

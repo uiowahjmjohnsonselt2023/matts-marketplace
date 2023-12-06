@@ -9,12 +9,17 @@
       </a>
     </h1>
     <ul class="flex items-left align-baseline">
-      <li class="px-2 pb-1 pt-7 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
-          <%= link_to 'Buy', buyers_path, method: :get %>
-      </li>
-      <li class="px-2 pb-1 pt-7 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-          <%= link_to 'Sell', sellers_path, method: :get %>
-      </li>
+      <%= link_to buyers_path do %>
+        <li class="px-2 pb-3 pt-7 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+          Buy
+        </li>
+      <% end %>
+
+      <%= link_to sellers_path do %>
+        <li class="px-2 pb-3 pt-7 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+            Sell
+        </li>
+      <% end %>
     </ul>
   </nav>
 
@@ -22,25 +27,29 @@
     <div class="w-3/12 flex justify-end">
       <ul class="flex items-right right-2">
         <% if user_signed_in? %>
-          <li class="px-3  pb-2 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-            <a href="/profile/show">
-              <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-            </a>
-          </li>
-          <li class="px-3 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-            <%= link_to chats_path do %>
-              <i class="fa fa-comment" aria-hidden="true"></i>
-            <% end %>
-          </li>
-          <li class="px-2 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-            <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
-          </li>
+          <%= link_to profile_show_path do %>
+            <li class="px-3  pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </li>
+          <% end %>
+
+          <%= link_to chats_path do %>
+            <li class="px-3 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+                <i class="fa fa-comment" aria-hidden="true"></i>
+            </li>
+          <% end %>
+
+          <%= button_to destroy_user_session_path, method: :delete do %>
+            <li class="px-2 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+              Sign out
+            </li>
+          <% end  %>
         <% else %>
-          <li class="px-3 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-            <button type="button">
-              <%= link_to "Log in", new_user_session_path, :method => :get %>
-            </button>
-          </li>
+          <%= link_to new_user_session_path do %>
+            <li class="px-3 pb-3 pt-8 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+                Log in
+            </li>
+          <% end  %>
         <% end %>
       </ul>
     </div>
