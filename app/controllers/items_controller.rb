@@ -21,6 +21,9 @@ class ItemsController < ApplicationController
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
+    if @item.nil? || @item.user_id != current_user.id or
+      redirect_to root_path
+    end
   end
 
   # POST /items or /items.json
