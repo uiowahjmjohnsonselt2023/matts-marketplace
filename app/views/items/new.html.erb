@@ -1,11 +1,4 @@
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <script>
-    function showUpload() {
-      event.preventDefault();
-      location.reload(true);
-    }
-  </script>
-
   <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
     <h2 class="my-5 text-2xl font-bold leading-9 tracking-tight text-gray-900">Sell new item</h2>
     <%= form_for @item do |f| %>
@@ -46,26 +39,50 @@
         <% end %>
       </div>
 
-      <div class="mb-2">
-        <%= f.label :featured, class: "block text-sm font-medium leading-6 text-gray-900" %>
-        <div class="mt-1">
-          <%= f.check_box :featured, id: "featured-checkbox" %>
-          Feature item
-        </div>
-      </div>
-
-      <div class="mb-2" id="featured-amount-field" style="display: none;">
-        <%= f.label :featured_amount_paid, class: "block text-sm font-medium leading-6 text-gray-900" %>
-        <div class="mt-1">
-          <%= f.text_field :featured_amount_paid, class: "block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", placeholder: 'Enter amount' %>
-        </div>
-      </div>
-
-      <%= javascript_include_tag 'items/feature-item' %>
-
       <div class = 'flex flex-col items-center mt-3'>
         <%= f.submit value: 'Sell Item', class: 'w-56 text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
       </div>
     <% end %>
   </div>
+
+  <script>
+    function showUpload() {
+      event.preventDefault();
+      location.reload(true);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      restoreFormData();
+      window.addEventListener('beforeunload', function(event) {
+        // Save form data before the page is unloaded
+        console.log("Saving Form");
+        saveFormData();
+        console.log(sessionStorage.getItem('formData'));
+      });
+    });
+
+    function saveFormData() {
+      const formData = {
+        price: document.getElementById('item_price').value,
+        description: document.getElementById('item_description').value,
+        category: document.getElementById('item_category_id').value,
+        for_sale: document.getElementById('item_for_sale').value,
+      };
+
+      sessionStorage.setItem('formData', JSON.stringify(formData));
+    }
+
+    function restoreFormData() {
+      const storedData = sessionStorage.getItem('formData');
+
+      if (storedData) {
+        const formData = JSON.parse(storedData);
+        document.getElementById('item_price').value = formData.price;
+        document.getElementById('item_description').value = formData.description;
+        document.getElementById('item_category_id').value = formData.category;
+        document.getElementById('item_for_sale').value = formData.for_sale;
+      }
+    }
+  </script>
+
 </div>
