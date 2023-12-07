@@ -38,12 +38,20 @@ class ItemsController < ApplicationController
       redirect_to sellers_path, notice: 'Item is on the market.'
     else
       session[:item_params] = item_params.to_h
-      if @item.errors[:price].any?
-        flash[:alert] = 'Price must be a number greater than 0.'
-      else
-        flash[:alert] = 'Description or Category field is required'
-      end
+      flash[:alert] = display_alert(@item)
       redirect_to new_item_path
+    end
+  end
+
+  def display_alert(item)
+    if item.errors[:price].any?
+      'Price must be a number greater than 0.'
+    elsif item.featured && item.featured_amount_paid.nil?
+      'Enter feature amount if you want to feature your item.'
+    elsif item.errors[:featured_amount_paid].any?
+      'Feature amount must be a number greater than 0.'
+    else
+      'Description or Category field is required.'
     end
   end
 
@@ -156,7 +164,7 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:price, :description, :image_url, :category_id, :for_sale)
+    params.require(:item).permit(:price, :description, :image_url, :for_sale, :category_id, :featured, :featured_amount_paid)
   end
 
   def search_params
