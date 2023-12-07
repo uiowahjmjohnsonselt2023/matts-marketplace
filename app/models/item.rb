@@ -6,6 +6,8 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :wishlist_users, class_name: "User"
   validates :price, :description, presence: true
   validates :price, numericality: { greater_than: 0 }
+  validates :featured_amount_paid, presence: true, if: :featured?
+  validates :featured_amount_paid, numericality: { greater_than: 0 }, allow_nil: true
 
   def self.search(terms, categories, price_range)
     self.search_explicit(terms, categories, price_range, true)
@@ -48,5 +50,8 @@ class Item < ApplicationRecord
     items
   end
 
+  def featured?
+    featured.present? && featured == true
+  end
 
 end
