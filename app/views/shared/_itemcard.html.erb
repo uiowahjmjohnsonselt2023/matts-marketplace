@@ -1,22 +1,22 @@
 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow flex flex-col">
   <div class="flex-grow-3 flex">
-    <a href="<%= item.image_url %>" class="flex-grow">
-      <div class="w-[200px] h-[200px]">
-        <img class="object-cover p-8 rounded-t-lg" src="<%= item.image_url %>" alt="product image" />
+    <a href="<%= item.image_url %>" class="flex justify-center w-full">
+      <div class="flex justify-center h-[200px] overflow-hidden">
+        <img class="object-cover mt-4 rounded-lg" src="<%= item.image_url %>" alt="product image" />
       </div>
     </a>
 
+  </div>
+
+  <!--Item Card body -->
+  <div class="px-5 pb-5 flex-grow-3 relative">
     <!-- Star button -->
-    <div class="flex-none">
+    <div class="flex-none absolute top-0 right-0 m-4">
       <% star_color = user_signed_in? && current_user.wishlist_items.include?(item) ? 'text-yellow-400' : 'text-gray-400' %>
       <%= button_to toggle_wishlist_path(item_id: item.id), remote: true, method: :post do %>
         <i class="fa fa-star fa-lg p-4 fill-current <%= star_color %> hover:text-yellow-500 star-button"></i>
       <% end %>
     </div>
-  </div>
-
-  <!--Item Card body -->
-  <div class="px-5 pb-5 flex-grow-3">
     <%= link_to defined?(path_keyword) ?
                   send("#{path_keyword}_path", item) :
                   item_path(item) do %>
