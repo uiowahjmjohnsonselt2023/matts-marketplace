@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   # This is what you add to your controllers require authentication. It is actually so useful.
   before_action :authenticate_user!, only: %i[ show edit update destroy index]
-
+  before_action :require_admin, only: %i[ edit update destroy ]
   # GET /users or /users.json
   def index
     @users = User.all
@@ -69,5 +69,11 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :city, :country, :password_digest, :username, :email)
+    end
+
+    def require_admin
+      unless current_user&.admin?
+        redirect_to root_path, notice: "You must be an admin to access this page."
+      end
     end
 end
