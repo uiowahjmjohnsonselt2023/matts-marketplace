@@ -7,10 +7,8 @@
     <!-- Star button -->
     <div class="flex-none">
       <% star_color = user_signed_in? && current_user.wishlist_items.include?(item) ? 'text-yellow-400' : 'text-gray-400' %>
-      <%= button_to toggle_wishlist_path, method: :post, remote: true, class: 'group self-start m-2 focus:outline-none z-10', id: 'star-button', params: { item_id: item.id } do %>
-        <svg id="star-icon" class="w-6 h-6 fill-current <%= star_color %> hover:text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/>
-        </svg>
+      <%= button_to toggle_wishlist_path(item_id: item.id), remote: true, method: :post do %>
+        <i class="fa fa-star fa-lg p-4 fill-current <%= star_color %> hover:text-yellow-500 star-button"></i>
       <% end %>
     </div>
   </div>
@@ -53,7 +51,7 @@
 
     <!-- Price and details button -->
     <div class="flex items-center justify-between">
-      <span class="text-3xl font-bold text-gray-900">$<%= item.price %></span>
+      <span class="text-3xl font-bold text-gray-900">$<%= number_with_precision(item.price, precision: 2) %></span>
       <% if defined?(path_keyword) && path_keyword == "edit_item" %>
         <%= link_to "Edit", defined?(path_keyword) ?
                               send("#{path_keyword}_path", item) :
