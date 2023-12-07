@@ -5,8 +5,8 @@
 
   <div class="mt-4 mx-auto w-full max-w-lg">
     <div class="grid grid-cols-8 mb-2">
-      <div class="col-span-1 flex items-center justify-center rounded-full bg-gray-200 h-12 w-12 ">
-        <i class="fa fa-user text-xl"></i>
+      <div class="relative col-span-1 flex items-center justify-center rounded-full bg-gray-200 h-12 w-12 overflow-hidden">
+        <img class="absolute text-gray-400 z-1 object-cover rounded-lg" src="<%= @reviewee.image_url %>" onerror="this.src='https://cdn-q16l3wg5.files-simplefileupload.com/static/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL2FsQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--e1509662d3f3a28f04dd6a5127eb2b3981e73660/profilepic.jpg'" alt="" />
       </div>
 
       <div class="col-span-7 ml-1 mt-3">
