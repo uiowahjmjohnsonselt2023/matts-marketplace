@@ -9,11 +9,11 @@
     <div class="text-sm text-gray-500 mb-4"> Seller: <%= @item.user.first_name ? @item.user.first_name : "Seller" %> <%= @item.user.last_name ? @item.user.last_name : "Seller" %> </div>
 
     <div class="grid grid-cols-6">
-      <img src="<%=  @item.image_url ? @item.image_url : ""  %>" alt="product image" class="col-span-1 px-4 object-cover"/>
+      <img src="<%=  @item.image_url %>" onerror="this.src='https://cdn-q16l3wg5.files-simplefileupload.com/static/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL2VsQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--88a995926ad09f538e4626d129fe395c0eacedb2/itempic.png'" alt="product image" class="col-span-1 px-4 object-cover"/>
       <div class="col-span-5 ml-1">
         <div class="text-lg"><%= @item.description %></div>
         <div class="text-md text-gray-500 mb-2">Quantity: 1</div>
-        <div class="font-semibold text-lg mb-10">US $<%= @item.price %></div>
+        <div class="font-semibold text-lg mb-10">US $<%= number_with_precision(@item.price, precision: 2) %></div>
 
         <div class="font-semibold text-md mb-1">Delivery arranged directly with seller</div>
         <div class="font-normal text-gray-500 text-xs">The delivery of items in <strong>Matt's Marketplace</strong> is done strictly from user to user. Any arrangements for delivery are left for the seller and buyer to arrange through our user-to-user chat function.</div>
