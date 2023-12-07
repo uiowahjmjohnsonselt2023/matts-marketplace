@@ -73,53 +73,67 @@
           </div>
         </div>
       </div>
-      </div>
-      </div>
+  </div>
+</div>
 
 
-      <div class="mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" class="text-sm font-semibold leading-6 text-gray-900"><a href="/profile/show"> Cancel </a>
-        </button>
-        <div class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          <%= f.submit "Update Profile" %>
-        </div>
-    <% end %>
-    <script>
-        function showUpload() {
-            event.preventDefault();
-            location.reload(true);
-        }
+<div class="mt-6 flex items-center justify-end gap-x-6">
+  <button type="button" class="text-sm font-semibold leading-6 text-gray-900"><a href="/profile/show"> Cancel </a>
+  </button>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            restoreFormData();
-            window.addEventListener('beforeunload', function(event) {
-                // Save form data before the page is unloaded
-                saveFormData();
-            });
-        });
+  <div class = 'flex flex-col m-4'>
+    <%= f.submit value: 'Update Profile', id: 'submitButton', class: 'w-56 text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 disabled:bg-gray-600 disabled:cursor-not-allowed' %>
+  </div>
 
-        function saveFormData() {
-            const formData = {
-                price: document.getElementById('item_price').value,
-                description: document.getElementById('item_description').value,
-                category: document.getElementById('item_category_id').value,
-                for_sale: document.getElementById('item_for_sale').value,
-            };
+<% end %>
+<script>
+  function showUpload() {
+    event.preventDefault();
+    location.reload(true);
+  }
 
-            sessionStorage.setItem('formData', JSON.stringify(formData));
-        }
+  document.addEventListener('DOMContentLoaded', function() {
+    restoreFormData();
+    window.addEventListener('beforeunload', function(event) {
+      // Save form data before the page is unloaded
+      saveFormData();
+    });
+  });
 
-        function restoreFormData() {
-            const storedData = sessionStorage.getItem('formData');
+  function saveFormData() {
+    const formData = {
+      user_first_name: document.getElementById('user_first_name').value,
+      user_last_name: document.getElementById('user_last_name').value,
+      user_country: document.getElementById('user_country').value,
+      user_city: document.getElementById('user_city').value,
+      user_email: document.getElementById('user_email').value,
+    };
 
-            if (storedData) {
-                const formData = JSON.parse(storedData);
-                document.getElementById('item_price').value = formData.price;
-                document.getElementById('item_description').value = formData.description;
-                document.getElementById('item_category_id').value = formData.category;
-                document.getElementById('item_for_sale').value = formData.for_sale;
-            }
-        }
-    </script>
+    sessionStorage.setItem('formData', JSON.stringify(formData));
+  }
 
-    </div>
+  function restoreFormData() {
+    const storedData = sessionStorage.getItem('formData');
+
+    if (storedData) {
+      const formData = JSON.parse(storedData);
+      document.getElementById('user_first_name').value = formData.user_first_name;
+      document.getElementById('user_last_name').value = formData.user_last_name;
+      document.getElementById('user_country').value = formData.user_country;
+      document.getElementById('user_city').value = formData.user_city;
+      document.getElementById('user_email').value = formData.user_email;
+    }
+  }
+  const uploader = document.getElementById('user_image_url');
+
+  uploader.addEventListener("fileUploadStarted", function (e) {
+    document.getElementById('submitButton').disabled = true;
+  });
+
+  uploader.addEventListener("fileUploadSuccess", function (e) {
+    document.getElementById('submitButton').disabled = false;
+  });
+
+</script>
+
+</div>
