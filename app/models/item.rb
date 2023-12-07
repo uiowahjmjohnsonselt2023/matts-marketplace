@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   validates :price, :description, presence: true
   validates :price, numericality: { greater_than: 0 }
   validates :featured_amount_paid, presence: true, if: :featured?
-  validates :featured_amount_paid, numericality: { greater_than: 0 }, allow_nil: true
+  validates :featured_amount_paid, numericality: { greater_than: 0 }, if: :featured?
 
   def self.search(terms, categories, price_range)
     self.search_explicit(terms, categories, price_range, true)
