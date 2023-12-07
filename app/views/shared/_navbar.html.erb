@@ -20,6 +20,14 @@
             Sell
         </li>
       <% end %>
+
+      <% if current_user&.admin? %>
+        <%= link_to admin_manage_users_path do %>
+          <li class="px-2 pb-3 pt-7 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+            Admin
+          </li>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
 

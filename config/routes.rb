@@ -2,14 +2,12 @@ Rails.application.routes.draw do
   get 'profile/show'
   get 'profile/edit'
   post 'profile/update'
-  get 'profile/show'
-  get 'profile/edit'
-  post 'profile/update'
   get 'profile/wishlist'
   get 'profile/balance'
   post 'profile/add_balance', to: 'profile#add_balance', as: 'profile_add_balance'
   post 'profile/withdraw_balance', to: 'profile#withdraw_balance', as: 'profile_withdraw_balance'
   get 'home/index'
+  get 'admin/manage_users'
   resources :purchases
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: 'u'
   resources :items do
