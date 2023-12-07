@@ -55,9 +55,7 @@
       restoreFormData();
       window.addEventListener('beforeunload', function(event) {
         // Save form data before the page is unloaded
-        console.log("Saving Form");
         saveFormData();
-        console.log(sessionStorage.getItem('formData'));
       });
     });
 
