@@ -2,12 +2,13 @@ Rails.application.routes.draw do
   get 'profile/show'
   get 'profile/edit'
   post 'profile/update'
-  resources :chats
   get 'profile/show'
   get 'profile/edit'
   post 'profile/update'
   get 'profile/wishlist'
-  resources :chats
+  get 'profile/balance'
+  post 'profile/add_balance', to: 'profile#add_balance', as: 'profile_add_balance'
+  post 'profile/withdraw_balance', to: 'profile#withdraw_balance', as: 'profile_withdraw_balance'
   get 'home/index'
   resources :purchases
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: 'u'
@@ -34,13 +35,9 @@ Rails.application.routes.draw do
       post 'send_message', to: "chats#send_message"
     end
   end
-  post 'toggle_wishlist', to: 'items#toggle_wishlist'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-
-  # Defines the root path route ("/")
+  post 'chats/create', to: 'chats#create', as: 'chats_create'
+  post 'toggle_wishlist', to: 'items#toggle_wishlist', as: 'toggle_wishlist'
+  get 'toggle_wishlist', to: 'items#toggle_wishlist'
   root to: 'home#index'
 
   # User auth routes

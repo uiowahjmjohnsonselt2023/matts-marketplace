@@ -1,0 +1,88 @@
+<div class="flex">
+  <%= render partial: 'shared/sidebar' %>
+
+  <div class="flex-grow p-10">
+    <div class="mb-4">
+      <h2 class="text-3xl">Current Balance: $<%= number_with_precision(@user.balance, precision: 2) %></h2>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <%= button_tag 'Add to Balance', type: 'button', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded', data: { toggle: 'addModal', target: '#addBalanceModal' } %>
+      </div>
+
+      <div>
+        <%= button_tag 'Withdraw Funds', type: 'button', class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded', data: { toggle: 'withdrawModal', target: '#withdrawBalanceModal' } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="addBalanceModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="flex justify-between items-start">
+          <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+            Add Balance
+          </h3>
+          <button id="closeModalButton" class="ml-3 bg-white rounded-full p-1 hover:bg-gray-200 focus:outline-none">
+            <span class="sr-only">Close</span>
+            <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <%= form_with(url: profile_add_balance_path, method: :post, local: true) do |form| %>
+          <div class="mt-2">
+            <%= form.label :balance, 'Amount', class: 'block text-sm font-medium text-gray-700' %>
+            <%= form.number_field :balance, step: '0.01', min: '0', class: 'mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+          </div>
+          <div class="mt-5 sm:mt-6">
+            <%= form.submit 'Add Balance', class: 'inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="withdrawBalanceModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="flex justify-between items-start">
+          <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+            Withdraw Balance
+          </h3>
+          <button id="closeWithdrawModalButton" class="ml-3 bg-white rounded-full p-1 hover:bg-gray-200 focus:outline-none">
+            <span class="sr-only">Close</span>
+            <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <p class="text-sm text-gray-500">
+          Maximum withdrawal amount: <%= number_with_precision(@user.balance, precision:2) %>
+        </p>
+        <%= form_with(url: profile_withdraw_balance_path, method: :post, local: true) do |form| %>
+          <div class="mt-2">
+            <%= form.label :balance, 'Amount', class: 'block text-sm font-medium text-gray-700' %>
+            <%= form.number_field :balance, step: '0.01', min: '0', max: number_with_precision(@user.balance, precision:2), class: 'mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+          </div>
+          <div class="mt-5 sm:mt-6">
+            <%= form.submit 'Withdraw Balance', class: 'inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

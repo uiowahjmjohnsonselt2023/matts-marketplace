@@ -24,15 +24,12 @@ class PurchasesController < ApplicationController
   # POST /purchases or /purchases.json
   def create
     @purchase = Purchase.new(purchase_params)
-
-    respond_to do |format|
-      if @purchase.save
-        format.html { redirect_to purchase_url(@purchase), notice: "Purchase was successfully created." }
-        format.json { render :show, status: :created, location: @purchase }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
-      end
+    if @purchase.confirm_purchase?
+      # Redirect to the chats_create controller action
+      chat = Chat.create!(buyer_id: @purchase.buyer_id, seller_id: @purchase.seller_id, item_id: @purchase.item_id)
+      redirect_to :root, notice: "Purchase successful! A chat has been created for you and the seller to discuss delivery."
+    else
+      redirect_to :root, alert: "Purchase failed!"
     end
   end
 

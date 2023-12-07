@@ -4,8 +4,7 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @items = Item.all
-    @items = @items.where(for_sale: true)
+    redirect_to buyers_path
   end
 
   # GET /items/1 or /items/1.json
@@ -21,8 +20,12 @@ class ItemsController < ApplicationController
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
-    if @item.nil? || @item.user_id != current_user.id or
+    if @item.nil? || @item.user_id != current_user.id
       redirect_to root_path
+    end
+    if @item.sold
+      flash[:alert] = "You cannot edit an item that has been sold!"
+      redirect_to items_path
     end
   end
 
@@ -47,6 +50,15 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1 or /items/1.json
   def update
     @item = Item.find(params[:id])
+    if @item.sold
+      flash[:alert] = "You cannot edit an item that has been sold!"
+      redirect_to items_path
+    end
+    if @item.user_id != current_user.id
+      flash[:alert] = "You cannot edit an item that you do not own!"
+      redirect_to items_path
+    end
+
     if @item.update(item_params)
       redirect_to sellers_path, notice: 'Item was successfully updated.'
     else
