@@ -6,7 +6,7 @@
       <div class="relative flex items-center">
         <h1 class="text-5xl font-semibold text-start m-4"> Your items </h1>
         <div class="absolute end-10 bottom-3">
-          <%= link_to 'Add Item', new_item_path, class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
+          <%= link_to 'Add Item', new_item_path, onclick: 'clearItemForm()', class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
         </div>
       </div>
 
@@ -78,7 +78,7 @@
     </div>
   <% end %>
   <script>
-    clearItemForm() {
+    function clearItemForm() {
       sessionStorage.removeItem('formData');
     }
   </script>
