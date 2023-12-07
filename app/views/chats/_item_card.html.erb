@@ -1,6 +1,6 @@
 <%= link_to send("buyer_path", chat.item) do %>
   <div class="flex sticky top-16 z-50 items-left h-16 border border-gray-200 shadow bg-opacity-95 bg-gray-100">
-    <img class="object-cover mt-auto mb-auto ml-4 w-auto rounded-lg h-full max-w-xs max-h-10 " src="<%= chat.item.image_url %>" alt="">
+    <img class="object-cover mt-auto mb-auto ml-4 w-auto rounded-lg h-full max-w-xs max-h-10 " src="<%= chat.item.image_url %>" onerror="this.src='https://cdn-q16l3wg5.files-simplefileupload.com/static/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL2VsQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--88a995926ad09f538e4626d129fe395c0eacedb2/itempic.png'" alt="">
     <div class="flex flex-col justify-start px-4 mt-1 leading-normal">
       <h5 class="mb-0 text-xl font-bold tracking-tight text-gray-900"><%= chat.item.description %></h5>
       <div class="flex items-center mb-2 justify-between">
