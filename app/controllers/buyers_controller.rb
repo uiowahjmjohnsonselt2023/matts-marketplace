@@ -5,7 +5,7 @@ class BuyersController < ApplicationController
   end
 
   def show
-    @item = Item.where(for_sale: true).find(params[:id])
+    @item = Item.find(params[:id])
     render layout: 'application'
   end
   def checkout
