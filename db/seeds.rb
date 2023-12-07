@@ -26,6 +26,18 @@ end
   )
 end
 
+User.create!(
+  first_name: "Hans",
+  last_name: "Johnson",
+  city: "Iowa City",
+  country: "USA",
+  username: "hjmjohnson",
+  email: "hans@uiowa.edu",
+  password: "adminpassword",
+  rating: 5,
+  admin: true
+  )
+
 users = User.all
 categories = Category.all
 
