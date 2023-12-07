@@ -85,6 +85,7 @@ end
 
 group :production do
   gem "pg"
+  gem 'faker'
 end
 
 gem "devise", "~> 4.9"
