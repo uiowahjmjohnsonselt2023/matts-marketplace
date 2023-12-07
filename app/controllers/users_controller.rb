@@ -123,13 +123,13 @@ class UsersController < ApplicationController
       params.require(:user).permit(:first_name, :last_name, :city, :country, :password_digest, :username, :email, :balance, :rating, :admin, :banned)
     end
 
+    def review_params
+      params.require(:review).permit(:rating, :title, :content)
+    end
+
     def require_admin
       unless current_user&.admin?
         redirect_to root_path, notice: "You must be an admin to access this page."
       end
     end
-
-  def review_params
-    params.require(:review).permit(:rating, :title, :content)
-  end
 end
