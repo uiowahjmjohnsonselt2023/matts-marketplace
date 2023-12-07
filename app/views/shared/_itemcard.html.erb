@@ -61,8 +61,14 @@
       <% else %>
         <%= link_to "Details", defined?(path_keyword) ?
                                  send("#{path_keyword}_path", item) :
-                                 item_path(item), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+                                 item_path(item), onclick: 'clearItemForm()', class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
       <% end %>
     </div>
   </div>
+    <script>
+    function clearItemForm() {
+      sessionStorage.removeItem('formData');
+    }
+  </script>
+
 </div>
