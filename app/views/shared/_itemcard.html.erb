@@ -33,8 +33,8 @@
     <!-- User name, avatar, and rating-->
     <div class="flex items-center mt-2.5 mb-5">
       <div class="flex items-center space-x-1 rtl:space-x-reverse text-sm">
-        <div class="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full ">
-          <svg class="absolute w-8 h-8 text-gray-400 -left-1 z-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+        <div class="relative w-8 h-8 overflow-hidden bg-gray-100 rounded-full ">
+          <img class="absolute w-8 h-8 text-gray-400 z-1 object-cover rounded-lg" src="<%= item.user.image_url %>" onerror="this.src='https://cdn-q16l3wg5.files-simplefileupload.com/static/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL2FsQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--e1509662d3f3a28f04dd6a5127eb2b3981e73660/profilepic.jpg'" alt="" />
         </div>
         <p class="pl-1 pr-2">
           <%= item.user.first_name %> <%= item.user.last_name %>
