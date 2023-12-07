@@ -19,7 +19,7 @@
       <div class="mb-2">
         <%= f.label :image_url, class: "block text-sm font-medium leading-6 text-gray-900", "Upload Image" %>
         <div class="mt-1">
-          <%= f.hidden_field :image_url, class: "simple-file-upload" %>
+          <%= f.hidden_field :image_url, class: "simple-file-upload", data: { accepted: "image/*", tag: "item", resizeWidth: 200 } %>
         </div>
       </div>
 
