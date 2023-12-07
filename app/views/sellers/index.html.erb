@@ -2,15 +2,52 @@
 
   <% if @seller_items.any? %>
     <div class="mb-10">
-      <h3 class="text-2xl font-semibold text-start m-4"> Your items </h3>
+      <h1 class="text-5xl font-semibold text-start m-4"> Your items: </h1>
       <div class="mb-8">
       <%= link_to 'Add New Item', new_item_path, class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <% @seller_items.each do |item|%>
-          <%= render "/shared/itemcard", item: item, path_keyword: "edit_item" %>
+
+      <!-- For Sale Items -->
+      <details class="mb-4 border-t border-gray-300 bg-gray-200 rounded-lg">
+        <summary class="cursor-pointer text-xl font-semibold italic bg-gray-100 p-6 rounded-lg">For Sale</summary>
+        <% if @seller_for_sale.any? %>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <% @seller_for_sale.each do |item|%>
+              <%= render "/shared/itemcard", item: item, path_keyword: "edit_item" %>
+            <% end %>
+          </div>
+        <% else %>
+          <p>You don't have any items for sale.</p>
         <% end %>
-      </div>
+      </details>
+
+      <!-- Not For Sale Items -->
+      <details class="mb-4 border-t border-gray-300 bg-gray-200 rounded-lg">
+        <summary class="cursor-pointer text-xl font-semibold italic bg-gray-100 p-6 rounded-lg">Not For Sale</summary>
+        <% if @seller_not_for_sale.any? %>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <% @seller_not_for_sale.each do |item|%>
+              <%= render "/shared/itemcard", item: item, path_keyword: "edit_item" %>
+            <% end %>
+          </div>
+        <% else %>
+          <p>You don't have any items not for sale.</p>
+        <% end %>
+      </details>
+
+      <!-- Sold Items -->
+      <details class="mb-4 border-t border-gray-300 bg-gray-200 rounded-lg">
+        <summary class="cursor-pointer text-xl font-semibold italic bg-gray-100 p-6 rounded-lg">Sold</summary>
+        <% if @seller_sold.any? %>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <% @seller_sold.each do |item|%>
+              <%= render "/shared/itemcard", item: item, path_keyword: "edit_item" %>
+            <% end %>
+          </div>
+        <% else %>
+          <p>You don't have any sold items.</p>
+        <% end %>
+      </details>
     </div>
   <% else %>
     <h3 class="text-2xl font-semibold text-start m-4"> No items sold yet.</h3>
