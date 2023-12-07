@@ -16,10 +16,12 @@
         </div>
       </div>
 
+      <button onclick="showUpload()" class="w-56 text-black focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-gray-200 hover:bg-gray-400 focus:ring-gray-200">
+        Upload Image
+      </button>
       <div class="mb-2">
-        <%= f.label :image_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
         <div class="mt-1">
-          <%= f.text_field :image_url, autofocus: true, class: "block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", placeholder: 'Enter image URL' %>
+          <%= f.hidden_field :image_url, class: "simple-file-upload" %>
         </div>
       </div>
 
@@ -37,9 +39,52 @@
         <% end %>
       </div>
 
-      <div class = 'flex flex-col items-center mt-3'>
-        <%= f.submit value: 'Save', class: 'w-56 text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
+      <div class = 'flex flex-col mt-3'>
+        <%= f.submit value: 'Save', id: 'submitButton', disabled: true, class: 'w-56 text-black focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-gray-200 hover:bg-gray-400 focus:ring-gray-200' %>
       </div>
       </div>
     <% end %>
+      <script>
+    function showUpload() {
+      event.preventDefault();
+      location.reload(true);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      restoreFormData();
+      window.addEventListener('beforeunload', function(event) {
+        // Save form data before the page is unloaded
+        saveFormData();
+      });
+    });
+
+    function saveFormData() {
+      const formData = {
+        price: document.getElementById('item_price').value,
+        description: document.getElementById('item_description').value,
+        category: document.getElementById('item_category_id').value,
+        for_sale: document.getElementById('item_for_sale').value,
+      };
+
+      sessionStorage.setItem('formData', JSON.stringify(formData));
+    }
+
+    function restoreFormData() {
+      const storedData = sessionStorage.getItem('formData');
+
+      if (storedData) {
+        const formData = JSON.parse(storedData);
+        document.getElementById('item_price').value = formData.price;
+        document.getElementById('item_description').value = formData.description;
+        document.getElementById('item_category_id').value = formData.category;
+        document.getElementById('item_for_sale').value = formData.for_sale;
+      }
+    }
+
+    const uploader = document.getElementById('item_image_url');
+    uploader.addEventListener("fileUploadSuccess", function (e) {
+      document.getElementById('submitButton').disabled = false;
+    });
+  </script>
+
 </div>
