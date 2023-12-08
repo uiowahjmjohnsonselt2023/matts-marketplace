@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'profile/show'
   get 'profile/edit'
-  post 'profile/update'
+  patch 'profile/update'
   get 'profile/wishlist'
   get 'profile/balance'
   post 'profile/add_balance', to: 'profile#add_balance', as: 'profile_add_balance'
