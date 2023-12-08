@@ -1,0 +1,36 @@
+<div class="flex">
+  <%= render partial: 'shared/admin_sidebar' %>
+  <div class="flex-grow p-10">
+    <div class="mb-10">
+      <h3 class="text-2xl font-semibold text-start m-4"> Manage Purchases</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <table class="min-w-full bg-white border border-gray-300">
+          <thead>
+          <tr>
+            <th class="py-3 px-6 text-center">Item Name</th>
+            <th class="py-3 px-6 text-center">Item Price</th>
+            <th class="py-3 px-6 text-center">Buyer</th>
+            <th class="py-3 px-6 text-center">Seller</th>
+            <th class="py-3 px-6 text-center">Purchased On</th>
+            <th class="py-3 px-6 text-center">Destroy</th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+          <% @purchases.each do |purchase|%>
+            <tr>
+              <td class="py-3 px-6 text-center"><%= purchase&.item.description || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= purchase&.item.price.try(:round, 2) || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= (purchase&.buyer.first_name + " " + purchase&.buyer.last_name) || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= (purchase&.seller.first_name + " " + purchase&.seller.last_name) || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= purchase&.created_at.try(:to_date) || "N/A"%></td>
+              <td class="py-3 px-6 text-center">
+                <%= button_to 'Destroy', purchase_path(purchase), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

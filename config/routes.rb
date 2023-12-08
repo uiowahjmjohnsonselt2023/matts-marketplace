@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'profile/withdraw_balance', to: 'profile#withdraw_balance', as: 'profile_withdraw_balance'
   get 'home/index'
   get 'admin/manage_users'
+  get 'admin/manage_purchases'
   resources :purchases
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: 'u'
   resources :items do

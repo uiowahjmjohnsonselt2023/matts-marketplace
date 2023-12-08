@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :set_purchase, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  before_action :require_admin, only: %i[ edit update destroy ]
 
 
   # GET /purchases or /purchases.json
@@ -51,7 +52,7 @@ class PurchasesController < ApplicationController
     @purchase.destroy!
 
     respond_to do |format|
-      format.html { redirect_to purchases_url, notice: "Purchase was successfully destroyed." }
+      format.html { redirect_to admin_manage_purchases_url, notice: "Purchase was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,5 +66,11 @@ class PurchasesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def purchase_params
       params.require(:purchase).permit(:seller_id, :buyer_id, :item_id)
+    end
+
+    def require_admin
+      unless current_user&.admin?
+        redirect_to root_path, notice: "You must be an admin to access this page."
+      end
     end
 end
