@@ -108,4 +108,28 @@ describe UsersController, type: :controller do
       expect(flash[:notice]).to eq('User was successfully destroyed.')
     end
   end
+
+  describe '#review' do
+    before(:each) do
+      @reviewer = create(:user)
+      sign_in @reviewer
+      @reviewee = create(:user)
+    end
+    it 'only allows user to review each user once' do
+      review_params = { title: 'Another Review', content: 'This should not be created', rating: 4 }
+      create(:review, reviewer: @reviewer, reviewee: @reviewee)
+      expect {
+        post :review, params: { id: @reviewee.id, review: review_params }
+      }.not_to change(Review, :count)
+      expect(response).to redirect_to(user_path(@reviewee))
+      expect(flash[:notice]).to eq('You can only review a seller once!')
+    end
+    it 'creates a review for the user' do
+      review_params = { title: 'Great Seller', content: 'Excellent service!', rating: 5 }
+      expect {
+        post :review, params: { id: @reviewer.id, review: review_params }
+      }.to change(Review, :count).by(1)
+      expect(response).to redirect_to(user_path(@reviewer))
+    end
+  end
 end
