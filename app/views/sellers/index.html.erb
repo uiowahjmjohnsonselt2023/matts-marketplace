@@ -2,16 +2,23 @@
 
   <% if @seller_items.any? %>
     <div class="mb-10">
-      <h1 class="text-5xl font-semibold text-start m-4"> Your items: </h1>
-      <div class="mb-8">
-      <%= link_to 'Add New Item', new_item_path, class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
+      <div class="relative flex items-center">
+        <h1 class="text-5xl font-semibold text-start m-4"> Your items </h1>
+        <div class="absolute end-10 bottom-3">
+          <%= link_to 'Add Item', new_item_path, class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
+        </div>
       </div>
 
+
       <!-- For Sale Items -->
-      <details class="mb-4 border-t border-gray-300 bg-gray-200 rounded-lg">
-        <summary class="cursor-pointer text-xl font-semibold italic bg-gray-100 p-6 rounded-lg">For Sale</summary>
+      <details class="bg-white rounded-2xl">
+        <summary class="cursor-pointer text-xl font-semibold bg-white p-6 rounded-lg">
+          <span class="px-2">
+            For Sale
+          </span>
+        </summary>
         <% if @seller_for_sale.any? %>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 m-4">
             <% @seller_for_sale.each do |item|%>
               <%= render "/shared/itemcard", item: item, path_keyword: "edit_item" %>
             <% end %>
@@ -21,37 +28,49 @@
         <% end %>
       </details>
 
+      <div class="border-t border-gray-200 w-full my-2"></div>
+
       <!-- Not For Sale Items -->
-      <details class="mb-4 border-t border-gray-300 bg-gray-200 rounded-lg">
-        <summary class="cursor-pointer text-xl font-semibold italic bg-gray-100 p-6 rounded-lg">Not For Sale</summary>
+      <details class=" bg-white rounded-2xl">
+        <summary class="cursor-pointer text-xl font-semibold bg-white p-6 rounded-lg">
+          <span class="px-2">
+            Not for Sale
+          </span>
+        </summary>
         <% if @seller_not_for_sale.any? %>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 m-4">
             <% @seller_not_for_sale.each do |item|%>
               <%= render "/shared/itemcard", item: item, path_keyword: "edit_item" %>
             <% end %>
           </div>
         <% else %>
-          <p>You don't have any items not for sale.</p>
+          <p class="text-center text-gray-400 text-md py-6">You don't have any items not for sale.</p>
         <% end %>
       </details>
 
+      <div class="border-t border-gray-200 w-full my-2"></div>
+
       <!-- Sold Items -->
-      <details class="mb-4 border-t border-gray-300 bg-gray-200 rounded-lg">
-        <summary class="cursor-pointer text-xl font-semibold italic bg-gray-100 p-6 rounded-lg">Sold</summary>
+      <details class=" bg-white rounded-2xl">
+        <summary class="cursor-pointer text-xl font-semibold bg-white p-6 rounded-lg">
+          <span class="px-2">
+            Sold
+          </span>
+        </summary>
         <% if @seller_sold.any? %>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 m-4">
             <% @seller_sold.each do |item|%>
               <%= render "/shared/itemcard", item: item, path_keyword: "edit_item" %>
             <% end %>
           </div>
         <% else %>
-          <p>You don't have any sold items.</p>
+          <p class="text-center text-gray-400 text-md">You don't have any sold items.</p>
         <% end %>
       </details>
     </div>
   <% else %>
     <h3 class="text-2xl font-semibold text-start m-4"> No items sold yet.</h3>
-    <div class="mb-8">
+    <div class="mb-2">
       <%= link_to 'Add New Item', new_item_path, class: 'text-white ml-4 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' %>
     </div>
   <% end %>
