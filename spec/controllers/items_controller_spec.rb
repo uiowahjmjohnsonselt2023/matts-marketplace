@@ -65,14 +65,26 @@ describe ItemsController, type: :controller do
         expect(flash[:notice]).to eq('Item is on the market.')
       end
       it 'shows correct flash message when price input is not a number' do
-        post :create, params: { item: attributes_for(:item, price: '100 dollars') }
+        post :create, params: { item: attributes_for(:item, price: '100 dollars', featured: false) }
         expect(response).to redirect_to(new_item_path)
         expect(flash[:alert]).to eq('Price must be a number greater than 0.')
       end
       it 'shows correct flash message when description or category is empty' do
         post :create, params: { item: attributes_for(:item, description: nil) }
         expect(response).to redirect_to(new_item_path)
-        expect(flash[:alert]).to eq('Description or Category field is required')
+        expect(flash[:alert]).to eq('Description or Category field is required.')
+      end
+      context 'and feature checkbox is checked' do
+        it 'shows correct flash message when feature amount is not entered' do
+          post :create, params: { item: attributes_for(:item, featured: true, featured_amount_paid: nil) }
+          expect(response).to redirect_to(new_item_path)
+          expect(flash[:alert]).to eq('Enter feature amount if you want to feature your item.')
+        end
+        it 'shows correct flash message when feature amount is not a number above 0' do
+          post :create, params: { item: attributes_for(:item, featured: true, featured_amount_paid: 0) }
+          expect(response).to redirect_to(new_item_path)
+          expect(flash[:alert]).to eq('Feature amount must be a number greater than 0.')
+        end
       end
     end
   end
