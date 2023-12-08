@@ -5,6 +5,8 @@ FactoryBot.define do
     image_url { 'www' }
     for_sale { false }
     user_id { Faker::Number.unique.number(digits: 3) }
+    featured { false }
+    featured_amount_paid { 0.0 }
 
     transient do
       sequence(:category_name) { |n| "Category #{n}" }
