@@ -1,0 +1,38 @@
+<div class="flex">
+  <%= render partial: 'shared/admin_sidebar' %>
+  <div class="flex-grow p-10">
+    <div class="mb-10">
+      <h3 class="text-2xl font-semibold text-start m-4">Manage Items</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <table class="min-w-full bg-white border border-gray-300">
+          <thead>
+          <tr>
+            <th class="py-3 px-6 text-center">Name</th>
+            <th class="py-3 px-6 text-center">Category</th>
+            <th class="py-3 px-6 text-center">Price</th>
+            <th class="py-3 px-6 text-center">Seller</th>
+            <th class="py-3 px-6 text-center">Created On</th>
+            <th class="py-3 px-6 text-center">For Sale</th>
+            <th class="py-3 px-6 text-center">Sold</th>
+            <th class="py-3 px-6 text-center">Edit</th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+          <% @items.each do |item|%>
+            <tr>
+              <td class="py-3 px-6 text-center"><%= item&.description || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= item&.category&.name || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= item&.price.try(:round, 2) || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= (item&.user&.first_name + " " + item&.user&.last_name) || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= item&.created_at.try(:to_date) || "N/A"%></td>
+              <td class="py-3 px-6 text-center"><%= item.for_sale.nil? ? "N/A": (item.for_sale ? "O" : "X") %></td>
+              <td class="py-3 px-6 text-center"><%= item.sold.nil? ? "N/A": (item.sold ? "O" : "X") %></td>
+              <td class="py-3 px-6 text-center">  <%= link_to "Edit", admin_edit_item_path(item), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

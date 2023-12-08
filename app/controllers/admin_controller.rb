@@ -9,6 +9,10 @@ class AdminController < ApplicationController
     @purchases = Purchase.all
   end
 
+  def manage_items
+    @items = Item.all
+  end
+
   private
   def require_admin
     unless current_user&.admin?

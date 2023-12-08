@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'admin/manage_users'
   get 'admin/manage_purchases'
+  get 'admin/manage_items'
   resources :purchases
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: 'u'
   resources :items do
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
     end
     member do
       get 'edit'
+      get 'admin_edit'
+      patch 'admin_update'
     end
   end
   resources :buyers, only: [:index, :show] do
