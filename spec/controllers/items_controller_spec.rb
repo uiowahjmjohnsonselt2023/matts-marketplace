@@ -196,6 +196,32 @@ describe ItemsController, type: :controller do
     end
   end
 
+  describe '#search_by_user' do
+    context 'when logged in' do
+      before(:each) do
+        sign_in @user
+        @user2 = create(:user)
+        sign_in @user2
+      end
+      it 'redirects to item_path if user_id is empty' do
+        get :search_by_user, params: { user_id: ''}
+        expect(response).to redirect_to(items_path)
+      end
+      it 'redirects to items_path with alert when user does not have any item' do
+        get :search_by_user, params: { user_id: @user.id}
+        expect(response).to redirect_to(items_path)
+        expect(flash[:alert]).to eq("No items found!")
+      end
+      it 'redirects to search_items_path if user has items' do
+        @item1 = create(:item, user: @user2, for_sale: true)
+        @item2 = create(:item, user: @user2, for_sale: true)
+        get :search_by_user, params: { user_id: @user2.id}
+        expect(assigns(:items)).to contain_exactly(@item1, @item2)
+        expect(response).to render_template('items/search')
+      end
+    end
+  end
+
   describe '#toggle_wishlist' do
     context 'when logged in' do
       before(:each) do
