@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     const featureCheckbox = document.getElementById('featured-checkbox');
     const featuredAmountField = document.getElementById('featured-amount-field');
