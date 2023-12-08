@@ -22,7 +22,7 @@ end
     username: "user#{i + 1}", # Start at user1 to avoid user0
     email: "user#{i + 1}@example.com",
     password: "testtest",
-    rating: 5 * rand(),
+    rating: nil,
   )
 end
 
@@ -53,11 +53,23 @@ end
 
 
 30.times do ||
-  Review.create(
-    reviewer: users.sample,
-    reviewee: users.sample,
-    title: ["Great!", "Beautiful!", "Such a sexy seller", "the man with the plan", "boom boom bam bam", "three roses and fistful of cash"].sample,
-    rating: (5 * rand).round(0),
-    content: "sample review content where the reviewer praises the reviewee admirably and also reveals a deep dark secret that should have not been revealed for the sake of everyone involved.",
-  )
+  reviewee = users.sample
+  reviewer = users.sample
+  rating = (5 * rand).round(0)
+  unless reviewee == reviewer
+    Review.create(
+      reviewer: reviewer,
+      reviewee: reviewee,
+      title: ["Great!", "Beautiful!", "Such a sexy seller", "the man with the plan", "boom boom bam bam", "three roses and fistful of cash"].sample,
+      rating: rating,
+      content: "sample review content where the reviewer praises the reviewee admirably and also reveals a deep dark secret that should have not been revealed for the sake of everyone involved.",
+    )
+
+    if reviewee.rating
+      reviewee.rating = (reviewee.rating + rating) / reviewee.reviewee_reviews.length
+    else
+      reviewee.rating = rating
+    end
+    reviewee.save
+  end
 end
