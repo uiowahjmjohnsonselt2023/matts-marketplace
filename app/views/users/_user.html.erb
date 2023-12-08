@@ -25,12 +25,16 @@
   </div>
 
   <div class="col-span-2 mx-14">
-    <div class="rounded-full bg-blue-600 p-3 mb-2 text-center text-white w-11/12 text-xs font-semibold hover:bg-blue-500">
-      View items
-    </div>
+    <%= link_to(search_by_user_items_path(user_id: user.id)) do %>
+      <div class="rounded-full bg-blue-600 p-3 mb-2 text-center text-white w-11/12 text-xs font-semibold hover:bg-blue-500">
+        View items
+      </div>
+    <% end %>
 
-    <a href="<%= user.id %>/review" class="rounded-full bg-background border border-blue-600 p-3 text-center text-blue-600 w-full text-xs font-semibold hover:bg-blue-500 hover:text-white">
-      Leave a review
+    <a href="<%= user.id %>/review">
+      <div class="rounded-full bg-background border border-blue-600 p-3 text-center text-blue-600 w-11/12 text-xs font-semibold hover:bg-blue-500 hover:text-white">
+        Leave a review
+      </div>
     </a>
   </div>
 

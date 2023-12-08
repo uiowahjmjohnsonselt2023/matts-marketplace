@@ -141,6 +141,22 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search_by_user
+    # Searches for items sold by a given user.
+    if params[:user_id].empty?
+      redirect_to items_path
+    else
+      # Categories into array so that we can switch to select multiple in future
+      @items =  Item.where(user: User.find(params[:user_id].to_i), for_sale: true)
+      if @items.empty?
+        flash[:alert] = "No items found!"
+        redirect_to items_path
+      else
+        render search_items_path
+      end
+    end
+  end
+
   # app/controllers/items_controller.rb
   def toggle_wishlist
     item = Item.find(params[:item_id])
