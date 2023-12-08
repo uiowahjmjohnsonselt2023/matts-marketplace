@@ -60,6 +60,8 @@ group :development, :test do
   gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
   gem 'faker'
+  gem "factory_bot", "~> 6.4"
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -79,7 +81,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem 'cucumber-rails', :require=>false
-  gem "factory_bot", "~> 6.4"
 end
 
 group :production do
