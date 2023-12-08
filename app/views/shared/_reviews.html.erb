@@ -2,7 +2,7 @@
 <%user.reviewee_reviews.order(created_at: :desc).each do |review| %>
   <div class="flex items-end mb-1">
     <div class="text-sm mr-1">
-      <%= "#{review.reviewer.first_name} #{review.reviewer.last_name[0].upcase}." %>
+      <%= "#{review.reviewer.first_name} #{review.reviewer.last_name ? review.reviewer.last_name[0].upcase : ""}." %>
     </div>
     <div class="text-xs text-gray-400">
       <%= review.created_at.strftime("%b %Y") %>
