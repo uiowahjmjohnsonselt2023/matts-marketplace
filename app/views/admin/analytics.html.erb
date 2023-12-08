@@ -1,0 +1,46 @@
+<div class="flex">
+  <%= render partial: 'shared/admin_sidebar' %>
+  <div class="flex-grow p-10">
+    <div class="mb-10">
+      <h3 class="text-2xl font-semibold text-start m-4">Analytics</h3>
+      <div class="bg-white py-6 sm:py-8">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <h3 class="text-xl font-semibold text-start m-4">Total</h3>
+          <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+            <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+              <dt class="text-base leading-7 text-gray-600">Transactions</dt>
+              <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"><%= @total_transactions %></dd>
+            </div>
+            <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+              <dt class="text-base leading-7 text-gray-600">Amount of Transactions</dt>
+              <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">$<%= @total_amount %></dd>
+            </div>
+            <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+              <dt class="text-base leading-7 text-gray-600">New Users</dt>
+              <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"><%= @total_users %></dd>
+            </div>
+          </dl>
+        </div>
+        <div class="bg-white py-12 sm:py-16">
+          <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <h3 class="text-xl font-semibold text-start m-4">Last 7 Days (<%= @start_date.to_date %> ~  <%= Date.today.strftime('%Y-%m-%d') %>)</h3>
+            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+              <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+                <dt class="text-base leading-7 text-gray-600">Transactions</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"><%= @last_week_transactions %></dd>
+              </div>
+              <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+                <dt class="text-base leading-7 text-gray-600">Amount of Transactions</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">$<%= @last_week_amount %></dd>
+              </div>
+              <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+                <dt class="text-base leading-7 text-gray-600">New Users</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"><%= @last_week_users %></dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>

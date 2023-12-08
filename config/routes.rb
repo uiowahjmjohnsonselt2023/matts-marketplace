@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'admin/manage_users'
   get 'admin/manage_purchases'
   get 'admin/manage_items'
+  get 'admin/analytics'
   resources :purchases
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: 'u'
   resources :items do
