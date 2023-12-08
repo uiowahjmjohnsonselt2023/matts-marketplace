@@ -172,7 +172,7 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:price, :description, :image_url, :category_id, :for_sale, :sold)
+    params.require(:item).permit(:price, :description, :image_url, :for_sale, :sold, :category_id, :featured, :featured_amount_paid)
   end
 
   def search_params
