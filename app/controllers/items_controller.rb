@@ -146,6 +146,8 @@ class ItemsController < ApplicationController
     item = Item.find(params[:item_id])
     if current_user.nil?
       flash[:alert] = "You must be logged in to add items to your wishlist!"
+    elsif current_user == item.user
+      flash[:alert] = "You cannot add your own items to your wishlist!"
     elsif current_user.wishlist_items.include?(item)
       flash[:notice] = "Item removed from wishlist!"
       current_user.wishlist_items.delete(item)

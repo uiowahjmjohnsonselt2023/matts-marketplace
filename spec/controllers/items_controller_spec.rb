@@ -214,6 +214,11 @@ describe ItemsController, type: :controller do
         expect(response).to redirect_to(root_path)
         expect(@user.wishlist_items).to include(@item)
       end
+      it 'does not allow users to add their own items to wishlist' do
+        post :toggle_wishlist, params: { item_id: @user_item.id }
+        expect(flash[:alert]).to eq("You cannot add your own items to your wishlist!")
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 end
