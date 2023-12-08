@@ -68,6 +68,6 @@ end
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:username, :country, :city)
+    params.require(:user).permit(:first_name, :last_name, :country, :city, :email)
   end
 end
