@@ -20,8 +20,8 @@
             <tr>
               <td class="py-3 px-6 text-center"><%= purchase&.item.description || "N/A" %></td>
               <td class="py-3 px-6 text-center"><%= purchase&.item.price.try(:round, 2) || "N/A" %></td>
-              <td class="py-3 px-6 text-center"><%= (purchase&.buyer.first_name + " " + purchase&.buyer.last_name) || "N/A" %></td>
-              <td class="py-3 px-6 text-center"><%= (purchase&.seller.first_name + " " + purchase&.seller.last_name) || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= (purchase&.buyer&.first_name || "" ) + " " + (purchase&.buyer&.last_name || "N/A" )   %></td>
+              <td class="py-3 px-6 text-center"><%= (purchase&.seller&.first_name || "" ) + " " + (purchase&.seller&.last_name || "N/A" ) %></td>
               <td class="py-3 px-6 text-center"><%= purchase&.created_at.try(:to_date) || "N/A"%></td>
               <td class="py-3 px-6 text-center">
                 <%= button_to 'Destroy', purchase_path(purchase), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
