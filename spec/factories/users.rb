@@ -24,4 +24,8 @@ FactoryBot.define do
     end
     end
   end
+
+  factory :admin, parent: :user do
+    admin { true }
+  end
 end
