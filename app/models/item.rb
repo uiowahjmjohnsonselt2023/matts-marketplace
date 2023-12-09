@@ -6,6 +6,8 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :wishlist_users, class_name: "User"
   validates :price, :description, presence: true
   validates :price, numericality: { greater_than: 0 }
+  validates :featured_amount_paid, presence: true, if: :featured?
+  validates :featured_amount_paid, numericality: { greater_than: 0 }, if: :featured?
 
   def self.search(terms, categories, price_range)
     self.search_explicit(terms, categories, price_range, true)
@@ -32,10 +34,8 @@ class Item < ApplicationRecord
     end
     if !categories.nil? && !categories.empty?
       categories.each do |category|
-        if !category.nil?
           category_object = Category.where("name == (?)", category).first
           items = items.and(category_object.items) unless category.empty?
-        end
       end
     end
     if !terms.nil? && !terms.empty?
@@ -48,5 +48,8 @@ class Item < ApplicationRecord
     items
   end
 
+  def featured?
+    featured.present? && featured == true
+  end
 
 end

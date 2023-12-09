@@ -82,6 +82,36 @@ class UsersController < ApplicationController
     end
   end
 
+  def review
+    @reviewed_user_id = params[:id]
+    @reviewee = User.find(@reviewed_user_id)
+    if params["review"]
+      review = review_params
+      rating = review["rating"].to_i
+
+      if @reviewee.reviewee_reviews.pluck(:reviewer_id).include? current_user.id
+        redirect_to user_path(@reviewed_user_id), :notice => "You can only review a seller once!", allow_other_host: true and return
+      end
+
+      Review.create(
+        reviewer: current_user,
+        reviewee: @reviewee,
+        title: review["title"],
+        content: review["content"],
+        rating: rating
+      )
+
+      # Update reviewee rating
+      if @reviewee.rating
+        @reviewee.rating = (@reviewee.rating + rating) / @reviewee.reviewee_reviews.length
+      else
+        @reviewee.rating = rating
+      end
+      @reviewee.save
+
+      redirect_to user_path(@reviewed_user_id)
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -98,4 +128,8 @@ class UsersController < ApplicationController
         redirect_to root_path, notice: "You must be an admin to access this page."
       end
     end
+
+  def review_params
+    params.require(:review).permit(:rating, :title, :content)
+  end
 end

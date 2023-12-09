@@ -42,12 +42,20 @@ class ItemsController < ApplicationController
       redirect_to sellers_path, notice: 'Item is on the market.'
     else
       session[:item_params] = item_params.to_h
-      if @item.errors[:price].any?
-        flash[:alert] = 'Price must be a number greater than 0.'
-      else
-        flash[:alert] = 'Description or Category field is required'
-      end
+      flash[:alert] = display_alert(@item)
       redirect_to new_item_path
+    end
+  end
+
+  def display_alert(item)
+    if item.errors[:price].any?
+      'Price must be a number greater than 0.'
+    elsif item.featured && item.featured_amount_paid.nil?
+      'Enter feature amount if you want to feature your item.'
+    elsif item.errors[:featured_amount_paid].any?
+      'Feature amount must be a number greater than 0.'
+    else
+      'Description or Category field is required.'
     end
   end
 
@@ -99,13 +107,13 @@ class ItemsController < ApplicationController
 
   def search
     # Read in the search term, category, and price_range from the params
-    params = search_params
-    if params[:search].empty? && params[:category].empty? && params[:price_range].empty?
+    search = search_params
+    if search[:search].empty? && search[:category].empty? && search[:price_range].empty?
       flash[:alert] = "Search terms included all items!"
       redirect_to items_path
     else
       # Categories into array so that we can switch to select multiple in future
-      @items =  Item.search params[:search], [params[:category]], params[:price_range]
+      @items =  Item.search search[:search], [search[:category]], search[:price_range]
       if @items.empty?
         flash[:alert] = "No items found!"
         redirect_to items_path
@@ -118,12 +126,12 @@ class ItemsController < ApplicationController
 
   def simple_search
     # Read in the search term, category, and price_range from the params
-    params = search_params
-    if params[:search].empty?
+    search = search_params
+    if search[:search].empty?
       redirect_to items_path
     else
       # Categories into array so that we can switch to select multiple in future
-      @items =  Item.search params[:search], nil, nil
+      @items =  Item.search search[:search], nil, nil
       if @items.empty?
         flash[:alert] = "No items found!"
         redirect_to items_path
@@ -149,11 +157,29 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search_by_user
+    # Searches for items sold by a given user.
+    if params[:user_id].empty?
+      redirect_to items_path
+    else
+      # Categories into array so that we can switch to select multiple in future
+      @items =  Item.where(user: User.find(params[:user_id].to_i), for_sale: true)
+      if @items.empty?
+        flash[:alert] = "No items found!"
+        redirect_to items_path
+      else
+        render search_items_path
+      end
+    end
+  end
+
   # app/controllers/items_controller.rb
   def toggle_wishlist
     item = Item.find(params[:item_id])
     if current_user.nil?
       flash[:alert] = "You must be logged in to add items to your wishlist!"
+    elsif current_user == item.user
+      flash[:alert] = "You cannot add your own items to your wishlist!"
     elsif current_user.wishlist_items.include?(item)
       flash[:notice] = "Item removed from wishlist!"
       current_user.wishlist_items.delete(item)
@@ -176,7 +202,7 @@ class ItemsController < ApplicationController
   end
 
   def search_params
-    params.permit(:search, :category_id, :price_range)
+    params.permit(:search, :category, :price_range)
   end
 
   def require_admin

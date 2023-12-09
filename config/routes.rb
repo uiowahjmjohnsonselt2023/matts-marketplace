@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get 'search'
       get 'simple_search'
       get 'category_search'
+      get 'search_by_user'
     end
     member do
       get 'edit'
@@ -34,8 +35,11 @@ Rails.application.routes.draw do
   resources :users do
     member do
       patch 'update_ban'
+      get "review"
+      post "review"
     end
   end
+
   resources :pages
   resources :chats do
     member do

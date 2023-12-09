@@ -60,7 +60,11 @@
       <h2 class="p-4 text-blue-700">
         <%= @item.user.username %>
       </h2>
-      <% if @item.user.rating > 3.5 %>
+      <% if @item.user.rating.nil? %>
+        <h1 class="p-4 bg-green-100 text-gray-600">
+          Feedback Rating: NA
+        </h1>
+      <% elsif @item.user.rating > 3.5 %>
         <h1 class="p-4 bg-green-100 text-gray-600">
           Feedback Rating: 
           <%= number_with_precision(@item.user.rating, precision:2) %>/5
