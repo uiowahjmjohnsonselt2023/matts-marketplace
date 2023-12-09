@@ -1,9 +1,9 @@
 ## Given ##
 Given /^I (.*?) have items sold in the past$/ do |arg|
   if arg == 'do'
-    pending
+    users_with_items
   else
-    pending
+    users_without_items
   end
 end
 
@@ -13,8 +13,12 @@ Given /^I am adding a new item$/ do
 end
 
 ## When ##
-When /^I click on the sell tab$/ do
-  click_button 'Sell'
+When /^I click on the (.*?) tab$/ do |action|
+  if action == 'sell'
+    click_link 'Sell'
+  else
+    click_link 'Buy'
+  end
 end
 
 When /^I create new item with (.*?) input$/ do |arg|
@@ -49,7 +53,17 @@ Then /^I will stay on the same page$/ do
 end
 
 Then /^I will see items I've sold on the page$/ do
-  pending
+  visit '/sellers'
+  # Count the number of item cards (adjust the selector as per your item card structure)
+  user_item_cards_count = page.all('.w-full.max-w-sm.bg-white.border.border-gray-200.rounded-lg.shadow.flex.flex-col').count
+
+  # Assert that the number of displayed items matches the number of items for the specific user
+  expect(user_item_cards_count).to eq(@user_with_items.items.count)
+
+  # users_with_items.items.each do |item|
+  #   # expect(page).to have_content(item.description)
+  #   expect(page).to have_selector('#item-description', text: item.description)
+  # end
 end
 
 
