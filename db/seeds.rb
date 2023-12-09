@@ -51,3 +51,13 @@ items = Item.all
   )
 end
 
+
+30.times do ||
+  Review.create(
+    reviewer: users.sample,
+    reviewee: users.sample,
+    title: ["Great!", "Beautiful!", "Such a sexy seller", "the man with the plan", "boom boom bam bam", "three roses and fistful of cash"].sample,
+    rating: (5 * rand).round(0),
+    content: "sample review content where the reviewer praises the reviewee admirably and also reveals a deep dark secret that should have not been revealed for the sake of everyone involved.",
+  )
+end
