@@ -2,6 +2,7 @@
   <%= render partial: 'shared/profile_sidebar' %>
 
   <div class="flex-grow p-10">
+    <h3 class="text-4xl font-bold mb-4"> Account Balance</h3>
     <div class="mb-4">
       <h2 class="text-3xl">Current Balance: $<%= number_with_precision(@user.balance, precision: 2) %></h2>
     </div>
