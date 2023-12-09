@@ -22,12 +22,19 @@ class Purchase < ApplicationRecord
             return true
           else
             # If the purchase fails to save, raise an exception to rollback the transaction
+            errors.add(:base, "Something went wrong saving the purchase. Please try again later.")
             raise ActiveRecord::Rollback
           end
         else
+          errors.add(:base, "Something went wrong saving the purchase. Please try again later.")
           raise ActiveRecord::Rollback
         end
       end
+    end
+    if buyer.balance < item.price
+      errors.add(:base, "You do not have enough balance to purchase this item.")
+    elsif !item.for_sale
+      errors.add(:base, "This item is no longer for sale.")
     end
     false
   end

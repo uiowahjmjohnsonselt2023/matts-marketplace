@@ -29,7 +29,8 @@ class PurchasesController < ApplicationController
       chat = Chat.create!(buyer_id: @purchase.buyer_id, seller_id: @purchase.seller_id, item_id: @purchase.item_id)
       redirect_to :root, notice: "Purchase successful! A chat has been created for you and the seller to discuss delivery."
     else
-      redirect_to :root, alert: "Purchase failed!"
+      flash[:alert] = @purchase.errors.full_messages.join(', ')
+      redirect_to :root
     end
   end
 
