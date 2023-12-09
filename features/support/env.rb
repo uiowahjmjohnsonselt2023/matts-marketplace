@@ -35,3 +35,8 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 ## Factory bot setup for cucumber
 World(FactoryBot::Syntax::Methods)
+
+# Load the db/seeds.rb file
+Before do
+  Rails.application.load_seed
+end
