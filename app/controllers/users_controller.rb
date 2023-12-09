@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy update_ban ]
 
   # This is what you add to your controllers require authentication. It is actually so useful.
   before_action :authenticate_user!, only: %i[ show edit update destroy index]
-  before_action :require_admin, only: %i[ edit update destroy ]
+  before_action :require_admin, only: %i[ edit update destroy update_ban ]
   # GET /users or /users.json
   def index
     @users = User.all
@@ -50,6 +50,28 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_ban
+    if @user == current_user
+      flash[:alert] = "You cannot ban yourself."
+      redirect_to admin_manage_users_path
+      return
+    elsif @user.banned
+      if @user.update(banned: false)
+        flash[:notice] = "User has been banned successfully."
+      else
+        flash[:alert] = "Unable to ban the user."
+      end
+    else
+      if @user.update(banned: true)
+        flash[:notice] = "User has been banned successfully."
+      else
+        flash[:alert] = "Unable to ban the user."
+      end
+    end
+
+    redirect_to admin_manage_users_path
+  end
+
   # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy!
@@ -68,7 +90,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :city, :country, :password_digest, :username, :email, :balance, :rating, :admin)
+      params.require(:user).permit(:first_name, :last_name, :city, :country, :password_digest, :username, :email, :balance, :rating, :admin, :banned)
     end
 
     def require_admin

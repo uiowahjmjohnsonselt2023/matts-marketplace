@@ -31,7 +31,11 @@ Rails.application.routes.draw do
       get 'confirm'
     end
   end
-  resources :users
+  resources :users do
+    member do
+      patch 'update_ban'
+    end
+  end
   resources :pages
   resources :chats do
     member do

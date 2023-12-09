@@ -16,7 +16,9 @@
             <th class="py-3 px-6 text-center">Balance</th>
             <th class="py-3 px-6 text-center">Rating</th>
             <th class="py-3 px-6 text-center">Admin</th>
+            <th class="py-3 px-6 text-center">Banned</th>
             <th class="py-3 px-6 text-center">Edit</th>
+            <th class="py-3 px-6 text-center">Ban</th>
           </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
@@ -31,7 +33,15 @@
               <td class="py-3 px-6 text-center"><%= user&.balance.try(:round, 2) || "N/A" %></td>
               <td class="py-3 px-6 text-center"><%= user&.rating.try(:round, 2) || "N/A" %></td>
               <td class="py-3 px-6 text-center"><%= user.admin.nil? ? "N/A": (user.admin ? "O" : "X") %></td>
+              <td class="py-3 px-6 text-center"><%= user.banned.nil? ? "N/A": (user.banned ? "O" : "X") %></td>
               <td class="py-3 px-6 text-center">  <%= link_to "Edit", edit_user_path(user), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %></td>
+              <td class="py-3 px-6 text-center">
+                <% if user.banned %>
+                  <%= button_to 'Unban', update_ban_user_path(user), method: :patch, data: { turbo_confirm: 'Are you sure?' }, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+                <% else %>
+                  <%= button_to 'Ban', update_ban_user_path(user), method: :patch, data: { turbo_confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
           </tbody>
