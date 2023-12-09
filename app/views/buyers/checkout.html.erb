@@ -9,7 +9,7 @@
     <div class="text-sm text-gray-500 mb-4"> Seller: <%= @item.user.first_name ? @item.user.first_name : "Seller" %> <%= @item.user.last_name ? @item.user.last_name : "Seller" %> </div>
 
     <div class="grid grid-cols-6">
-      <img src="<%= "https://assets.adidas.com/images/6bf7a2ffdaf4486ca607ae9300f5fcb6_9366/GW1876_00_plp_standard.jpgGW1876_00_plp_standard.jpg" %>" alt="product image" class="col-span-1 px-4 object-cover"/>
+      <img src="<%=  @item.image_url ? @item.image_url : ""  %>" alt="product image" class="col-span-1 px-4 object-cover"/>
       <div class="col-span-5 ml-1">
         <div class="text-lg"><%= @item.description %></div>
         <div class="text-md text-gray-500 mb-2">Quantity: 1</div>

@@ -15,12 +15,11 @@
     </div>
 
     <!-- Image -->
-    <div class="col-span-4 w-full h-max px-8 pt-6 rounded-lg overflow-hidden">
-      <img src="<%= "https://assets.adidas.com/images/6bf7a2ffdaf4486ca607ae9300f5fcb6_9366/GW1876_00_plp_standard.jpgGW1876_00_plp_standard.jpg" %>" alt="product image" class="rounded-xl object-cover w-full h-full"/>
-    </div>
+    <img src="<%= @item.image_url ? @item.image_url : ""  %>" alt="product image" class="col-span-4 w-full h-max px-8 pt-6 rounded-lg overflow-hidden rounded-xl object-cover w-full h-full"/>
+
 
     <!-- Item details and options -->
-    <div class="relative col-span-3 w-full h-full px-8 pt-6 rounded-lg overflow-hidden">
+    <div class="col-span-3 w-full h-full px-8 pt-6 rounded-lg overflow-hidden">
       <div class="flex w-full items-center">
         <div class="font-semibold text-2xl mr-2"><%= @item.description %></div>
 
@@ -52,7 +51,7 @@
 
       <!-- seller card -->
       <div class="flex grid grid-cols-6 items-center rounded-lg border border-1 h-2/12 w-auto">
-        <img src="<%= "https://assets.adidas.com/images/6bf7a2ffdaf4486ca607ae9300f5fcb6_9366/GW1876_00_plp_standard.jpgGW1876_00_plp_standard.jpg" %>" alt="product image" class="col-span-1 rounded-full p-4 object-cover"/>
+        <img src="<%= @item.image_url ? @item.image_url : "" %>" alt="user image" class="col-span-1 rounded-full p-4 object-cover"/>
 
         <div class="col-span-5">
           <div class="flex items-start w-full h-full pt-5">
@@ -104,7 +103,7 @@
         Price last updated at <%= @item.updated_at.strftime("%b %e#{updated_at_suffix}, %Y at %I:%M %p") %>
       </div>
 
-      <div class="flex items-center justify-center absolute bottom-14 w-full">
+      <div class="flex items-center justify-center w-full mt-72">
         <div class="w-10/12 mr-6">
           <% if @item.for_sale %>
             <%= link_to checkout_buyer_path(@item) do %>
