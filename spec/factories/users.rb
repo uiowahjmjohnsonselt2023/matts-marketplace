@@ -5,6 +5,8 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     username { |user| 'super' +  user.first_name }
+    balance { 0.0 }
+    rating { 0.0 }
 
     factory :user_with_items do
       email { Faker::Internet.unique.email }

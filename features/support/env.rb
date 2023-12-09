@@ -1,6 +1,7 @@
 require 'cucumber/rails'
 require 'rspec/expectations'
-require 'factory_bot/step_definitions'
+require 'factory_bot'
+require 'factory_bot_rails'
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how
@@ -31,3 +32,6 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+
+## Factory bot setup for cucumber
+World(FactoryBot::Syntax::Methods)
