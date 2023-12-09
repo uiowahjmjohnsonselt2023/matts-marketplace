@@ -92,7 +92,7 @@ class UsersController < ApplicationController
     @reviewee = User.find(@reviewed_user_id)
     if params["review"]
       review = review_params
-      rating = review["rating"].to_i
+      rating = review["rating"].to_f
 
       if @reviewee.reviewee_reviews.pluck(:reviewer_id).include? current_user.id
         redirect_to user_path(@reviewed_user_id), :notice => "You can only review a seller once!", allow_other_host: true and return
@@ -108,10 +108,12 @@ class UsersController < ApplicationController
 
       # Update reviewee rating
       if @reviewee.rating
-        @reviewee.rating = (@reviewee.rating + rating) / @reviewee.reviewee_reviews.length
+        @reviewee.rating = @reviewee.reviewee_reviews.pluck(:rating).sum / @reviewee.reviewee_reviews.length
+        byebug
       else
         @reviewee.rating = rating
       end
+
       @reviewee.save
 
       redirect_to user_path(@reviewed_user_id)

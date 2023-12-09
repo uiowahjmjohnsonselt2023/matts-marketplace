@@ -11,7 +11,7 @@
       <%= user.first_name %> <%= user.last_name %>
     </h2>
     <div class="mb-1">
-      <strong><%= user.rating ? user.rating.round(2) : "N/A" %></strong> Average Rating
+      <strong><%= user.rating ? "#{user.rating}"[0..3]  : "N/A" %></strong> Average Rating
     </div>
 
     <div class="flex tracking-tight">
