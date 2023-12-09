@@ -13,7 +13,7 @@
             </div>
             <div class="mx-auto flex max-w-xs flex-col gap-y-4">
               <dt class="text-base leading-7 text-gray-600">Amount of Transactions</dt>
-              <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">$<%= @total_amount %></dd>
+              <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">$<%= @total_amount.try(:round, 1) %></dd>
             </div>
             <div class="mx-auto flex max-w-xs flex-col gap-y-4">
               <dt class="text-base leading-7 text-gray-600">New Users</dt>
@@ -31,7 +31,7 @@
               </div>
               <div class="mx-auto flex max-w-xs flex-col gap-y-4">
                 <dt class="text-base leading-7 text-gray-600">Amount of Transactions</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">$<%= @last_week_amount %></dd>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">$<%= @last_week_amount.try(:round, 1) %></dd>
               </div>
               <div class="mx-auto flex max-w-xs flex-col gap-y-4">
                 <dt class="text-base leading-7 text-gray-600">New Users</dt>
