@@ -28,6 +28,13 @@ Given /^I exist as a user$/ do
   create_user
 end
 
+Given /^I am logged in$/ do
+  @user = FactoryBot.create(:user)
+  visit '/u/sign_in'
+  fill_in 'Email', with: @user.email
+  fill_in 'Password', with: @user.password
+  click_button 'Log in'
+end
 
 ## When ##
 When /^I sign up with valid email and password$/ do
@@ -123,7 +130,8 @@ And /^I should be signed out$/ do
 end
 
 And /^I am not logged in$/ do
-  visit '/users/sign_out'
+  # visit '/users/sign_out'
+  click_button "Sign out"
 end
 
 

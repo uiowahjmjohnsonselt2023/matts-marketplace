@@ -3,7 +3,7 @@ Feature: Sell items
   I want to be able to sell my items
 
   Background:
-    Given I sign in with valid email and password
+    Given I am logged in
 
   Scenario: User is not logged in
     Given I am not logged in
