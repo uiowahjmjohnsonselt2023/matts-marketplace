@@ -1,25 +1,32 @@
-<div id="<%#= dom_id user %>" class="grid grid-cols-8 m-12 h-full bg-gray-100 py-12 px-4">
+
+
+<div id="<%#= dom_id user %>" class="grid grid-cols-8 m-12 overflow-hidden bg-gray-100 py-12 px-4">
   <!-- Profile pic -->
   <div class="col-span-1 flex items-center justify-center rounded-full bg-white h-36 w-36 ml-6">
     <i class="fa fa-user text-8xl"></i>
   </div>
 
-  <div class="col-span-7 ml-10 mt-4">
+  <div class="col-span-5 ml-10 mt-4">
     <h2 class="text-3xl font-semibold mb-3">
       <%= user.first_name %> <%= user.last_name %>
     </h2>
     <div class="mb-1">
-      <strong><%= user.rating.round(2) %></strong> Average Rating
+      <strong><%= user.rating ? user.rating.round(2) : "N/A" %></strong> Average Rating
     </div>
 
     <div class="flex tracking-tight">
       <div class="pr-4">
         <strong><%= user.items.where(for_sale:false).length%></strong> Items Sold
       </div>
-
       <div>
         <strong><%= user.items.where(for_sale:true).length%></strong> Items on Sale
       </div>
+    </div>
+  </div>
+
+  <div class="col-span-2 mx-14">
+    <div class="rounded-full bg-blue-600 p-3 text-center text-white w-full text-sm font-semibold hover:bg-blue-500">
+      View items
     </div>
   </div>
 
@@ -31,12 +38,54 @@
   <div class="col-span-8 border-t border-gray-200 my-8"></div>
 
 
-  <div class="col-span-3 ml-6">
-    <h2 class="text-xl font-semibold"> Categories from this seller </h2>
-
+  <div class="col-span-3 ml-6 ">
+    <h2 class="text-xl font-semibold mb-4"> Categories from this seller </h2>
+    <div class="flex items-center">
+      <% user.items.pluck(:category_id).uniq.each do |id| %>
+        <span class="bg-blue-100 text-blue-800 text-md font-medium me-3 px-2.5 py-0.5 rounded-full"><%= Category.find(id).name %></span>
+      <% end %>
+    </div>
   </div>
 
-  <div class="col-span-5 ml-6">
-    <h2 class="text-xl font-semibold"> Seller feedback </h2>
+  <div class="col-span-5 ml-6 mr-4 ">
+    <h2 class="text-xl font-semibold mb-2"> Seller feedback </h2>
+    <div class="h-full overflow-y-auto">
+      <%user.reviewee_reviews.order(created_at: :desc).each do |review| %>
+        <div class="flex items-end mb-1">
+          <div class="text-sm mr-1">
+            <%= "#{review.reviewer.first_name} #{review.reviewer.last_name[0].upcase}." %>
+          </div>
+          <div class="text-xs text-gray-400">
+            <%= review.created_at.strftime("%b %Y") %>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <div class="flex mr-4">
+            <% review.rating.times do %>
+              <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+            <% end %>
+
+            <% (5 - review.rating).times do %>
+              <svg class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+            <% end %>
+          </div>
+          <div class="text-md font-semibold">
+            <%= review.title %>
+          </div>
+        </div>
+
+        <div class="text-sm">
+          <%= review.content %>
+        </div>
+
+        <div class="border-t border-gray-200 my-4"></div>
+      <% end %>
+    </div>
+
   </div>
 </div>
