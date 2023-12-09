@@ -12,6 +12,11 @@ Given /^I am adding a new item$/ do
   click_button 'Add New Item'
 end
 
+Given /^I am on the checkout page$/ do
+  @item1 = @items.first
+  visit "/buyers/#{@item1.id}/checkout"
+end
+
 ## When ##
 When /^I click on the (.*?) tab$/ do |action|
   if action == 'sell'
@@ -34,9 +39,55 @@ When /^I create new item with (.*?) input$/ do |arg|
   click_button 'Sell Item'
 end
 
+When /^I navigate to an item's detail page$/ do
+  pending
+end
+
+# When /^I am on an item's detail page$/ do
+#   visit
+# end
+
+When /^I confirm the purchase$/ do
+  click_button 'Confirm Purchase'
+end
+
+When /^I want to make an offer to owner$/ do
+  click_button 'Chat to make an offer to owner'
+end
+
 ## And ##
 And /^I will be redirected to the sign in page$/ do
   page.should have_content 'Log in'
+end
+
+And /^There are items on the market$/ do
+  @items = create_list(:item, 10, for_sale: true)
+end
+
+And /^I am on an item's detail page$/ do
+  @item1 = @items.first
+  visit "/buyers/#{@item1.id}"
+end
+
+And /^I attempt to purchase the item$/ do
+  click_link 'Purchase Now'
+end
+
+And /^I (do|don't) have enough balance$/ do |status|
+  @item1.update(price: 50)
+  if status == 'do'
+    @user.update(balance: 100)
+  else
+    @user.update(balance: 0)
+  end
+end
+
+And /^I should be redirected to home page$/ do
+  expect(page).to have_current_path('/')
+end
+
+And /^My balance should decrease after the purchase$/ do
+  expect(@user.balance).to eq(50)
 end
 
 ## Then ##
@@ -66,7 +117,26 @@ Then /^I will see items I've sold on the page$/ do
   # end
 end
 
-
 Then /^I will not see any items on the page$/ do
   page.should have_content "No items sold yet"
+end
+
+Then /^I should see the item's details$/ do
+  pending
+end
+
+Then /^I should be redirected to the checkout page$/ do
+  page.should have_content 'Checkout'
+end
+
+Then /^I should (be|not be) able to complete the purchase$/ do |status|
+  if status == 'not be'
+    page.should have_content "Purchase failed!"
+  else
+
+  end
+end
+
+Then /^I will be redirected to chat screen$/ do
+  expect(page).to have_current_path("/chats/#{@user.id}")
 end
