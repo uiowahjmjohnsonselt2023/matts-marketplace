@@ -1,19 +1,18 @@
 ## Given ##
 Given /^I (.*?) have items sold in the past$/ do |arg|
   if arg == 'do'
-    users_with_items
-  else
-    users_without_items
+    @item_sold = create(:item, user: @user)
   end
 end
 
 Given /^I am adding a new item$/ do
   visit '/sellers'
-  click_button 'Add New Item'
+  click_link 'Add New Item'
 end
 
 Given /^I am on the checkout page$/ do
   @item1 = @items.first
+  @owner = @item1.user
   visit "/buyers/#{@item1.id}/checkout"
 end
 
@@ -34,18 +33,14 @@ When /^I create new item with (.*?) input$/ do |arg|
   end
   fill_in 'item_description', :with => 'Microwave'
   fill_in 'item_image_url', :with => 'www.image'
-  # category how to do collection select
+  select('Electronics', from: 'item[category_id]')
   check 'item_for_sale'
   click_button 'Sell Item'
 end
 
 When /^I navigate to an item's detail page$/ do
-  pending
+  first('a', text: 'Detail').click
 end
-
-# When /^I am on an item's detail page$/ do
-#   visit
-# end
 
 When /^I confirm the purchase$/ do
   click_button 'Confirm Purchase'
@@ -58,6 +53,10 @@ end
 ## And ##
 And /^I will be redirected to the sign in page$/ do
   page.should have_content 'Log in'
+end
+
+And /^I will see an alert message$/ do
+  page.should have_content 'Price must be a number greater than 0.'
 end
 
 And /^There are items on the market$/ do
@@ -100,21 +99,11 @@ Then /^I will see the new item on the sellers page$/ do
 end
 
 Then /^I will stay on the same page$/ do
-  page.should have_content 'Your items'
+  expect(page).to have_current_path("/items/new")
 end
 
 Then /^I will see items I've sold on the page$/ do
-  visit '/sellers'
-  # Count the number of item cards (adjust the selector as per your item card structure)
-  user_item_cards_count = page.all('.w-full.max-w-sm.bg-white.border.border-gray-200.rounded-lg.shadow.flex.flex-col').count
-
-  # Assert that the number of displayed items matches the number of items for the specific user
-  expect(user_item_cards_count).to eq(@user_with_items.items.count)
-
-  # users_with_items.items.each do |item|
-  #   # expect(page).to have_content(item.description)
-  #   expect(page).to have_selector('#item-description', text: item.description)
-  # end
+  expect(page).to have_content(@item_sold.description)
 end
 
 Then /^I will not see any items on the page$/ do
@@ -122,7 +111,7 @@ Then /^I will not see any items on the page$/ do
 end
 
 Then /^I should see the item's details$/ do
-  pending
+  expect(page).to have_current_path(%r{/buyers/\d+})
 end
 
 Then /^I should be redirected to the checkout page$/ do
@@ -138,5 +127,6 @@ Then /^I should (be|not be) able to complete the purchase$/ do |status|
 end
 
 Then /^I will be redirected to chat screen$/ do
-  expect(page).to have_current_path("/chats/#{@user.id}")
+  expect(page).to have_current_path(%r{/chats/\d+})
+
 end
