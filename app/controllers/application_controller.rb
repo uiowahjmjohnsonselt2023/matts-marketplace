@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :set_sidebar
+  # before_action :set_sidebar
   before_action :check_banned_user, except: [:index, :destroy]
 
   def index
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_sidebar
-    @sidebar_present = ["profile"].include?(params[:controller])
-  end
+  # def set_sidebar
+  #   @sidebar_present = ["profile"].include?(params[:controller])
+  # end
 end

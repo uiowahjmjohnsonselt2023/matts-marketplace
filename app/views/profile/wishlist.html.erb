@@ -1,5 +1,5 @@
 <div class="flex">
-  <div class="w-64"></div>
+  <%= render partial: 'shared/profile_sidebar' %>
   <div class="flex-grow p-10">
     <h1 class="text-4xl font-bold mb-4">My Wishlist</h1>
     <% if @wishlist_items == {} %>
