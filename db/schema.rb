@@ -73,6 +73,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_032135) do
     t.index ["seller_id"], name: "index_purchases_on_seller_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.string "content"
+    t.integer "rating"
+    t.string "title"
+    t.integer "reviewer_id", null: false
+    t.integer "reviewee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reviewee_id"], name: "index_reviews_on_reviewee_id"
+    t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -105,4 +117,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_032135) do
   add_foreign_key "purchases", "items"
   add_foreign_key "purchases", "users", column: "buyer_id"
   add_foreign_key "purchases", "users", column: "seller_id"
+  add_foreign_key "reviews", "users", column: "reviewee_id"
+  add_foreign_key "reviews", "users", column: "reviewer_id"
 end

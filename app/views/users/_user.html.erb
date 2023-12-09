@@ -1,37 +1,65 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>First name:</strong>
-    <%= user.first_name %>
-  </p>
 
-  <p>
-    <strong>Last name:</strong>
-    <%= user.last_name %>
-  </p>
 
-  <p>
-    <strong>City:</strong>
-    <%= user.city %>
-  </p>
+<div id="<%#= dom_id user %>" class="grid grid-cols-8 m-12 overflow-hidden bg-gray-100 py-12 px-4">
+  <!-- Profile pic -->
+  <div class="col-span-1 flex items-center justify-center rounded-full bg-white h-36 w-36 ml-6">
+    <i class="fa fa-user text-8xl"></i>
+  </div>
 
-  <p>
-    <strong>Country:</strong>
-    <%= user.country %>
-  </p>
+  <div class="col-span-5 ml-10 mt-4">
+    <h2 class="text-3xl font-semibold mb-3">
+      <%= user.first_name %> <%= user.last_name %>
+    </h2>
+    <div class="mb-1">
+      <strong><%= user.rating ? user.rating.round(2) : "N/A" %></strong> Average Rating
+    </div>
 
-  <p>
-    <strong>Username:</strong>
-    <%= user.username %>
-  </p>
+    <div class="flex tracking-tight">
+      <div class="pr-4">
+        <strong><%= user.items.where(for_sale:false).length%></strong> Items Sold
+      </div>
+      <div>
+        <strong><%= user.items.where(for_sale:true).length%></strong> Items on Sale
+      </div>
+    </div>
+  </div>
 
-  <p>
-    <strong>Email:</strong>
-    <%= user.email %>
-  </p>
+  <div class="col-span-2 mx-14">
+    <%= link_to(search_by_user_items_path(user_id: user.id)) do %>
+      <div class="rounded-full bg-blue-600 p-3 mb-2 text-center text-white w-11/12 text-xs font-semibold hover:bg-blue-500">
+        View items
+      </div>
+    <% end %>
 
-  <p>
-    <strong>Rating:</strong>
-    <%= number_with_precision(user.rating, precision: 2) %>
-  </p>
+    <a href="<%= user.id %>/review">
+      <div class="rounded-full bg-background border border-blue-600 p-3 text-center text-blue-600 w-11/12 text-xs font-semibold hover:bg-blue-500 hover:text-white">
+        Leave a review
+      </div>
+    </a>
+  </div>
 
+  <div class="col-span-1 flex items-center ml-6 pt-2 justify-evenly text-xs">
+    <i class="fa fa-calendar" aria-hidden="true"></i>
+    Joined <%= user.created_at.strftime("%b %Y") %>
+  </div>
+
+  <div class="col-span-8 border-t border-gray-200 my-8"></div>
+
+
+  <div class="col-span-3 ml-6 ">
+    <h2 class="text-xl font-semibold mb-4"> Categories from this seller </h2>
+    <div class="flex items-center">
+      <% user.items.pluck(:category_id).uniq.each do |id| %>
+        <span class="bg-blue-100 text-blue-800 text-md font-medium me-3 px-2.5 py-0.5 rounded-full"><%= Category.find(id).name %></span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-span-5 ml-6 mr-4 ">
+    <h2 class="text-xl font-semibold mb-2"> Seller feedback </h2>
+    <div class="h-full overflow-y-auto">
+      <%= render partial: 'shared/reviews', :locals => {:user => @user} %>
+    </div>
+
+  </div>
 </div>

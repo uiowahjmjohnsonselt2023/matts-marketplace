@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get 'search'
       get 'simple_search'
       get 'category_search'
+      get 'search_by_user'
     end
     member do
       get 'edit'
@@ -28,7 +29,13 @@ Rails.application.routes.draw do
       get 'confirm'
     end
   end
-  resources :users
+  resources :users do
+    member do
+      get "review"
+      post "review"
+    end
+  end
+
   resources :pages
   resources :chats do
     member do
