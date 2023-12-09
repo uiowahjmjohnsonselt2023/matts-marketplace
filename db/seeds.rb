@@ -67,7 +67,7 @@ end
 30.times do ||
   reviewee = users.sample
   reviewer = users.sample
-  rating = (5 * rand).round(0)
+  rating = [1, 2, 3, 4, 5].sample.to_f
   unless reviewee == reviewer
     Review.create(
       reviewer: reviewer,
@@ -78,7 +78,9 @@ end
     )
 
     if reviewee.rating
-      reviewee.rating = (reviewee.rating + rating) / reviewee.reviewee_reviews.length
+      # Update reviewee rating
+      reviewee.rating = reviewee.reviewee_reviews.pluck(:rating).sum / reviewee.reviewee_reviews.length.to_f
+      byebug
     else
       reviewee.rating = rating
     end
