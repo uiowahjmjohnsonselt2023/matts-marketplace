@@ -74,7 +74,7 @@ end
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :country, :city, :email)
+    params.require(:user).permit(:first_name, :last_name, :country, :city, :email, :image_url)
   end
 
   # check if any field is blank and set alert

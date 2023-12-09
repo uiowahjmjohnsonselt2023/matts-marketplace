@@ -13,6 +13,16 @@
     <% end %>
     <h2 class="text-base font-semibold leading-7 text-gray-900">Profile</h2>
     <%= form_for @user, url: profile_update_path, method: :patch do |f| %>
+      <!-- image uploading -->
+      <div class="mt-10 flex items-center">
+        <button onclick="showUpload()" class="w-56 text-black focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-gray-200 hover:bg-gray-400 focus:ring-gray-200">
+          Upload Profile Picture
+        </button>
+        <div class="ml-2 mt-1">
+          <%= f.hidden_field :image_url, class: "simple-file-upload" %>
+        </div>
+      </div>
+
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-3">
           <%= f.label :first_name, class: "block text-sm font-medium leading-6 text-gray-900" %>
@@ -74,4 +84,42 @@
           <%= f.submit "Update Profile" %>
         </div>
     <% end %>
+    <script>
+        function showUpload() {
+            event.preventDefault();
+            location.reload(true);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            restoreFormData();
+            window.addEventListener('beforeunload', function(event) {
+                // Save form data before the page is unloaded
+                saveFormData();
+            });
+        });
+
+        function saveFormData() {
+            const formData = {
+                price: document.getElementById('item_price').value,
+                description: document.getElementById('item_description').value,
+                category: document.getElementById('item_category_id').value,
+                for_sale: document.getElementById('item_for_sale').value,
+            };
+
+            sessionStorage.setItem('formData', JSON.stringify(formData));
+        }
+
+        function restoreFormData() {
+            const storedData = sessionStorage.getItem('formData');
+
+            if (storedData) {
+                const formData = JSON.parse(storedData);
+                document.getElementById('item_price').value = formData.price;
+                document.getElementById('item_description').value = formData.description;
+                document.getElementById('item_category_id').value = formData.category;
+                document.getElementById('item_for_sale').value = formData.for_sale;
+            }
+        }
+    </script>
+
     </div>

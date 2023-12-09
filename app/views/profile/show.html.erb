@@ -2,8 +2,7 @@
   <%= render partial: 'shared/profile_sidebar' %>
   <div class="flex-grow p-10">
     <div class="flex items-center justify-center">
-      <!-- Should  be replaced with an image -->
-      <img class="rounded-full border border-gray-100 shadow-sm" src="#" alt="user image" />
+      <img class="rounded-full border border-gray-100 shadow-sm w-40 h-40 object-cover" src="<%= @user.image_url %>" alt="user image" />
     </div>
     <div class="mt-6 border-t border-gray-100">
       <dl class="divide-y divide-gray-100">
