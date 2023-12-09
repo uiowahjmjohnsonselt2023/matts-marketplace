@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[ show edit update destroy ]
+  before_action :set_item, only: %i[ show edit update destroy admin_edit admin_update ]
   before_action :authenticate_user!, only: %i[ new create edit update destroy]
+  before_action :require_admin, only: %i[ admin_edit admin_update ]
 
   # GET /items or /items.json
   def index
@@ -27,6 +28,9 @@ class ItemsController < ApplicationController
       flash[:alert] = "You cannot edit an item that has been sold!"
       redirect_to items_path
     end
+  end
+
+  def admin_edit
   end
 
   # POST /items or /items.json
@@ -76,6 +80,18 @@ class ItemsController < ApplicationController
         flash[:alert] = 'Description or Category field is required'
       end
       redirect_to edit_item_path
+    end
+  end
+
+  def admin_update
+    respond_to do |format|
+      if @item.update(item_params)
+        format.html { redirect_to admin_manage_items_url, notice: "Item was successfully updated." }
+        format.json { render :show, status: :ok, location: @item }
+      else
+        format.html { render :edit, status: :unprocessable_entity, notice: "Item update failed."  }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -182,10 +198,16 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:price, :description, :image_url, :for_sale, :category_id, :featured, :featured_amount_paid)
+    params.require(:item).permit(:price, :description, :image_url, :for_sale, :sold, :category_id, :featured, :featured_amount_paid)
   end
 
   def search_params
     params.permit(:search, :category, :price_range)
+  end
+
+  def require_admin
+    unless current_user&.admin?
+      redirect_to root_path, notice: "You must be an admin to access this page."
+    end
   end
 end

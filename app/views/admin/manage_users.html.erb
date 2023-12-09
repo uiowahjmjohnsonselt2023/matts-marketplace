@@ -1,0 +1,52 @@
+<div class="flex">
+  <%= render partial: 'shared/admin_sidebar' %>
+  <div class="flex-grow p-10">
+    <div class="mb-10">
+      <h3 class="text-2xl font-semibold text-start m-4">Manage Users</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <table class="min-w-full bg-white border border-gray-300 text-sm">
+          <thead>
+          <tr>
+            <th class="py-3 px-6 text-center">First Name</th>
+            <th class="py-3 px-6 text-center">Last Name</th>
+            <th class="py-3 px-6 text-center">City</th>
+            <th class="py-3 px-6 text-center">Country</th>
+            <th class="py-3 px-6 text-center">Email</th>
+            <th class="py-3 px-6 text-center">Created At</th>
+            <th class="py-3 px-6 text-center">Balance</th>
+            <th class="py-3 px-6 text-center">Rating</th>
+            <th class="py-3 px-6 text-center">Admin</th>
+            <th class="py-3 px-6 text-center">Banned</th>
+            <th class="py-3 px-6 text-center">Edit</th>
+            <th class="py-3 px-6 text-center">Ban</th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+          <% @users.each do |user|%>
+            <tr>
+              <td class="py-3 px-6 text-center"><%= user&.first_name || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= user&.last_name || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= user&.city || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= user&.country || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= user&.email || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= user&.created_at.try(:to_date) || "N/A"%></td>
+              <td class="py-3 px-6 text-center"><%= user&.balance.try(:round, 2) || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= user&.rating.try(:round, 2) || "N/A" %></td>
+              <td class="py-3 px-6 text-center"><%= user.admin.nil? ? "N/A": (user.admin ? "O" : "X") %></td>
+              <td class="py-3 px-6 text-center"><%= user.banned.nil? ? "N/A": (user.banned ? "O" : "X") %></td>
+              <td class="py-3 px-6 text-center">  <%= link_to "Edit", edit_user_path(user), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %></td>
+              <td class="py-3 px-6 text-center">
+                <% if user.banned %>
+                  <%= button_to 'Unban', update_ban_user_path(user), method: :patch, data: { turbo_confirm: 'Are you sure?' }, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+                <% else %>
+                  <%= button_to 'Ban', update_ban_user_path(user), method: :patch, data: { turbo_confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

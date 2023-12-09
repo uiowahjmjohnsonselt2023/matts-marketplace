@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
   get 'profile/show'
   get 'profile/edit'
-  post 'profile/update'
-  get 'profile/show'
-  get 'profile/edit'
-  post 'profile/update'
+  patch 'profile/update'
   get 'profile/wishlist'
   get 'profile/balance'
   post 'profile/add_balance', to: 'profile#add_balance', as: 'profile_add_balance'
   post 'profile/withdraw_balance', to: 'profile#withdraw_balance', as: 'profile_withdraw_balance'
   get 'home/index'
+  get 'admin/manage_users'
+  get 'admin/manage_purchases'
+  get 'admin/manage_items'
+  get 'admin/analytics'
   resources :purchases
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, path: 'u'
   resources :items do
@@ -21,6 +22,8 @@ Rails.application.routes.draw do
     end
     member do
       get 'edit'
+      get 'admin_edit'
+      patch 'admin_update'
     end
   end
   resources :buyers, only: [:index, :show] do
@@ -31,6 +34,7 @@ Rails.application.routes.draw do
   end
   resources :users do
     member do
+      patch 'update_ban'
       get "review"
       post "review"
     end

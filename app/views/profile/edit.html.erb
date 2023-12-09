@@ -1,5 +1,5 @@
 <div class="flex">
-  <%= render partial: 'shared/sidebar' %>
+  <%= render partial: 'shared/profile_sidebar' %>
   <div class="flex-grow p-10">
       <% if @user.errors.any? %>
         <div id="error_explanation">
@@ -14,7 +14,7 @@
     <h2 class="text-base font-semibold leading-7 text-gray-900">Profile</h2>
     <p class="mt-1 text-sm leading-6 text-gray-600">This information will be displayed publicly so be careful what you share.</p>
 
-      <%= form_for @user, url: profile_update_path, method: :post do |f| %>
+      <%= form_for @user, url: profile_update_path, method: :patch do |f| %>
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-4">
           <%= f.label :username, class: "block text-sm font-medium leading-6 text-gray-900" %>
