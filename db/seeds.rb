@@ -35,7 +35,8 @@ User.create!(
   email: "hans@uiowa.edu",
   password: "adminpassword",
   rating: 5,
-  admin: true
+  admin: true,
+  root_admin: true
   )
 
 users = User.all
