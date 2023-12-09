@@ -30,5 +30,5 @@ Feature: Sell items
     Given I am adding a new item
     When I create new item with invalid input
     Then I will stay on the same page
-#    And I will see a message
+    And I will see an alert message
 
