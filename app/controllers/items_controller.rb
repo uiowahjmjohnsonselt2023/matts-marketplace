@@ -91,13 +91,13 @@ class ItemsController < ApplicationController
 
   def search
     # Read in the search term, category, and price_range from the params
-    params = search_params
-    if params[:search].empty? && params[:category].empty? && params[:price_range].empty?
+    search = search_params
+    if search[:search].empty? && search[:category].empty? && search[:price_range].empty?
       flash[:alert] = "Search terms included all items!"
       redirect_to items_path
     else
       # Categories into array so that we can switch to select multiple in future
-      @items =  Item.search params[:search], [params[:category]], params[:price_range]
+      @items =  Item.search search[:search], [search[:category]], search[:price_range]
       if @items.empty?
         flash[:alert] = "No items found!"
         redirect_to items_path
@@ -110,12 +110,12 @@ class ItemsController < ApplicationController
 
   def simple_search
     # Read in the search term, category, and price_range from the params
-    params = search_params
-    if params[:search].empty?
+    search = search_params
+    if search[:search].empty?
       redirect_to items_path
     else
       # Categories into array so that we can switch to select multiple in future
-      @items =  Item.search params[:search], nil, nil
+      @items =  Item.search search[:search], nil, nil
       if @items.empty?
         flash[:alert] = "No items found!"
         redirect_to items_path
@@ -186,6 +186,6 @@ class ItemsController < ApplicationController
   end
 
   def search_params
-    params.permit(:search, :category_id, :price_range)
+    params.permit(:search, :category, :price_range)
   end
 end

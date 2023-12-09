@@ -34,10 +34,8 @@ class Item < ApplicationRecord
     end
     if !categories.nil? && !categories.empty?
       categories.each do |category|
-        if !category.nil?
           category_object = Category.where("name == (?)", category).first
           items = items.and(category_object.items) unless category.empty?
-        end
       end
     end
     if !terms.nil? && !terms.empty?
