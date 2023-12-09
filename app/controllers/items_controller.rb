@@ -89,7 +89,8 @@ class ItemsController < ApplicationController
         format.html { redirect_to admin_manage_items_url, notice: "Item was successfully updated." }
         format.json { render :show, status: :ok, location: @item }
       else
-        format.html { render :edit, status: :unprocessable_entity, notice: "Item update failed."  }
+        flash[:alert] = 'Item update failed. Please check each field.'
+        format.html { render :admin_edit, status: :unprocessable_entity  }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
@@ -209,5 +210,13 @@ class ItemsController < ApplicationController
     unless current_user&.admin?
       redirect_to root_path, notice: "You must be an admin to access this page."
     end
+  end
+
+  def has_blank_field?
+    blank_fields = user_params.select { |_, value| value.blank? }.keys
+    unless blank_fields.empty?
+      flash[:alert] = "The following fields are blank: #{blank_fields.join(', ')}"
+    end
+    !blank_fields.empty?
   end
 end

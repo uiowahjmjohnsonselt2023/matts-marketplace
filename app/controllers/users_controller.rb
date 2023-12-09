@@ -40,6 +40,11 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
+      # check empty field
+      if has_blank_field?
+        redirect_to edit_user_path(@user)
+        return
+      end
       if @user.update(user_params)
         format.html { redirect_to admin_manage_users_url, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
@@ -132,4 +137,14 @@ class UsersController < ApplicationController
         redirect_to root_path, notice: "You must be an admin to access this page."
       end
     end
+
+  # check if any field is blank and set alert
+  def has_blank_field?
+    blank_fields = user_params.select { |_, value| value.blank? }.keys
+    unless blank_fields.empty?
+      flash[:alert] = "The following fields are blank: #{blank_fields.join(', ')}"
+    end
+    !blank_fields.empty?
+  end
+
 end
