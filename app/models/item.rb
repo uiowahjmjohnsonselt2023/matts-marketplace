@@ -51,11 +51,18 @@ class Item < ApplicationRecord
     end
 
 
-    if (!categories.nil? && !categories.empty?) && (!categories[0].nil? && !categories[0].empty?)
+
+    if categories
+      categories.flatten!
+    end
+
+    if (!categories.nil? && !categories.empty?)
+
       category_items = []
-      categories[0].compact.each do |category|
+      categories.compact.each do |category|
         category_items = category_items | Category.where(name: category).first.items
       end
+
 
       items = items & category_items
     end
