@@ -32,6 +32,11 @@ The main features of the marketplace will be:
 - Review system for users to review items and/or other users.
 - Users with Admin privileges will have full control over posts and users.
 - Users will be able to look at their order history and their sell history.
+- Users can wishlist items to save them.
+- Admins can collect revenue from transactions & featured items payment.
+- Upload images for items & profiles.
+- Forced profile information.
+- BDD & TDD tested.
 
 The marketplace will also (hopefully) have other smaller features, 
 but these are the main ones.
