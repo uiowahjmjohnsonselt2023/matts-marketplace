@@ -54,6 +54,7 @@ class Item < ApplicationRecord
         if !category.nil?
           category_object = Category.where("name in (?)", category).first
           items = items.and(category_object.items) unless category.empty?
+        end
       end
     end
 
@@ -70,5 +71,4 @@ class Item < ApplicationRecord
   def featured?
     featured.present? && featured == true
   end
-
 end
