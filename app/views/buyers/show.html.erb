@@ -111,14 +111,13 @@
                 Buy It Now
               </div>
             <% end %>
-          <% end %>
 
-
-            <%= button_to toggle_wishlist_path, method: :post, remote: true, class: "flex items-center justify-center rounded-full font-semibold text-center text-lg border border-blue-600 text-blue-600 py-3 hover:bg-gray-200 w-full", id: 'star-button', params: { item_id: @item.id } do %>
-              <% if !@current_user.nil? and @current_user.wishlist_items.include? @item %>
-                Remove from wishlist
-              <% else %>
-                Add to wishlist
+              <%= button_to toggle_wishlist_path, method: :post, remote: true, class: "flex items-center justify-center rounded-full font-semibold text-center text-lg border border-blue-600 text-blue-600 py-3 hover:bg-gray-200 w-full", id: 'star-button', params: { item_id: @item.id } do %>
+                <% if !@current_user.nil? and @current_user.wishlist_items.include? @item %>
+                  Remove from wishlist
+                <% else %>
+                  Add to wishlist
+                <% end %>
               <% end %>
             <% end %>
         </div>
