@@ -1,7 +1,7 @@
 # Matt's Marketplace
 ### Your mom's best friend's uncle's sister's favorite place to buy and sell anything and everything, always and forever!
 
-Checkout out the latest deployment on [Heroku](https://matts-marketplace-sprint2-eda0c86b9056.herokuapp.com/)
+Checkout out the latest deployment on [Heroku](https://matts-marketplace-sprint3-c2ae82d50056.herokuapp.com/)
 
 ## Software Engineering Languages & Tools
 
