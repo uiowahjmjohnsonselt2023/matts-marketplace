@@ -24,7 +24,7 @@
               <td class="py-3 px-6 text-center"><%= (purchase&.seller&.first_name || "" ) + " " + (purchase&.seller&.last_name || "N/A" ) %></td>
               <td class="py-3 px-6 text-center"><%= purchase&.created_at.try(:to_date) || "N/A"%></td>
               <td class="py-3 px-6 text-center">
-                <%= button_to 'Destroy', purchase_path(purchase), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
+                <%= button_to 'Delete', purchase_path(purchase), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
               </td>
             </tr>
           <% end %>
