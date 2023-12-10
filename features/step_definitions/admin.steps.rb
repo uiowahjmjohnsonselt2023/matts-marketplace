@@ -89,3 +89,7 @@ end
 Then /^I will not be able to ban myself$/ do
   pending
 end
+
+Then /^I should see the analytics$/ do
+  page.should have_content 'Analytics'
+end
