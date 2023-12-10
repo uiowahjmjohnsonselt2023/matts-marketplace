@@ -8,15 +8,13 @@
   <div id="<%= dom_id chat %>" class="col-span-5 z-0 flex flex-row">
     <div class="flex-grow w-full">
       <%= render partial: 'chats/item_card', :locals => {:chat => chat} %>
-      <div class="p-4 w-full">
+      <div class="p-4 w-full" id="chat-container" style="overflow-y: auto; max-height: 80vh;">
         <%= turbo_stream_from chat %>
         <div id="messages" class="w-full">
           <% if @messages %>
             <%= render partial: @messages, :locals => {:user => @user}  %>
           <% end %>
         </div>
-        <br>
-        <br>
         <br>
       </div>
     </div>
@@ -38,11 +36,11 @@
   <!-- Script to clear form after submission -->
   <script>
       function resetForm() {
+          var chatContainer = document.getElementById('chat-container');
+          chatContainer.scrollTop = chatContainer.scrollHeight;
           setTimeout(function() {
               document.getElementById("send-message-form").reset();
           }, 500)
-
       }
   </script>
-
 </div>
