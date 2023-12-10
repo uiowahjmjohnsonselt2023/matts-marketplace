@@ -6,6 +6,7 @@ class BuyersController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @current_user = current_user
     render layout: 'application'
   end
   def checkout
