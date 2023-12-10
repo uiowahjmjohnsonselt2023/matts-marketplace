@@ -31,8 +31,11 @@ describe UsersController, type: :controller do
         ).permit!
       end
       it 'calls User.new with user_params' do
-        expect(User).to receive(:new).with(user_params)
+        user = instance_double(User)
+        allow(User).to receive(:new).with(user_params).and_return(user)
         post :create, params: { user: user_params }
+        expect(assigns(:user)).to eq(user)
+        expect(response).to redirect_to(user_url(User.last))
       end
       it 'redirects to the created user' do
         user_params = attributes_for(:user)
@@ -63,10 +66,8 @@ describe UsersController, type: :controller do
     end
     context 'with valid parameters' do
       it 'successfully updates user' do
-        patch :update, params: { id: @user.id, user: { first_name: 'Sergio', last_name: 'Martelo' } }
-        @user.reload
-        expect(@user.first_name).to eq('Sergio')
-        expect(@user.last_name).to eq('Martelo')
+        patch :update, params: { id: @user.id, user: { username: '123123' } }
+        expect(@user.reload.username).to eq('123123')
       end
       it 'redirects to updated user with correct notice' do
         patch :update, params: { id: @user.id, user: { first_name: 'Sergio', last_name: 'Martelo' } }
@@ -89,6 +90,32 @@ describe UsersController, type: :controller do
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)['email']).to include("can't be blank")
       end
+    end
+  end
+
+  describe '#update_ban' do
+    before(:each) do
+      @admin = create(:admin)
+      @user = create(:user)
+      sign_in @admin
+    end
+    it 'should not allow an admin to ban themselves' do
+      put :update_ban, params: { id: @admin.id }
+      expect(flash[:alert]).to eq('You cannot ban yourself.')
+      expect(response).to redirect_to(admin_manage_users_path)
+    end
+    it 'should ban the user successfully' do
+      put :update_ban, params: { id: @user.id }
+      expect(flash[:notice]).to eq('User has been banned successfully.')
+      expect(response).to redirect_to(admin_manage_users_path)
+      expect(User.find(@user.id).banned).to be(true)
+    end
+    it 'should unban the already banned user successfully' do
+      @user.update(banned: true)
+      put :update_ban, params: { id: @user.id }
+      expect(flash[:notice]).to eq('User has been unbanned successfully.')
+      expect(response).to redirect_to(admin_manage_users_path)
+      expect(User.find(@user.id).banned).to be(false)
     end
   end
 
