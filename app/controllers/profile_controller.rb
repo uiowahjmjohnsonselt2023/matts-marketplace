@@ -79,7 +79,7 @@ end
 
   # check if any field is blank and set alert
   def has_blank_field?
-    blank_fields = user_params.select { |_, value| value.blank? }.keys
+    blank_fields = user_params.select { |key, value| key != 'image_url' && value.blank? }.keys
     unless blank_fields.empty?
       flash[:alert] = "The following fields are blank: #{blank_fields.join(', ')}"
     end
