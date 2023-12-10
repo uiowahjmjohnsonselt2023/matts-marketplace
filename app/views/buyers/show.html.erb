@@ -1,85 +1,129 @@
-<div class="m-4 mt-8 p-8 mx-auto max-w-screen-xl text-center relative 
-  bg-blue-800 border border-4 border-gray-400 rounded-md shadow-lg">
-  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl text-white">
-    <%= @item.description %>
-  </h1>
-</div>
-<div class="flex items-center justify-center">
-  <!-- Image Column -->
-  <div class="w-1/3 m-4 border border-4 border-gray-200 rounded-lg shadow-lg">
-    <img src="<%= @item.image_url %>" alt="Item Image" 
-    class="w-full object-cover">
-  </div>
-  <!-- Item Details Column -->
-  <div class="w-1/4 p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg text-2xl font-bold text-black">
-    <% if @item.featured %>
-      <h1 class="p-4 flex text-gray-600 bg-yellow-100 rounded">
-        <svg class="w-8 h-8 inline-block align-middle text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-          <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-        </svg>
-        Featured Item!
-      </h1>
+
+<div class="flex grid grid-cols-7 my-4 mx-12">
+  <!-- Back button -->
+  <div class="col-span-7 ">
+    <%= link_to items_path do %>
+      <div class="flex items-center">
+        <div class="flex items-center justify-center rounded-full h-6 w-6  bg-gray-100 text-xs font-semibold mx-2">
+          <
+        </div>
+        <div class="text-sm font-normal  underline">
+          Back to items
+        </div>
+      </div>
     <% end %>
-    <h1 class="p-4">
-      $<%= number_with_precision(@item.price, precision: 2) %>
-  </h1>
-  <% if @item.for_sale %>
-    <h1 class="bg-green-100 text-green-800 p-4 rounded">For Sale</h1>
-  <% else %>
-    <h1 class="bg-red-100 text-red-800  p-4 rounded">Not For Sale</h1>
-  <% end %>
-  <%= link_to checkout_buyer_path(@item) do %>
-    <h1 class="p-4 bg-blue-800 text-white font-extrabold rounded
-      border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-blue-600">
-      Purchase Now
-    </h1>
-  <% end %>
-  <h1 class="p-4 text-blue-800 font-extrabold rounded
-    border border-4 border-gray-200 rounded-lg shadow-lg hover:bg-gray-100">
-    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-    Add to Cart
-  </h1>
-    <% star_color = user_signed_in? && current_user.wishlist_items.include?(@item) ? 'text-yellow-500' : 'text-gray-400' %>
-    <%= button_to toggle_wishlist_path, method: :post, remote: true, class: 'group self-start m-2 focus:outline-none z-10', id: 'star-button', params: { item_id: @item.id } do %>
-  <div class="flex items-center">
-    <svg id="star-icon" class="w-6 h-6 fill-current <%= star_color %>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/>
-    </svg>
-    <span class="align-middle">Add to wishlist</span>
-  </div>
-<% end %>
-  </div>
-  <!-- Seller Details Column -->
-  <div class="w-1/4 p-4 m-4 border border-4 border-gray-200 rounded-lg shadow-lg 
-    text-2xl font-bold text-black hover:bg-gray-100">
-    <%= link_to @item.user do %> 
-      <h1 class="p-4">
-        <%= @item.user.first_name %>
-        <%= @item.user.last_name %>
-      </h1>
-      <h2 class="p-4 text-blue-700">
-        <%= @item.user.username %>
-      </h2>
-      <% if @item.user.rating.nil? %>
-        <h1 class="p-4 bg-green-100 text-gray-600">
-          Feedback Rating: NA
-        </h1>
-      <% elsif @item.user.rating > 3.5 %>
-        <h1 class="p-4 bg-green-100 text-gray-600">
-          Feedback Rating: 
-          <%= number_with_precision(@item.user.rating, precision:2) %>/5
-        </h1>
-      <% elsif @item.user.rating > 2 %>
-        <h1 class="p-4 bg-yellow-100 text-gray-600">
-          Feedback Rating: 
-          <%= number_with_precision(@item.user.rating, precision:2) %>/5
-        </h1>
-      <% else %>
-        <h1 class="p-4 bg-red-100 text-gray-600">
-          Feedback Rating: 
-          <%= number_with_precision(@item.user.rating, precision:2) %>/5
-        </h1>
-      <% end %>
-    <% end %>
-  </div>
+    </div>
+
+    <!-- Image -->
+    <div class="col-span-4 w-full h-max px-8 pt-6 rounded-lg overflow-hidden">
+      <img src="<%= "https://assets.adidas.com/images/6bf7a2ffdaf4486ca607ae9300f5fcb6_9366/GW1876_00_plp_standard.jpgGW1876_00_plp_standard.jpg" %>" alt="product image" class="rounded-xl object-cover w-full h-full"/>
+    </div>
+
+    <!-- Item details and options -->
+    <div class="relative col-span-3 w-full h-full px-8 pt-6 rounded-lg overflow-hidden">
+      <div class="flex w-full items-center">
+        <div class="font-semibold text-2xl mr-2"><%= @item.description %></div>
+
+        <% if @item.for_sale %>
+          <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded"> For sale </span>
+        <% else %>
+          <span class="bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded"> Not for sale </span>
+        <% end %>
+
+        <% if @item.featured %>
+          <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded "> Featured </span>
+        <% end %>
+
+      </div>
+
+
+      <% created_at_suffix =  case @item.created_at.day
+                   when 1, 21, 31
+                     'st'
+                   when 2, 22
+                     'nd'
+                   when 3, 23
+                     'rd'
+                   else
+                     'th'
+                   end
+      %>
+      <div class="font-normal text-gray-500 text-sm mb-2"> Item posted on <%= @item.created_at.strftime("%b %e#{created_at_suffix}, %Y") %></div>
+
+      <!-- seller card -->
+      <div class="flex grid grid-cols-6 items-center rounded-lg border border-1 h-2/12 w-auto">
+        <img src="<%= "https://assets.adidas.com/images/6bf7a2ffdaf4486ca607ae9300f5fcb6_9366/GW1876_00_plp_standard.jpgGW1876_00_plp_standard.jpg" %>" alt="product image" class="col-span-1 rounded-full p-4 object-cover"/>
+
+        <div class="col-span-5">
+          <div class="flex items-start w-full h-full pt-5">
+            <%= link_to @item.user do %>
+              <div class="underline text-blue-800 font-semibold text-md hover:text-blue-400"><%= @item.user.first_name ? @item.user.first_name : "Seller" %></div>
+            <% end %>
+          </div>
+
+          <div class="flex items-center w-full mb-5">
+            <%= link_to(search_by_user_items_path(user_id: @item.user.id)) do %>
+              <div class="text-sm font-normal underline mr-3 hover:text-gray-400">
+                View items
+              </div>
+            <% end %>
+
+            <a href="/users/<%= @item.user.id %>/review">
+              <div class="text-sm font-normal underline hover:text-gray-400 mr-3">
+                Leave a review
+              </div>
+            </a>
+
+            <%= button_to chats_path, method: :post, params: { chat: { seller_id: @item.user_id, item_id: @item.id } } do %>
+              <div class="flex items-start mb-1">
+                <div class="text-sm font-normal underline hover:text-gray-400" >
+                  Contact Seller
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-2xl font-semibold mt-6">
+        US $<%= @item.price %>
+      </div>
+      <div class="text-sm font-normal">
+        <% updated_at_suffix =  case @item.updated_at.day
+                     when 1, 21, 31
+                       'st'
+                     when 2, 22
+                       'nd'
+                     when 3, 23
+                       'rd'
+                     else
+                       'th'
+                     end
+        %>
+
+        Price last updated at <%= @item.updated_at.strftime("%b %e#{updated_at_suffix}, %Y at %I:%M %p") %>
+      </div>
+
+      <div class="flex items-center justify-center absolute bottom-14 w-full">
+        <div class="w-10/12 mr-6">
+          <% if @item.for_sale %>
+            <%= link_to checkout_buyer_path(@item) do %>
+              <div class="rounded-full font-semibold text-center text-lg bg-blue-600 text-white py-3 hover:bg-blue-800 mb-2">
+                Buy It Now
+              </div>
+            <% end %>
+          <% end %>
+
+
+          <%= button_to toggle_wishlist_path, method: :post, remote: true, class: "flex items-center justify-center rounded-full font-semibold text-center text-lg border border-blue-600 text-blue-600 py-3 hover:bg-gray-200 w-full", id: 'star-button', params: { item_id: @item.id } do %>
+            <% if @current_user.wishlist_items.include? @item %>
+              Remove from wishlist
+            <% else %>
+              Add to wishlist
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
 </div>
+>>>>>>> c957964 (style: adds new design to item details page)
