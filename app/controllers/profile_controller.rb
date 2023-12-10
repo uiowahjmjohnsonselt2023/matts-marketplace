@@ -10,11 +10,17 @@ class ProfileController < ApplicationController
 
   def update
     respond_to do |format|
+      # check empty field
+      if has_blank_field?
+        redirect_to profile_edit_url
+        return
+      end
+
       if @user.update(user_params)
-        format.html { redirect_to profile_show_url, notice: "User was successfully updated." }
+        format.html { redirect_to profile_show_url, notice: "Profile was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
-        format.html { render :edit, status: :unprocessable_entity, notice: "User update failed." }
+        format.html { render :edit, status: :unprocessable_entity, notice: "Profile update failed." }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -68,6 +74,15 @@ end
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:username, :country, :city)
+    params.require(:user).permit(:first_name, :last_name, :country, :city, :email, :image_url)
+  end
+
+  # check if any field is blank and set alert
+  def has_blank_field?
+    blank_fields = user_params.select { |_, value| value.blank? }.keys
+    unless blank_fields.empty?
+      flash[:alert] = "The following fields are blank: #{blank_fields.join(', ')}"
+    end
+    !blank_fields.empty?
   end
 end

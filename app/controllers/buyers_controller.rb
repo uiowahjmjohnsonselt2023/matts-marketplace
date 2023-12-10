@@ -8,7 +8,6 @@ class BuyersController < ApplicationController
     @item = Item.where(for_sale: true).find(params[:id])
     render layout: 'application'
   end
-
   def checkout
     @item = Item.where(for_sale: true).find(params[:id])
     @user = current_user

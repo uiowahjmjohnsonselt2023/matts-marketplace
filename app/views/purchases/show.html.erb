@@ -1,10 +1,48 @@
 <p style="color: green"><%= notice %></p>
-
-<%= render @purchase %>
-
-<div>
-  <%= link_to "Edit this purchase", edit_purchase_path(@purchase) %> |
-  <%= link_to "Back to purchases", purchases_path %>
-
-  <%= button_to "Destroy this purchase", @purchase, method: :delete %>
+<div class="flex">
+  <%= render partial: 'shared/profile_sidebar' %>
+  <div class="flex-grow p-10">
+    <div class="flex items-center justify-center">
+      <!-- Should  be replaced with an image -->
+      <img class="square-full border border-gray-100 shadow-sm" src="#" alt="item image" />
+    </div>
+    <div class="mt-6 border-t border-gray-100">
+      <dl class="divide-y divide-gray-100">
+        <!-- Description -->
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Description</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 font-bold sm:col-span-2 sm:mt-0">
+            <a href="<%= item_path(@purchase.item) %>">
+              <%= @purchase.item.description %>
+            </a>
+          </dd>
+        </div>
+        <!-- Price -->
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Price</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @purchase.item.price %></dd>
+        </div>
+        <!-- Seller Info -->
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Seller</dt>
+          <dd class="mt-1 text-sm leading-6 text-blue-700 font-bold sm:col-span-2 sm:mt-0">
+            <a href="<%= user_path(@purchase.seller) %>">
+              <%= @purchase.seller.first_name + " " + @purchase.seller.last_name %>
+            </a>
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Purchase Date</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @purchase.created_at %></dd>
+        </div>
+      </dl>
+    </div>
+    <div class="container py-10 px-10 mx-0 min-w-full flex flex-col items-center">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+        <a href="/purchases">
+          Back to Purchase History
+        </a>
+      </button>
+    </div>
+  </div>
 </div>
