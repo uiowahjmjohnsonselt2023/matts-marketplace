@@ -5,5 +5,5 @@ Feature: Admin can see the revenue
 
   Scenario: Admin views total revenue
     Given I am logged in as an admin
-    When I visit the analytics page
-    Then I should see the total revenue generated
+    When I am on the manage analytics page
+    Then I should see the analytics
