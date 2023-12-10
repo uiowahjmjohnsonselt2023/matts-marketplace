@@ -80,7 +80,6 @@ end
     if reviewee.rating
       # Update reviewee rating
       reviewee.rating = reviewee.reviewee_reviews.pluck(:rating).sum / reviewee.reviewee_reviews.length.to_f
-      byebug
     else
       reviewee.rating = rating
     end
