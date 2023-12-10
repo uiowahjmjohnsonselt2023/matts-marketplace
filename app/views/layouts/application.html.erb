@@ -51,16 +51,19 @@
 
     <!--This will add the notice and alert flash messages to any view that derives from this view-->
     <!--Required by devise gem-->
-    <% if flash[:notice].present? %>
-      <div class="flash notice <%= 'ml-64' if @sidebar_present %>">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
-    <% if flash[:alert].present? %>
-      <div class="flash alert <%= 'ml-64' if @sidebar_present %>">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
+    <div class="absolute z-50 top-4 right-52">
+      <% if flash[:notice].present? %>
+        <div class="flash notice <%= 'ml-64' if @sidebar_present %>">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if flash[:alert].present? %>
+        <div class="flash alert <%= 'ml-64' if @sidebar_present %>">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+    </div>
+
 
     <!-- Rest of page content -->
     <%= yield %>
