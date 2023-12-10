@@ -109,7 +109,6 @@ class UsersController < ApplicationController
       # Update reviewee rating
       if @reviewee.rating
         @reviewee.rating = @reviewee.reviewee_reviews.pluck(:rating).sum / @reviewee.reviewee_reviews.length
-        byebug
       else
         @reviewee.rating = rating
       end
