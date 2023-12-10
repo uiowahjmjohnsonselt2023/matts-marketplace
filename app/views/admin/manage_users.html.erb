@@ -28,8 +28,8 @@
               <td class="py-3 px-6 text-center"><%= user&.country || "N/A" %></td>
               <td class="py-3 px-6 text-center"><%= user&.email || "N/A" %></td>
               <td class="py-3 px-6 text-center"><%= user&.created_at.try(:to_date) || "N/A"%></td>
-              <td class="py-3 px-6 text-center"><%= user&.balance.try(:round, 2) || "N/A" %></td>
-              <td class="py-3 px-6 text-center"><%= user&.rating.try(:round, 2) || "N/A" %></td>
+              <td class="py-3 px-6 text-center">$<%= user.balance.nil? ? "N/A" : sprintf("%.2f", user.balance) %></td>
+              <td class="py-3 px-6 text-center"><%= user.rating.nil? ? "N/A" : sprintf("%.1f", user.rating) %></td>
             </tr>
           <% end %>
           </tbody>
@@ -65,8 +65,8 @@
               <td class="py-3 px-6 text-center"><%= user&.country || "N/A" %></td>
               <td class="py-3 px-6 text-center"><%= user&.email || "N/A" %></td>
               <td class="py-3 px-6 text-center"><%= user&.created_at.try(:to_date) || "N/A"%></td>
-              <td class="py-3 px-6 text-center"><%= user&.balance.try(:round, 2) || "N/A" %></td>
-              <td class="py-3 px-6 text-center"><%= user&.rating.try(:round, 2) || "N/A" %></td>
+              <td class="py-3 px-6 text-center">$<%= user.balance.nil? ? "N/A" : sprintf("%.2f", user.balance) %></td>
+              <td class="py-3 px-6 text-center"><%= user.rating.nil? ? "N/A" : sprintf("%.1f", user.rating) %></td>
               <td class="py-3 px-6 text-center"><%= user.admin.nil? ? "N/A": (user.admin ? "O" : "X") %></td>
               <td class="py-3 px-6 text-center"><%= user.banned.nil? ? "N/A": (user.banned ? "O" : "X") %></td>
               <td class="py-3 px-6 text-center">  <%= link_to "Edit", edit_user_path(user), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %></td>
