@@ -15,6 +15,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def after_sign_up_path_for(resource)
+    '/profile/edit'
+  end
+
   def failure
     redirect_to root_path
   end
