@@ -18,11 +18,13 @@ class Purchase < ApplicationRecord
         seller.balance += item.price
 
         # add the 2 percent from the order_total to the root admin's balance
-        root_admin.balance += item.price * 0.02
+        if root_admin
+          root_admin.balance += item.price * 0.02
+        end
 
         item.for_sale = false
         item.sold = true
-        if buyer.save && item.save && seller.save && root_admin.save
+        if buyer.save && item.save && seller.save && (!root_admin || root_admin.save)
           # If both save successfully, save the purchase
           if self.save
             return true
