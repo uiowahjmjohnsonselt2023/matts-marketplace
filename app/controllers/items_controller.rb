@@ -186,7 +186,7 @@ class ItemsController < ApplicationController
       redirect_to items_path
     else
       # Categories into array so that we can switch to select multiple in future
-      @items =  Item.search nil, params[:category], nil
+      @items =  Item.search nil, params[:category], nil, nil
       if @items.empty?
         flash[:alert] = "No items found!"
         redirect_to items_path
