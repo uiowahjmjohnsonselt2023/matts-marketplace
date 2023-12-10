@@ -27,6 +27,7 @@ class Item < ApplicationRecord
       end
     end
 
+
     rating_low = 0
     rating_high = User.all.pluck(:rating).compact.max
     if !rating_range.nil? && !rating_range.empty? && rating_range != "-"
@@ -36,26 +37,27 @@ class Item < ApplicationRecord
       else
         rating_range = rating_range.sub("$", "").split("-")
         rating_low = rating_range[0].to_i
-        rating_high = rating_range[1].to_i
+        rating_high = rating_range[1] ? rating_range[1].to_i : 5
       end
     end
 
     items = 0
     if for_sale
-      users = User.where("rating >= ? AND rating <= ? ", rating_low, rating_high).pluck(:id)
+      users = User.where("(rating >= ? AND rating <= ?) OR rating IS NULL", rating_low, rating_high).pluck(:id)
       items = Item.where("price >= ? AND price <= ? AND for_sale AND user_id in (?)", price_low, price_high, users)
     else
-      users = User.where("rating >= ? AND rating <= ? ", rating_low, rating_high).pluck(:id)
+      users = User.where("(rating >= ? AND rating <= ?) OR rating IS NULL", rating_low, rating_high).pluck(:id)
       items = Item.where("price >= ? AND price <= ? AND NOT for_sale AND user_id in (?)", price_low, price_high, users)
     end
 
-    if !categories.nil? && !categories.empty?
-      categories.each do |category|
-        if !category.nil?
-          category_object = Category.where("name in (?)", category).first
-          items = items.and(category_object.items) unless category.empty?
-        end
+
+    if (!categories.nil? && !categories.empty?) && (!categories[0].nil? && !categories[0].empty?)
+      category_items = []
+      categories[0].compact.each do |category|
+        category_items = category_items | Category.where(name: category).first.items
       end
+
+      items = items & category_items
     end
 
     if !terms.nil? && !terms.empty?

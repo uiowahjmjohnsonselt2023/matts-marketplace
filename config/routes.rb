@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'admin/analytics'
   resources :purchases
   devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: 'users/omniauth_callbacks' }, path: 'u'
-  resources :items do
+  resources :items, except: [:show] do
     collection do
       get 'search'
       get 'simple_search'
