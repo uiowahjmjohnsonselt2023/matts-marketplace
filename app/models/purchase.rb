@@ -14,7 +14,6 @@ class Purchase < ApplicationRecord
     if buyer.balance >= order_total && item.for_sale
       ActiveRecord::Base.transaction do
         # Update the buyer's balance and the item's for_sale attribute
-        # byebug
         buyer.balance -= order_total
         seller.balance += item.price
 

@@ -15,7 +15,7 @@
     <%= form_for @user, url: profile_update_path, method: :patch do |f| %>
       <!-- image uploading -->
       <div class="mt-10 flex items-center">
-        <button onclick="showUpload()" class="w-56 text-black focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-gray-200 hover:bg-gray-400 focus:ring-gray-200">
+        <button type="button" onclick="showUpload()" class="w-56 text-black focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-8 py-2 bg-gray-200 hover:bg-gray-400 focus:ring-gray-200">
           Upload Profile Picture
         </button>
         <div class="ml-2 mt-1">
