@@ -24,6 +24,12 @@ FactoryBot.define do
     end
     association :user, factory: :user
     ##association :user, factory: :user, username: 'superuser' (might use this later)
+
+    factory :featured_item do
+      for_sale { true }
+      featured { true }
+      featured_amount_paid { Faker::Number.between(from: 10, to: 100) }
+    end
   end
 end
 

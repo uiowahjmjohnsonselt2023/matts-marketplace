@@ -40,15 +40,15 @@ class ProfileController < ApplicationController
   end
 
   def add_balance
-  @user = current_user
-  @user.balance += params[:balance].to_d
-  if @user.save
-    flash[:notice] = "Balance updated successfully."
-  else
-    flash[:alert] = "Balance update failed."
+    @user = current_user
+    @user.balance += params[:balance].to_d
+    if @user.save
+      flash[:notice] = "Balance updated successfully."
+    else
+      flash[:alert] = "Balance update failed."
+    end
+    redirect_to profile_balance_url
   end
-  redirect_to profile_balance_url
-end
 
   def withdraw_balance
   @user = current_user
