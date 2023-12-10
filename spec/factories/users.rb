@@ -7,6 +7,7 @@ FactoryBot.define do
     username { |user| 'super' +  user.first_name }
     balance { 0.0 }
     rating { 0.0 }
+    banned { false }
 
     factory :user_with_items do
       email { Faker::Internet.unique.email }
