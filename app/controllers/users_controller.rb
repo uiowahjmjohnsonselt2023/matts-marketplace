@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy update_ban ]
 
   # This is what you add to your controllers require authentication. It is actually so useful.
-  before_action :authenticate_user!, only: %i[ show edit update destroy index]
+  before_action :authenticate_user!, only: %i[ show edit update destroy index review]
   before_action :require_admin, only: %i[ edit update destroy update_ban ]
   # GET /users or /users.json
   def index
