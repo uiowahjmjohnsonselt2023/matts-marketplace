@@ -46,7 +46,8 @@ User.create!(
   username: "hjmjohnson",
   email: "hans@uiowa.edu",
   password: "adminpassword",
-  rating: 5,
+  image_url: "https://cdn-q16l3wg5.files-simplefileupload.com/static/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeWVtQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--50596c1e558029a96148b06db9d96101c410dbb8/hans.jpg",
+  rating: nil,
   admin: true,
   root_admin: true
   )
