@@ -108,7 +108,23 @@ class ItemsController < ApplicationController
 
   def search
     # Read in the search term, category, and price_range from the params
-    if params[:search].empty? && params[:category].empty? && params[:price_range].empty?
+    if !params[:category]
+      params[:category] = []
+    end
+
+    if !params[:price_range]
+      params[:price_range] = ""
+    end
+
+    if params[:price_min] == ""
+      params[:price_min] = nil
+    end
+
+    if params[:price_max] == ""
+      params[:price_max] = nil
+    end
+
+    if (params[:search].nil? || params[:search].empty?) && (params[:category].nil? ||  params[:category].empty? ) && (params[:price_range].nil? && params[:price_range].empty?)
 
       flash[:alert] = "Search terms included all items!"
       redirect_to items_path
