@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProfileController, type: :controller do
   before(:each) do
-    @user = create(:user, balance: BigDecimal('100'))
+    @user = create(:user, balance: 100)
     sign_in @user
   end
   describe '#update' do
@@ -42,9 +42,6 @@ describe ProfileController, type: :controller do
     end
     it 'groups wishlist items by category and sorts them by count' do
       get :wishlist
-      puts 'category'
-      puts @category1
-      puts @category2
       expect(assigns(:wishlist_items)).not_to be_nil
     end
   end
@@ -56,11 +53,47 @@ describe ProfileController, type: :controller do
     end
   end
 
-  ## add balance and withdraw balance triggers a modal so it will fail all my tests
   describe '#add_balance' do
-    it 'adds specified amount to balance' do
+    it 'redirects to profile balance url with correct notice' do
       post :add_balance, params: { balance: '50.00' }
       expect(response).to redirect_to(profile_balance_url)
+      expect(flash[:notice]).to eq("Balance updated successfully.")
+    end
+    it 'will increase balance' do
+      post :add_balance, params: { balance: '50.00' }
+      expect(@user.balance).to eq(150)
+    end
+    it 'redirects with an alert message when user save fails' do
+      allow_any_instance_of(User).to receive(:save).and_return(false)
+      post :add_balance, params: { balance: 100 }
+      expect(response).to redirect_to(profile_balance_url)
+      expect(flash[:alert]).to eq("Balance update failed.")
+    end
+  end
+
+  describe '#withdraw_balance' do
+    it 'redirects to balance url' do
+      post :withdraw_balance, params: { balance: '100.00' }
+      expect(response).to redirect_to(profile_balance_url)
+    end
+    it "shows alert when withdraw balance is more than current balance" do
+      post :withdraw_balance, params: { balance: '1000.00' }
+      expect(flash[:alert]).to eq("Withdrawal amount exceeds current balance.")
+    end
+    it 'redirects to profile balance url with correct notice' do
+      post :withdraw_balance, params: { balance: '10.00' }
+      expect(response).to redirect_to(profile_balance_url)
+      expect(flash[:notice]).to eq("Balance updated successfully.")
+    end
+    it 'decreases balance' do
+      post :add_balance, params: { balance: '10.00' }
+      expect(@user.balance).to eq(40)
+    end
+    it 'redirects with an alert message when user save fails' do
+      allow_any_instance_of(User).to receive(:save).and_return(false)
+      post :withdraw_balance, params: { balance: 100 }
+      expect(response).to redirect_to(profile_balance_url)
+      expect(flash[:alert]).to eq("Failed to update balance.")
     end
   end
 
