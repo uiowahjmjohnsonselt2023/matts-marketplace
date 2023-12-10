@@ -112,7 +112,7 @@ class ItemsController < ApplicationController
       params[:category] = []
     end
 
-    if !params[:price_range]
+    unless params[:price_range]
       params[:price_range] = ""
     end
 
@@ -125,7 +125,6 @@ class ItemsController < ApplicationController
     end
 
     if (params[:search].nil? || params[:search].empty?) && (params[:category].nil? ||  params[:category].empty? ) && (params[:price_range].nil? && params[:price_range].empty?)
-
       flash[:alert] = "Search terms included all items!"
       redirect_to items_path
     else
@@ -133,9 +132,9 @@ class ItemsController < ApplicationController
       if params[:price_min].nil? && params[:price_max].nil?
         price_range = params[:price_range]
       elsif params[:price_min] && params[:price_max].nil?
-        price_range = "$#{params[:price_min]}-#{Item.all.pluck[:price].max}"
+        price_range = "$#{params[:price_min]}-#{Item.all.pluck(:price).max}"
       elsif params[:price_min].nil? && params[:price_max]
-        price_range = "$#{Item.all.pluck[:price].min}}-#{params[:price_max]}"
+        price_range = "$0-#{params[:price_max]}"
       elsif params[:price_min] && params[:price_max]
         price_range = "$#{params[:price_min]}-#{params[:price_max]}"
       end
