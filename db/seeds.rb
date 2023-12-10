@@ -7,23 +7,35 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+require "faker"
+require 'unsplash'
 
+Unsplash.configure do |config|
+  config.application_access_key = ENV["UNSPLASH-API-KEY"]
+  config.application_secret = ENV["UNSPLASH-API-SECRET"]
+  config.utm_source = ENV["UNSPLASH-APP-NAME"]
+end
 
-["Clothing", "Electronics", "Toys", "Books", "Home"].each do |category_name|
+["Clothing", "Electronics", "Toys", "Books", "Home", "Videogames", "Appliances", "Groceries", "Pet Supplies", "Sports"].each do |category_name|
   Category.create(name: category_name)
 end
 
-10.times do |i|
+100.times do |i|
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  race = ["asian", "colombian", "white", "black", "european", "japanese", "brazilian", "canadian", "african", "middle eastern", "engineer", "teacher", "professor", "doctor", "surgeon", "nurse", "mom", "dad", "grandpa", "soldier"].sample
   User.create!(
-    first_name: %w[Sergio Dylan Haruko Mingi Matthew].sample,
-    last_name: %w[Martelo Laurianti Okada Lee Speranza].sample,
-    city: "City#{i}",
-    country: "Country#{i}",
-    username: "user#{i + 1}", # Start at user1 to avoid user0
-    email: "user#{i + 1}@example.com",
+    first_name: first_name,
+    last_name: last_name,
+    city: Faker::Address.city,
+    country: Faker::Address.country,
+    username: Faker::Internet.username + "_#{i}", # Start at user1 to avoid user0
+    email: Faker::Internet.email,
     password: "testtest",
     rating: nil,
+    image_url: Faker::LoremFlickr.image(search_terms: ["person", race]),
   )
+  sleep 1
 end
 
 User.create!(
@@ -35,27 +47,29 @@ User.create!(
   email: "hans@uiowa.edu",
   password: "adminpassword",
   rating: 5,
-  admin: true
+  admin: true,
   )
 
 users = User.all
 categories = Category.all
 
 50.times do |i|
+  name = Faker::Commerce.product_name
   Item.create!(
-    price: (rand * 100).round(2),
-    description: "Item description #{i}",
-    image_url: "http://example.com/image#{i}.png",
-    for_sale: [true, false].sample,
-    featured: [true, false].sample,
-    featured_amount_paid: rand(1000),
+    price: Faker::Commerce.price,
+    description: name,
+    image_url: Unsplash::Photo.random(query: name).urls.full,
+    for_sale: [true, true, true, false].sample,
+    featured: [true, true, true, false, false, false, false, false, false, false].sample,
+    featured_amount_paid: rand(1000).abs,
     category: categories.sample,
     user: users.sample # This will randomly assign a user to each item
   )
+  sleep 1
 end
 
 items = Item.all
-5.times do ||
+50.times do ||
   Chat.create(
     buyer: users.sample,
     seller: users.sample,
@@ -64,7 +78,7 @@ items = Item.all
 end
 
 
-30.times do ||
+100.times do ||
   reviewee = users.sample
   reviewer = users.sample
   rating = [1, 2, 3, 4, 5].sample.to_f
@@ -72,9 +86,9 @@ end
     Review.create(
       reviewer: reviewer,
       reviewee: reviewee,
-      title: ["Great!", "Beautiful!", "Such a sexy seller", "the man with the plan", "boom boom bam bam", "three roses and fistful of cash"].sample,
+      title: Faker::TvShows::Simpsons.quote,
       rating: rating,
-      content: "sample review content where the reviewer praises the reviewee admirably and also reveals a deep dark secret that should have not been revealed for the sake of everyone involved.",
+      content: Faker::TvShows::BrooklynNineNine.quote,
     )
 
     if reviewee.rating

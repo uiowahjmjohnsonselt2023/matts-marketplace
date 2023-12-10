@@ -15,7 +15,7 @@
     </div>
 
     <!-- Image -->
-    <img src="<%= @item.image_url ? @item.image_url : ""  %>" alt="product image" class="col-span-4 w-full h-max px-8 pt-6 rounded-lg overflow-hidden rounded-xl object-cover w-full h-full"/>
+    <img src="<%= @item.image_url ? @item.image_url : ""  %>" alt="product image" class="col-span-4 w-full h-max  mt-6 rounded-lg overflow-hidden object-cover w-full h-full"/>
 
 
     <!-- Item details and options -->
@@ -51,7 +51,7 @@
 
       <!-- seller card -->
       <div class="flex grid grid-cols-6 items-center rounded-lg border border-1 h-2/12 w-auto">
-        <img src="<%= @item.image_url ? @item.image_url : "" %>" alt="user image" class="col-span-1 rounded-full p-4 object-cover"/>
+        <img src="<%= @item.user.image_url ? @item.user.image_url : "" %>" alt="user image" class="col-span-1 rounded-full p-4 object-cover"/>
 
         <div class="col-span-5">
           <div class="flex items-start w-full h-full pt-5">
@@ -125,4 +125,3 @@
       </div>
     </div>
 </div>
->>>>>>> c957964 (style: adds new design to item details page)
