@@ -45,7 +45,12 @@ class UsersController < ApplicationController
         redirect_to edit_user_path(@user)
         return
       end
-      if @user.update(user_params)
+
+      if @user.root_admin
+        flash[:alert] = "You cannot update root admin."
+        redirect_to admin_manage_users_path
+        return
+      elsif @user.update(user_params)
         format.html { redirect_to admin_manage_users_url, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -60,11 +65,15 @@ class UsersController < ApplicationController
       flash[:alert] = "You cannot ban yourself."
       redirect_to admin_manage_users_path
       return
+    elsif @user.root_admin
+      flash[:alert] = "You cannot ban root admin."
+      redirect_to admin_manage_users_path
+      return
     elsif @user.banned
       if @user.update(banned: false)
-        flash[:notice] = "User has been banned successfully."
+        flash[:notice] = "User has been unbanned successfully."
       else
-        flash[:alert] = "Unable to ban the user."
+        flash[:alert] = "Unable to unban the user."
       end
     else
       if @user.update(banned: true)

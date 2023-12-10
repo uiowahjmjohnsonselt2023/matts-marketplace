@@ -48,6 +48,7 @@ User.create!(
   password: "adminpassword",
   rating: 5,
   admin: true,
+  root_admin: true
   )
 
 users = User.all

@@ -7,6 +7,7 @@ class Purchase < ApplicationRecord
     buyer = self.buyer
     seller = self.seller
     item = self.item
+    root_admin = User.find_by(root_admin: true)
     order_total = item.price * 1.02
 
     # Check if the buyer has enough balance and the item is for sale
@@ -16,12 +17,12 @@ class Purchase < ApplicationRecord
         buyer.balance -= order_total
         seller.balance += item.price
 
-        # TODO: add the 2 percent from the order_total to the root admin's balance
-        # root.balance += item.price * 0.02
+        # add the 2 percent from the order_total to the root admin's balance
+        root_admin.balance += item.price * 0.02
 
         item.for_sale = false
         item.sold = true
-        if buyer.save && item.save && seller.save
+        if buyer.save && item.save && seller.save && root_admin.save
           # If both save successfully, save the purchase
           if self.save
             return true

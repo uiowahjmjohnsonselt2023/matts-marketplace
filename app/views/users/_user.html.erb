@@ -2,8 +2,8 @@
 
 <div id="<%#= dom_id user %>" class="grid grid-cols-8 m-12 overflow-hidden bg-gray-100 py-12 px-4">
   <!-- Profile pic -->
-  <div class="col-span-1 flex items-center justify-center rounded-full bg-white h-36 w-36 ml-6">
-    <i class="fa fa-user text-8xl"></i>
+  <div class="relative overflow-hidden col-span-1 flex items-center justify-center rounded-full bg-gray-100 h-36 w-36 ml-6">
+    <img class="absolute text-gray-400 z-1 object-cover rounded-lg bg-gray-100" src="<%= user.image_url %>" onerror="this.src='https://cdn-q16l3wg5.files-simplefileupload.com/static/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL2FsQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--e1509662d3f3a28f04dd6a5127eb2b3981e73660/profilepic.jpg'" alt="" />
   </div>
 
   <div class="col-span-5 ml-10 mt-4">

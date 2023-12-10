@@ -3,6 +3,7 @@ class AdminController < ApplicationController
 
   def manage_users
     @users = User.all
+    @root_admin = User.where(root_admin: true)
   end
 
   def manage_purchases
