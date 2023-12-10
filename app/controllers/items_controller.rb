@@ -37,8 +37,12 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.user_id = current_user.id
+    featured_amount = item_params[:featured_amount_paid].to_f
+    root_admin = User.find_by(root_admin: true)
+    root_admin.balance += featured_amount
 
-    if @item.save
+
+    if @item.save && root_admin.save
       redirect_to sellers_path, notice: 'Item is on the market.'
     else
       session[:item_params] = item_params.to_h
@@ -61,6 +65,11 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
+    old_featured_amount = @item.featured_amount_paid
+    new_featured_amount = item_params[:featured_amount_paid].to_f
+    root_admin = User.find_by(root_admin: true)
+    root_admin.balance += (new_featured_amount - old_featured_amount)
+
     @item = Item.find(params[:id])
     if @item.sold
       flash[:alert] = "You cannot edit an item that has been sold!"
@@ -71,7 +80,7 @@ class ItemsController < ApplicationController
       redirect_to items_path
     end
 
-    if @item.update(item_params)
+    if @item.update(item_params) && root_admin.save
       redirect_to sellers_path, notice: 'Item was successfully updated.'
     else
       if @item.errors[:price].any?
@@ -170,7 +179,7 @@ class ItemsController < ApplicationController
       redirect_to items_path
     else
       # Categories into array so that we can switch to select multiple in future
-      @items =  Item.search search[:search], nil, nil
+      @items =  Item.search search[:search], nil, nil, nil
       if @items.empty?
         flash[:alert] = "No items found!"
         redirect_to items_path
