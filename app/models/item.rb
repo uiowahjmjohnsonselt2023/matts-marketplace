@@ -9,14 +9,14 @@ class Item < ApplicationRecord
   validates :featured_amount_paid, presence: true, if: :featured?
   validates :featured_amount_paid, numericality: { greater_than: 0 }, if: :featured?
 
-  def self.search(terms, categories, price_range)
-    self.search_explicit(terms, categories, price_range, true)
+  def self.search(terms, categories, price_range, rating_range)
+    self.search_explicit(terms, categories, price_range, rating_range, true)
   end
 
-  def self.search_explicit(terms, categories, price_range, for_sale)
+  def self.search_explicit(terms, categories, price_range, rating_range, for_sale)
     price_low = 0
-    price_high = 1000000
-    if !price_range.nil? && !price_range.empty?
+    price_high = Item.all.pluck(:price).max
+    if !price_range.nil? && !price_range.empty? && price_range != "$-"
       if price_range =~ />/
         price_range = price_range.split("$")
         price_low = price_range[1].to_i
@@ -26,18 +26,37 @@ class Item < ApplicationRecord
         price_high = price_range[1].to_i
       end
     end
+
+    rating_low = 0
+    rating_high = User.all.pluck(:rating).compact.max
+    if !rating_range.nil? && !rating_range.empty? && rating_range != "-"
+      if rating_range =~ />/
+        rating_range = rating_range.split("$")
+        rating_low = rating_range[1].to_i
+      else
+        rating_range = rating_range.sub("$", "").split("-")
+        rating_low = rating_range[0].to_i
+        rating_high = rating_range[1].to_i
+      end
+    end
+
     items = 0
     if for_sale
-      items = Item.where("price >= ? AND price <= ? AND for_sale", price_low, price_high)
+      users = User.where("rating >= ? AND rating <= ? ", rating_low, rating_high).pluck(:id)
+      items = Item.where("price >= ? AND price <= ? AND for_sale AND user_id in (?)", price_low, price_high, users)
     else
-      items = Item.where("price >= ? AND price <= ? AND NOT for_sale", price_low, price_high)
+      users = User.where("rating >= ? AND rating <= ? ", rating_low, rating_high).pluck(:id)
+      items = Item.where("price >= ? AND price <= ? AND NOT for_sale AND user_id in (?)", price_low, price_high, users)
     end
+
     if !categories.nil? && !categories.empty?
       categories.each do |category|
-          category_object = Category.where("name = (?)", category).first
+        if !category.nil?
+          category_object = Category.where("name in (?)", category).first
           items = items.and(category_object.items) unless category.empty?
       end
     end
+
     if !terms.nil? && !terms.empty?
       terms = terms.split(" ")
       terms.each do |term|

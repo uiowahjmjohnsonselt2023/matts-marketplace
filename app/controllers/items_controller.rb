@@ -108,13 +108,35 @@ class ItemsController < ApplicationController
 
   def search
     # Read in the search term, category, and price_range from the params
-    search = search_params
-    if search[:search].empty? && search[:category].empty? && search[:price_range].empty?
+    if params[:search].empty? && params[:category].empty? && params[:price_range].empty?
+
       flash[:alert] = "Search terms included all items!"
       redirect_to items_path
     else
+
+      if params[:price_min].nil? && params[:price_max].nil?
+        price_range = params[:price_range]
+      elsif params[:price_min] && params[:price_max].nil?
+        price_range = "$#{params[:price_min]}-#{Item.all.pluck[:price].max}"
+      elsif params[:price_min].nil? && params[:price_max]
+        price_range = "$#{Item.all.pluck[:price].min}}-#{params[:price_max]}"
+      elsif params[:price_min] && params[:price_max]
+        price_range = "$#{params[:price_min]}-#{params[:price_max]}"
+      end
+
+      if params[:rating_min].nil? && params[:rating_max].nil?
+        rating_range = params[:rating_range]
+      elsif params[:rating_min] && params[:rating_max].nil?
+        rating_range = "#{params[:rating_min]}-#{Item.all.pluck[:rating].max}"
+      elsif params[:rating_min].nil? && params[:rating_max]
+        rating_range = "#{Item.all.pluck[:rating].min}}-#{params[:rating_max]}"
+      elsif params[:rating_min] && params[:rating_max]
+        rating_range = "#{params[:rating_min]}-#{params[:rating_max]}"
+      end
+
       # Categories into array so that we can switch to select multiple in future
-      @items =  Item.search search[:search], [search[:category]], search[:price_range]
+      @items =  Item.search params[:search], [params[:category]], price_range, rating_range
+
       if @items.empty?
         flash[:alert] = "No items found!"
         redirect_to items_path
@@ -203,7 +225,7 @@ class ItemsController < ApplicationController
   end
 
   def search_params
-    params.permit(:search, :category, :price_range)
+    params.permit(:search, :category, :price_range, :price_min, :price_max)
   end
 
   def require_admin
