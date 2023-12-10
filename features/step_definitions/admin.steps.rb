@@ -6,37 +6,47 @@ Given /^I am logged in as an admin$/ do
   click_button 'Log in'
 end
 
-Given /^There are (\d+) existing users$/ do |n|
-  @users = create_list(:user, n)
+Given /^There are (\d+) existing (.*?)$/ do |n, type|
+  if type == 'users'
+    @users = create_list(:user, n)
+  elsif type == 'items'
+    @items = create_list(:item, n)
+  else
+    @purchases = create_list(:purchase, n)
+  end
 end
 
 
 ## When ##
 When /^I am on the manage (.*?) page$/ do |type|
   if type == 'users'
-    click_link 'Manage Users'
+    visit '/admin/manage_users'
   elsif type == 'items'
-    click_link 'Manage Items'
+    visit '/admin/manage_items'
+  elsif type == 'purchase'
+    visit '/manage_purchases'
   else
-    click_link 'Manage Purchases'
+    visit '/admin/analytics'
   end
 end
 
-When /^I mark the item as not for sale$/ do
-  pending
-end
-
 When /^I ban a specific user$/ do
-  pending
+  @fist_ban_link = first("button", text: "Ban")
 end
 
 When /^I ban myself$/ do
   pending
 end
 
+When /^I click on an item I want to hide$/ do
+  first("a", text: "Edit").click
+end
+
 ## And ##
-And /^I click on an item I want to hide$/ do
-  pending
+And /^I mark the item as not for sale$/ do
+  @item_to_hide = @items.first
+  visit "/items/#{@item_to_hide.id}/admin_edit"
+  uncheck 'item_for_sale'
 end
 
 ## Then ##
@@ -46,20 +56,34 @@ end
 
 Then /^I should see a list of all (.*?)$/ do |type|
   if type == 'users'
-    pending
+    @users.each do |user|
+      page.should have_content user.email
+    end
   elsif type == 'items'
-    pending
+    @items.each do |item|
+      page.should have_content item.description
+    end
   else
-    pending
+    @purchases.each do |purchase|
+      pending
+    end
   end
 end
 
 Then /^the item should be hidden from the website$/ do
-  pending
+  expect(@item_to_hide.for_sale).to be(false)
+  visit '/buyers'
+  expect(page).to have_no_content(@item_to_hide.description)
 end
 
-Then /^the user will banned from basic rights in the app$/ do
-  pending
+Then /^the user will be banned from basic rights in the app$/ do
+  @banned_user = create(:user, banned: true)
+  sleep(0.5)
+  visit 'users/sign_in'
+  fill_in "user_email", :with => @banned_user[:email]
+  fill_in "user_password", :with => @banned_user[:password]
+  click_button "commit"
+  page.should have_content 'You are banned from using the app. Please contact admin.'
 end
 
 Then /^I will not be able to ban myself$/ do

@@ -15,19 +15,22 @@ Feature: Admin can view and manage all users and items
     Then I should see a list of all users
 
   Scenario: Admin views all items
+    Given There are 10 existing items
     When I am on the manage items page
     Then I should see a list of all items
 
   Scenario: Admin hides an item
     Given I am on the manage items page
-    And I click on an item I want to hide
-    When I mark the item as not for sale
+    And There are 10 existing items
+    When I click on an item I want to hide
+    And I mark the item as not for sale
     Then the item should be hidden from the website
 
   Scenario: Admin bans a user
     Given I am on the manage users page
+    And There are 10 existing users
     When I ban a specific user
-    Then the user will banned from basic rights in the app
+    Then the user will be banned from basic rights in the app
 
   Scenario: Admin tries to ban themselves
     Given I am on the manage users page
