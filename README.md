@@ -34,6 +34,11 @@ The main features of the marketplace will be:
 - Users will be able to look at their order history and their sell history.
 - Users can wishlist items to save them.
 - Admins can collect revenue from transactions & featured items payment.
+  - Below is a test account for admin:
+  ```
+  Username: hans@uiowa.edu 
+  Admin Password: adminpassword
+  ```
 - Upload images for items & profiles.
 - Forced profile information.
 - BDD & TDD tested.
